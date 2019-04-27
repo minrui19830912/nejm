@@ -1,4 +1,4 @@
-package com.android.widgets;
+package com.android.nejm.widgets;
 
 import android.app.Dialog;
 import android.content.Context;

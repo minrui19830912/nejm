@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.widgets.LoadingDialog;
+import com.android.nejm.widgets.LoadingDialog;
 
 public class BaseFragment extends Fragment {
     protected Context mContext;
