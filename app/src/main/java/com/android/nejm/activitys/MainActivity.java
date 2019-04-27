@@ -20,13 +20,16 @@ public class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    hideAllFragment();
                     showFragment(0);
                     return true;
                 case R.id.navigation_dashboard:
-
+                    hideAllFragment();
+                    showFragment(1);
                     return true;
                 case R.id.navigation_notifications:
-
+                    hideAllFragment();
+                    showFragment(2);
                     return true;
             }
             return false;
