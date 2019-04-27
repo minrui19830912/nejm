@@ -1,4 +1,4 @@
-package com.android.nejm;
+package com.android.nejm.activitys;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.android.nejm.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
