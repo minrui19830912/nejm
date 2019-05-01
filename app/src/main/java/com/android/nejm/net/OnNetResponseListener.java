@@ -7,7 +7,7 @@ import com.android.nejm.MyApplication;
 import com.android.nejm.activitys.LoginActivity;
 import com.android.nejm.utils.AppManager;
 import com.android.nejm.utils.SPUtils;
-import com.android.nejm.utils.ToastUitl;
+import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 
 import org.json.JSONObject;
@@ -32,7 +32,7 @@ public abstract class OnNetResponseListener {
             SPUtils.setSharedBooleanData(context,"hasPhone",false);
             AppManager.getAppManager().finishAllActivity();
         }else {
-            ToastUitl.showShort(context, msg);
+            ToastUtil.showShort(context, msg);
         }
     }
     public  void onNetErrorResponse(Context context, String error){

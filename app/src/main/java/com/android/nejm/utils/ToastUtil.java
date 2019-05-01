@@ -16,7 +16,7 @@ import com.android.nejm.R;
 /**
  * Toast统一管理类
  */
-public class ToastUitl {
+public class ToastUtil {
 
 
     private static Toast toast;
