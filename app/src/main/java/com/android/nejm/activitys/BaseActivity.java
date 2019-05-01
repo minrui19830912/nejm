@@ -17,7 +17,7 @@ public  class BaseActivity extends AppCompatActivity {
         mContext= this;
     }
 
-    protected void setTitle(String title){
+    protected void setCommonTitle(String title){
         ((TextView)findViewById(R.id.common_tile)).setText(title);
     }
 

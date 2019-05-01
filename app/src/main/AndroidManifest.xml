@@ -135,13 +135,19 @@
         <!--<activity-->
             <!--android:name=".Main2Activity"-->
             <!--android:label="@string/title_activity_main2"></activity>-->
-        <activity android:name=".activitys.MainActivity">
+        <activity android:name=".activitys.MainActivity"  android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activitys.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
