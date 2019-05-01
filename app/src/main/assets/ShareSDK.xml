@@ -98,5 +98,5 @@
         ApiKey="75v81yc7wr21uq"
         SecretKey="5mN1T5MzU2QAyEYp" 
         RedirectUrl="http://www.sharesdk.cn"
-        Enable="true" />
+        Enable="false" />
 </DevInfor>

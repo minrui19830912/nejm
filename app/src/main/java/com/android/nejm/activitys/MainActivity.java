@@ -8,6 +8,13 @@ import android.view.MenuItem;
 
 import com.android.nejm.Fragments.HomeFragment;
 import com.android.nejm.R;
+import com.android.nejm.utils.AppUtil;
+import com.android.nejm.utils.ToastUtil;
+
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 
 public class MainActivity extends BaseActivity {
     private HomeFragment mHomeFragment;
@@ -26,6 +33,22 @@ public class MainActivity extends BaseActivity {
                 case R.id.navigation_dashboard:
                     hideAllFragment();
                     showFragment(1);
+                    AppUtil.shareToFriend(mContext, "abc", "fdasfd", "www.baidu.com", new PlatformActionListener() {
+                        @Override
+                        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                            ToastUtil.showShort(mContext,"onComplete");
+                        }
+
+                        @Override
+                        public void onError(Platform platform, int i, Throwable throwable) {
+                            ToastUtil.showShort(mContext,"onError");
+                        }
+
+                        @Override
+                        public void onCancel(Platform platform, int i) {
+                            ToastUtil.showShort(mContext,"onCancel");
+                        }
+                    });
                     return true;
                 case R.id.navigation_notifications:
                     hideAllFragment();

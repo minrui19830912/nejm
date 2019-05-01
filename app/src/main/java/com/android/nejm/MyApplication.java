@@ -58,7 +58,7 @@ public class MyApplication extends Application {
         Log.e("minrui", "onCreate");
         String processName = getProcessName(this, android.os.Process.myPid());
         if (processName != null) {
-            boolean defaultProcess = processName.equals("com.android.changmai");
+            boolean defaultProcess = processName.equals("cn.com.nejm");
             if (defaultProcess) {
                 APPLICATION = this;
                 //获取apk版本号并与原来的做比较
