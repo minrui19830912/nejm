@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.android.nejm"
+        applicationId "cn.com.nejm"
         minSdkVersion 18
         targetSdkVersion 28
         versionCode 1
@@ -11,12 +11,25 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    signingConfigs {
+        release {
+            storeFile file("nejm.keystore")
+            storePassword "nejm123456"
+            keyAlias "nejm.keystore"
+            keyPassword "nejm123456"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            minifyEnabled true
+            signingConfig(signingConfigs.release)
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
