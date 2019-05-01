@@ -135,13 +135,23 @@
         <!--<activity-->
             <!--android:name=".Main2Activity"-->
             <!--android:label="@string/title_activity_main2"></activity>-->
-        <activity android:name=".activitys.MainActivity"  android:theme="@style/AppTheme.NoActionBar" >
+        <activity android:name=".activitys.SplashActivity"  android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar.Background" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activitys.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activitys.AdvertActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activitys.WebViewActivity"
             android:screenOrientation="portrait"
