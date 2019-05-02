@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import com.android.nejm.Fragments.HomeFragment;
+import com.android.nejm.Fragments.NewKnowledgeFragment;
 import com.android.nejm.R;
 import com.android.nejm.utils.AppUtil;
 import com.android.nejm.utils.ToastUtil;
@@ -18,6 +19,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 
 public class MainActivity extends BaseActivity {
     private HomeFragment mHomeFragment;
+    private NewKnowledgeFragment mNewKnowledgeFragment;
     private int mIndex = -1;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -30,7 +32,7 @@ public class MainActivity extends BaseActivity {
                     hideAllFragment();
                     showFragment(0);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_my_knowledge:
                     hideAllFragment();
                     showFragment(1);
                     AppUtil.shareToFriend(mContext, "abc", "fdasfd", "www.baidu.com", new PlatformActionListener() {
@@ -50,9 +52,17 @@ public class MainActivity extends BaseActivity {
                         }
                     });
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_papers:
                     hideAllFragment();
                     showFragment(2);
+                    return true;
+                case R.id.navigation_videos:
+                    hideAllFragment();
+                    showFragment(3);
+                    return true;
+                case R.id.navigation_my:
+                    hideAllFragment();
+                    showFragment(4);
                     return true;
             }
             return false;
@@ -88,14 +98,14 @@ public class MainActivity extends BaseActivity {
                     trans.show(mHomeFragment);
                 }
                 break;
-//            case 1:
-//                if (mStoreFragment == null) {
-//                    mStoreFragment = new StoreFragment();
-//                    trans.add(R.id.content, mStoreFragment);
-//                } else {
-//                    trans.show(mStoreFragment);
-//                }
-//                break;
+            case 1:
+                if (mNewKnowledgeFragment == null) {
+                    mNewKnowledgeFragment = new NewKnowledgeFragment();
+                    trans.add(R.id.content, mNewKnowledgeFragment);
+                } else {
+                    trans.show(mNewKnowledgeFragment);
+                }
+                break;
 //            case 2:
 //                if (mFindFragment == null) {
 //                    mFindFragment = new FindFragment();
@@ -135,9 +145,9 @@ public class MainActivity extends BaseActivity {
         if (mHomeFragment != null) {
             trans.hide(mHomeFragment);
         }
-//        if (mStoreFragment != null) {
-//            trans.hide(mStoreFragment);
-//        }
+        if (mNewKnowledgeFragment != null) {
+            trans.hide(mNewKnowledgeFragment);
+        }
 //        if (mFindFragment != null) {
 //            trans.hide(mFindFragment);
 //        }

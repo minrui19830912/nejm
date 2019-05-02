@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <Button android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确认登陆"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="46dp"
+        android:layout_marginRight="46dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@drawable/login_round_rectangle"
+        tools:ignore="MissingConstraints" />
+</android.support.constraint.ConstraintLayout>
