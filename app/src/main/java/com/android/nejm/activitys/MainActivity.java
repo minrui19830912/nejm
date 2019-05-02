@@ -1,10 +1,9 @@
 package com.android.nejm.activitys;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioGroup;
 
 import com.android.nejm.Fragments.HomeFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
@@ -17,64 +16,21 @@ import java.util.HashMap;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private HomeFragment mHomeFragment;
     private NewKnowledgeFragment mNewKnowledgeFragment;
     private int mIndex = -1;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    hideAllFragment();
-                    showFragment(0);
-                    return true;
-                case R.id.navigation_my_knowledge:
-                    hideAllFragment();
-                    showFragment(1);
-                    AppUtil.shareToFriend(mContext, "abc", "fdasfd", "www.baidu.com", new PlatformActionListener() {
-                        @Override
-                        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                            ToastUtil.showShort(mContext,"onComplete");
-                        }
-
-                        @Override
-                        public void onError(Platform platform, int i, Throwable throwable) {
-                            ToastUtil.showShort(mContext,"onError");
-                        }
-
-                        @Override
-                        public void onCancel(Platform platform, int i) {
-                            ToastUtil.showShort(mContext,"onCancel");
-                        }
-                    });
-                    return true;
-                case R.id.navigation_papers:
-                    hideAllFragment();
-                    showFragment(2);
-                    return true;
-                case R.id.navigation_videos:
-                    hideAllFragment();
-                    showFragment(3);
-                    return true;
-                case R.id.navigation_my:
-                    hideAllFragment();
-                    showFragment(4);
-                    return true;
-            }
-            return false;
-        }
-    };
+    private int[]mTabArray={R.id.indicator_one,R.id.indicator_two,R.id.indicator_three,R.id.indicator_four,R.id.indicator_five};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        RadioGroup navView = findViewById(R.id.indicator_group);
+
+        for(int i=0;i<mTabArray.length;i++){
+            findViewById(mTabArray[i]).setOnClickListener(this);
+        }
         showFragment(0);
     }
 
@@ -99,6 +55,22 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             case 1:
+                AppUtil.shareToFriend(mContext, "abc", "fdasfd", "www.baidu.com", new PlatformActionListener() {
+                    @Override
+                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                        ToastUtil.showShort(mContext,"onComplete");
+                    }
+
+                    @Override
+                    public void onError(Platform platform, int i, Throwable throwable) {
+                        ToastUtil.showShort(mContext,"onError");
+                    }
+
+                    @Override
+                    public void onCancel(Platform platform, int i) {
+                        ToastUtil.showShort(mContext,"onCancel");
+                    }
+                });
                 if (mNewKnowledgeFragment == null) {
                     mNewKnowledgeFragment = new NewKnowledgeFragment();
                     trans.add(R.id.content, mNewKnowledgeFragment);
@@ -161,4 +133,41 @@ public class MainActivity extends BaseActivity {
         trans.commitAllowingStateLoss();
     }
 
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+
+        switch (id) {
+
+            case R.id.indicator_one:
+                hideAllFragment();
+                showFragment(0);
+
+                break;
+            case R.id.indicator_two:
+
+                    hideAllFragment();
+                    showFragment(1);
+
+                break;
+            case R.id.indicator_three:
+
+                hideAllFragment();
+                showFragment(2);
+
+                break;
+            case R.id.indicator_four:
+
+                    hideAllFragment();
+                    showFragment(3);
+//                startActivity(new Intent(mContext,LoginActivity.class));
+                break;
+            case R.id.indicator_five:
+                hideAllFragment();
+                showFragment(4);
+                break;
+
+        }
+    }
 }

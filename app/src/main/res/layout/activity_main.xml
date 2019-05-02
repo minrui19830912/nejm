@@ -10,20 +10,59 @@
         android:layout_height="wrap_content"
         layout="@layout/comon_top_layout"/>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/nav_view"
+
+    <RadioGroup android:id="@+id/indicator_group"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="1dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        >
+        <RadioButton
+            android:id="@+id/indicator_one"
+            style="@style/radio_tab"
+            android:text="首页"
+            android:drawableTop="@drawable/main_tab_bk"
+            />
+
+        <RadioButton
+            android:id="@+id/indicator_two"
+            style="@style/radio_tab"
+            android:text="门店"
+            android:drawableTop="@drawable/main_tab_bk"
+            />
+
+        <RadioButton
+            android:id="@+id/indicator_three"
+            style="@style/radio_tab"
+            android:text="发现"
+            android:drawableTop="@drawable/main_tab_bk"
+            />
+
+
+
+        <RadioButton
+            android:id="@+id/indicator_four"
+            style="@style/radio_tab"
+            android:text="购物车"
+            android:drawableTop="@drawable/main_tab_bk"
+            />
+        <RadioButton
+            android:id="@+id/indicator_five"
+            style="@style/radio_tab"
+            android:text="我的"
+            android:drawableTop="@drawable/main_tab_bk"
+            />
+
+    </RadioGroup>
     <RelativeLayout android:id="@+id/content"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar_layout"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintBottom_toTopOf="@id/indicator_group"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 </android.support.constraint.ConstraintLayout>

@@ -116,23 +116,21 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <!--<style name="radio_tab">-->
-        <!--<item name="android:layout_width">match_parent</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:layout_weight">1</item>-->
-        <!--<item name="android:minWidth">80dp</item>-->
-        <!--<item name="android:singleLine">true</item>-->
-        <!--<item name="android:gravity">center</item>-->
-        <!--<item name="android:textSize">12sp</item>-->
-        <!--<item name="android:textColor">@color/tab_radio_textcolor</item>-->
-        <!--<item name="android:paddingTop">6dp</item>-->
-        <!--<item name="android:paddingBottom">6dp</item>-->
-
-
-        <!--<item name="android:button">@null</item>-->
-        <!--<item name="android:layout_marginLeft">-1dp</item>-->
-        <!--<item name="android:layout_marginRight">-1dp</item>-->
-    <!--</style>-->
+    <style name="radio_tab">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minWidth">80dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/tab_radio_textcolor</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_marginLeft">-1dp</item>
+        <item name="android:layout_marginRight">-1dp</item>
+    </style>
     <!--<style name="category_radio_tab">-->
         <!--<item name="android:layout_width">0dp</item>-->
         <!--<item name="android:layout_height">match_parent</item>-->
