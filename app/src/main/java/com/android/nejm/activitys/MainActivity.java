@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         for(int i=0;i<mTabArray.length;i++){
             findViewById(mTabArray[i]).setOnClickListener(this);
         }
-        showFragment(0);
+        findViewById(mTabArray[0]).performClick();
     }
 
     private void showFragment(int index) {

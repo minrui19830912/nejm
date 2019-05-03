@@ -33,30 +33,28 @@
         <RadioButton
             android:id="@+id/indicator_two"
             style="@style/radio_tab"
-            android:text="门店"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_my_knowledge"
+            android:drawableTop="@drawable/my_knowledge_tab_bk"
             />
 
         <RadioButton
             android:id="@+id/indicator_three"
             style="@style/radio_tab"
-            android:text="发现"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_papers"
+            android:drawableTop="@drawable/paper_tab_bk"
             />
-
-
 
         <RadioButton
             android:id="@+id/indicator_four"
             style="@style/radio_tab"
-            android:text="购物车"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_videos"
+            android:drawableTop="@drawable/videos_tab_bk"
             />
         <RadioButton
             android:id="@+id/indicator_five"
             style="@style/radio_tab"
-            android:text="我的"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_my"
+            android:drawableTop="@drawable/my_tab_bk"
             />
 
     </RadioGroup>
