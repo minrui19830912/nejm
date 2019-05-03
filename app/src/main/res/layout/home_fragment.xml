@@ -84,6 +84,68 @@
                 android:background="@drawable/single_tab_choice_button"
                 />
         </RadioGroup>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_paper_list"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+
+            android:layout_marginBottom="26dp"/>
+        <View android:layout_width="match_parent" android:layout_height="15dp"
+            android:background="@color/color_67"/>
+        <RadioGroup android:layout_marginLeft="12dp"
+            android:layout_width="match_parent" android:orientation="horizontal"
+            android:layout_marginTop="20dp" android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content">
+            <RadioButton android:id="@+id/major_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专业领域"
+                android:textSize="14sp"
+                android:textColor="@color/tab_single_textcolor"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:button="@null"
+                android:background="@drawable/single_tab_choice_button"
+                />
+            <RadioButton android:id="@+id/nejm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEJM"
+                android:layout_marginLeft="12dp"
+                android:button="@null"
+                android:textSize="14sp"
+                android:textColor="@color/tab_single_textcolor"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:background="@drawable/single_tab_choice_button"
+                />
+            <RadioButton android:id="@+id/nejm_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEJM期刊荟萃"
+                android:layout_marginLeft="12dp"
+                android:button="@null"
+                android:textSize="14sp"
+                android:textColor="@color/tab_single_textcolor"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:background="@drawable/single_tab_choice_button"
+                />
+        </RadioGroup>
+        <com.android.nejm.widgets.NoScrollGridView android:id="@+id/grdiview"
+            android:layout_marginTop="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:numColumns="4">
+
+        </com.android.nejm.widgets.NoScrollGridView>
     </LinearLayout>
 </ScrollView>
 </android.support.constraint.ConstraintLayout>
