@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appbk"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@+id/main_toolbar_layout"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/comon_top_layout"/>
+    <!--<include android:id="@+id/main_toolbar_layout"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--layout="@layout/comon_top_layout"/>-->
 
 
     <RadioGroup android:id="@+id/indicator_group"
@@ -33,35 +34,33 @@
         <RadioButton
             android:id="@+id/indicator_two"
             style="@style/radio_tab"
-            android:text="门店"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_my_knowledge"
+            android:drawableTop="@drawable/my_knowledge_tab_bk"
             />
 
         <RadioButton
             android:id="@+id/indicator_three"
             style="@style/radio_tab"
-            android:text="发现"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_papers"
+            android:drawableTop="@drawable/paper_tab_bk"
             />
-
-
 
         <RadioButton
             android:id="@+id/indicator_four"
             style="@style/radio_tab"
-            android:text="购物车"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_videos"
+            android:drawableTop="@drawable/videos_tab_bk"
             />
         <RadioButton
             android:id="@+id/indicator_five"
             style="@style/radio_tab"
-            android:text="我的"
-            android:drawableTop="@drawable/main_tab_bk"
+            android:text="@string/title_my"
+            android:drawableTop="@drawable/my_tab_bk"
             />
 
     </RadioGroup>
     <RelativeLayout android:id="@+id/content"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar_layout"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/indicator_group"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>

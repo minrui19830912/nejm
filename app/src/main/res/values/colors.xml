@@ -18,6 +18,7 @@
     <color name="transparent_40">#40000000</color>
     <color name="color_333">#333333</color>
     <color name="color_666">#666666</color>
+    <color name="color_999">#999999</color>
     <color name="color_a9">#a9a9a9</color>
     <color name="color_f4">#f4f4f4</color>
     <color name="color_fb">#fbfbfb</color>
@@ -29,12 +30,15 @@
     <color name="color_eee">#eeeeee</color>
     <color name="divider">#e1e1e1</color>
     <color name="blue1b">#1b71d4</color>
-    <color name="appbk">#f6f6f7</color>
+    <color name="appbk">#ECEFF3</color>
+    <color name="color_67">#f6f6f7</color>
     <color name="red_tab">#f25b7f</color>
     <color name="green_mai">#5bd6c1</color>
+    <color name="nejm_red">#E6360B</color>
     <color name="start_tab">#FD9526</color>
     <color name="gray_dot">#7E7E7E</color>
     <color name="alertdialog_line">#c6c6c6</color>
     <color name="actionsheet_blue">#037BFF</color>
+    <color name="nejm_text_unselect">#C92700</color>
     <color name="login_text_color">#4A4A4A</color>
 </resources>
