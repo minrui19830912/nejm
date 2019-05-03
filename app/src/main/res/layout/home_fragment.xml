@@ -3,7 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<RelativeLayout app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent" android:paddingLeft="16dp" android:paddingRight="16dp"
+    android:layout_height="60dp" >
+    <ImageView android:id="@+id/logo_negm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/logo_negm"/>
+    <CheckBox android:id="@+id/notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/icon_navi_notification_bk"
+        android:layout_centerVertical="true"
+        android:checked="true"
+        android:layout_alignParentRight="true"
+        android:clickable="false"/>
+    <EditText
+        android:id="@+id/search"
+        android:layout_toRightOf="@id/logo_negm"
+        android:layout_toLeftOf="@id/notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/main_search_bk"
+        android:drawableLeft="@mipmap/icon_search"
+        android:padding="5dp"
+        android:textColorHint="@color/color_999"
+        android:hint="关键词、标题、摘要"
+        android:gravity="center"
+        android:cursorVisible="false"
+        />
 
+</RelativeLayout>
 </android.support.constraint.ConstraintLayout>
