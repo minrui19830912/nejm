@@ -36,4 +36,5 @@
     <color name="gray_dot">#7E7E7E</color>
     <color name="alertdialog_line">#c6c6c6</color>
     <color name="actionsheet_blue">#037BFF</color>
+    <color name="login_text_color">#4A4A4A</color>
 </resources>
