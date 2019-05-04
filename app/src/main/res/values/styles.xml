@@ -186,6 +186,14 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="CustomRadioButton">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/radio_bg</item>
+        <item name="android:textColor">@color/radio_text_color</item>
+        <item name="android:button">@null</item>
+    </style>
+
     <!--<style name="Pic_Dialog">-->
         <!--&lt;!&ndash; 边框 &ndash;&gt;-->
         <!--<item name="android:windowFrame">@null</item>-->

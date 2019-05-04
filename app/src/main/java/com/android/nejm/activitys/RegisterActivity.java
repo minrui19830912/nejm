@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.android.nejm.R;
 
-public class LoginActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
     }
 }
