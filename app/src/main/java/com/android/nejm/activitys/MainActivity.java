@@ -8,13 +8,6 @@ import android.widget.RadioGroup;
 import com.android.nejm.Fragments.HomeFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
 import com.android.nejm.R;
-import com.android.nejm.utils.AppUtil;
-import com.android.nejm.utils.ToastUtil;
-
-import java.util.HashMap;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private HomeFragment mHomeFragment;
@@ -55,22 +48,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case 1:
-                AppUtil.shareToFriend(mContext, "abc", "fdasfd", "www.baidu.com", new PlatformActionListener() {
-                    @Override
-                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                        ToastUtil.showShort(mContext,"onComplete");
-                    }
-
-                    @Override
-                    public void onError(Platform platform, int i, Throwable throwable) {
-                        ToastUtil.showShort(mContext,"onError");
-                    }
-
-                    @Override
-                    public void onCancel(Platform platform, int i) {
-                        ToastUtil.showShort(mContext,"onCancel");
-                    }
-                });
+//                AppUtil.shareToFriend(mContext, "abc", "fdasfd", "www.baidu.com", new PlatformActionListener() {
+//                    @Override
+//                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+//                        ToastUtil.showShort(mContext,"onComplete");
+//                    }
+//
+//                    @Override
+//                    public void onError(Platform platform, int i, Throwable throwable) {
+//                        ToastUtil.showShort(mContext,"onError");
+//                    }
+//
+//                    @Override
+//                    public void onCancel(Platform platform, int i) {
+//                        ToastUtil.showShort(mContext,"onCancel");
+//                    }
+//                });
                 if (mNewKnowledgeFragment == null) {
                     mNewKnowledgeFragment = new NewKnowledgeFragment();
                     trans.add(R.id.content, mNewKnowledgeFragment);
