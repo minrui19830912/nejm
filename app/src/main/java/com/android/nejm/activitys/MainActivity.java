@@ -7,11 +7,15 @@ import android.widget.RadioGroup;
 
 import com.android.nejm.Fragments.HomeFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
+import com.android.nejm.Fragments.PeriodArticleFragment;
+import com.android.nejm.Fragments.VideoListFragment;
 import com.android.nejm.R;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private HomeFragment mHomeFragment;
     private NewKnowledgeFragment mNewKnowledgeFragment;
+    private PeriodArticleFragment mPeriodArticleFragment;
+    private VideoListFragment mVideoListFragment;
     private int mIndex = -1;
     private int[]mTabArray={R.id.indicator_one,R.id.indicator_two,R.id.indicator_three,R.id.indicator_four,R.id.indicator_five};
 
@@ -71,23 +75,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     trans.show(mNewKnowledgeFragment);
                 }
                 break;
-//            case 2:
-//                if (mFindFragment == null) {
-//                    mFindFragment = new FindFragment();
-//                    trans.add(R.id.content, mFindFragment);
-//                } else {
-//                    trans.show(mFindFragment);
-//                }
-//                break;
-//            case 3:
-//
-//                if (mShopcarFragment == null) {
-//                    mShopcarFragment = new ShopcarFragment();
-//                    trans.add(R.id.content, mShopcarFragment);
-//                } else {
-//                    trans.show(mShopcarFragment);
-//                }
-//                break;
+            case 2:
+                if (mPeriodArticleFragment == null) {
+                    mPeriodArticleFragment = new PeriodArticleFragment();
+                    trans.add(R.id.content, mPeriodArticleFragment);
+                } else {
+                    trans.show(mPeriodArticleFragment);
+                }
+                break;
+            case 3:
+
+                if (mVideoListFragment == null) {
+                    mVideoListFragment = new VideoListFragment();
+                    trans.add(R.id.content, mVideoListFragment);
+                } else {
+                    trans.show(mVideoListFragment);
+                }
+                break;
 //            case 4:
 //
 //                if (mMyFragment == null) {
@@ -113,12 +117,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (mNewKnowledgeFragment != null) {
             trans.hide(mNewKnowledgeFragment);
         }
-//        if (mFindFragment != null) {
-//            trans.hide(mFindFragment);
-//        }
-//        if (mShopcarFragment != null) {
-//            trans.hide(mShopcarFragment);
-//        }
+        if (mPeriodArticleFragment != null) {
+            trans.hide(mPeriodArticleFragment);
+        }
+        if (mVideoListFragment != null) {
+            trans.hide(mVideoListFragment);
+        }
 //        if (mMyFragment != null) {
 //            trans.hide(mMyFragment);
 //        }
