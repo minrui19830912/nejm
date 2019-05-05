@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editTextVerifyCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -31,23 +31,23 @@
         android:textSize="14sp"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/editTextPhone"
-        app:layout_constraintEnd_toStartOf="@+id/textView12"
+        app:layout_constraintEnd_toStartOf="@+id/textViewSendVerifyCode"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textViewSendVerifyCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:text="发送验证码"
         android:textColor="#C92700"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextVerifyCode"
         app:layout_constraintEnd_toEndOf="@id/editTextPhone"
-        app:layout_constraintTop_toTopOf="@+id/editText3" />
+        app:layout_constraintTop_toTopOf="@+id/editTextVerifyCode" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editTextPwd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -56,24 +56,24 @@
         android:textColor="#4A4A4A"
         android:textSize="14sp"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        app:layout_constraintEnd_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintStart_toStartOf="@+id/editTextVerifyCode"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShowPwd"
+        app:layout_constraintTop_toBottomOf="@+id/editTextVerifyCode" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textViewShowPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:text="显示密码"
         android:textColor="#C92700"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextPwd"
         app:layout_constraintEnd_toEndOf="@id/editTextPhone"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="@+id/editTextPwd" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/editTextPwdAgain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -82,24 +82,24 @@
         android:textColor="#4A4A4A"
         android:textSize="14sp"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintStart_toStartOf="@+id/editTextPwd"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShowPwdAgain"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPwd" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textViewShowPwdAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:text="显示密码"
         android:textColor="#C92700"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText5"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextPwdAgain"
         app:layout_constraintEnd_toEndOf="@id/editTextPhone"
-        app:layout_constraintTop_toTopOf="@+id/editText5" />
+        app:layout_constraintTop_toTopOf="@+id/editTextPwdAgain" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/textViewConfirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -113,6 +113,6 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPwdAgain" />
 
 </android.support.constraint.ConstraintLayout>

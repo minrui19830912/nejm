@@ -39,7 +39,7 @@
         android:layout_marginEnd="20dp"
         android:padding="10dp"
         android:maxLines="1"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:text="密码"
         android:textColor="@color/login_text_color"
         android:textSize="14sp"
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
 
     <TextView
-        android:id="@+id/textViewRegister"
+        android:id="@+id/textViewOr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
