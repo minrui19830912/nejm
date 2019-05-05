@@ -1,5 +1,6 @@
 package com.android.nejm.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.Banner;
 import com.android.nejm.data.Paper;
@@ -18,6 +21,7 @@ import com.android.nejm.utils.DisplayUtil;
 import com.android.nejm.widgets.ImageIndicatorView;
 import com.android.nejm.widgets.NoScrollGridView;
 import com.android.nejm.widgets.SpacesItemDecoration;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONObject;
 
@@ -44,6 +48,15 @@ public class HomeFragment extends BaseFragment {
         mRecyclerView = view.findViewById(R.id.horizontal_paper_list);
         mGridAdapter  =new GridAdapter();
         mGridView.setAdapter(mGridAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
+//                    intent.putExtra("name", banner.category_name);
+//                    intent.putExtra("subcate", banner.category_id);
+                startActivity(intent);
+            }
+        });
         mHorizontalPaperListAdapter = new HorizontalPaperListAdapter(mContext);
         for (int i = 0; i < 6; i++) {
             Paper paper = new Paper();
@@ -80,6 +93,8 @@ public class HomeFragment extends BaseFragment {
             if(convertView==null){
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item,null);
             }
+            ((SimpleDraweeView)convertView.findViewById(R.id.category_img)).setImageURI("https://publish-pic-cpu.baidu.com/4c121c86-7b68-4922-a87c-bc23052516d1.jpeg@q_90,w_450|f_webp");
+
             return convertView;
         }
     }
@@ -110,10 +125,10 @@ public class HomeFragment extends BaseFragment {
                 Log.e("mImageIndicatorView","OnItemClick"+position);
 
 //                    Banner banner = mBannerList.get(position);
-//                    Intent intent = new Intent(mContext, GoodListActivity.class);
+                    Intent intent = new Intent(mContext, ArticleDetailActivity.class);
 //                    intent.putExtra("name", banner.category_name);
 //                    intent.putExtra("subcate", banner.category_id);
-//                    startActivity(intent);
+                    startActivity(intent);
 
             }
         });

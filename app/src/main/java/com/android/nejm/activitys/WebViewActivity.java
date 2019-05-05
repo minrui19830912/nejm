@@ -11,9 +11,6 @@ import com.android.nejm.R;
 
 public class WebViewActivity extends BaseActivity {
 
-
-
-
     private WebView mWebView;
     private String mUrl;
 
