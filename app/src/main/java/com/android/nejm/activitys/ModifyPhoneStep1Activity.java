@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ public class ModifyPhoneStep1Activity extends BaseActivity {
 
     @OnClick(R.id.buttonNext)
     public void onClickNext() {
-
+        Intent intent = new Intent(this, ModifyPhoneStep2Activity.class);
+        startActivity(intent);
     }
 }
