@@ -12,50 +12,18 @@ import com.android.nejm.activitys.WebViewActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyUnloginFragment extends BaseFragment {
+public class MyFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_my_unlogin, container, false);
+        View view = inflater.inflate(R.layout.my_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
-    }
-
-    @OnClick(R.id.textViewSetting)
-    public void onClickSetting() {
-
-    }
-
-    @OnClick(R.id.textViewLogin)
-    public void onClickLogin() {
-
-    }
-
-    @OnClick(R.id.textViewRegister)
-    public void onClickRegister() {
-
-    }
-
-    @OnClick(R.id.textViewPrivacy)
-    public void onClickPrivacy() {
-        WebViewActivity.launchActivity(getActivity(), "联系我们", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
-    }
-
-    @OnClick(R.id.textViewInstruction)
-    public void onClickInstruction() {
-
     }
 
     @OnClick(R.id.textViewContactUs)
     public void onClickContactUs() {
         WebViewActivity.launchActivity(getActivity(), "联系我们", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=contactus");
     }
-
-    @OnClick(R.id.textViewVersion)
-    public void onClickVersion() {
-
-    }
 }
-
-

@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.android.nejm.Fragments.BaseFragment;
 import com.android.nejm.Fragments.HomeFragment;
+import com.android.nejm.Fragments.MyUnloginFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
 import com.android.nejm.Fragments.PeriodArticleFragment;
 import com.android.nejm.Fragments.VideoListFragment;
@@ -16,6 +18,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private NewKnowledgeFragment mNewKnowledgeFragment;
     private PeriodArticleFragment mPeriodArticleFragment;
     private VideoListFragment mVideoListFragment;
+    private BaseFragment mMyFragment;
     private int mIndex = -1;
     private int[]mTabArray={R.id.indicator_one,R.id.indicator_two,R.id.indicator_three,R.id.indicator_four,R.id.indicator_five};
 
@@ -92,15 +95,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     trans.show(mVideoListFragment);
                 }
                 break;
-//            case 4:
-//
-//                if (mMyFragment == null) {
-//                    mMyFragment = new MyFragment();
-//                    trans.add(R.id.content, mMyFragment);
-//                } else {
-//                    trans.show(mMyFragment);
-//                }
-//                break;
+            case 4:
+              if (mMyFragment == null) {
+                    mMyFragment = new MyUnloginFragment();
+                    trans.add(R.id.content, mMyFragment);
+                } else {
+                    trans.show(mMyFragment);
+                }
+                break;
         }
 
         trans.commitAllowingStateLoss();
@@ -123,9 +125,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (mVideoListFragment != null) {
             trans.hide(mVideoListFragment);
         }
-//        if (mMyFragment != null) {
-//            trans.hide(mMyFragment);
-//        }
+
+        if (mMyFragment != null) {
+            trans.hide(mMyFragment);
+        }
 
         trans.commitAllowingStateLoss();
     }

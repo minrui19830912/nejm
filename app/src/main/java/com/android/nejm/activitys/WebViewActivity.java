@@ -1,5 +1,7 @@
 package com.android.nejm.activitys;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.webkit.WebSettings;
@@ -11,11 +13,15 @@ import com.android.nejm.R;
 
 public class WebViewActivity extends BaseActivity {
 
-
-
-
     private WebView mWebView;
     private String mUrl;
+
+    public static void launchActivity(Context context, String title, String url) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra("name", title);
+        intent.putExtra("url", url);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {
