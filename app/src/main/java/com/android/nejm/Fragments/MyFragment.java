@@ -1,5 +1,6 @@
 package com.android.nejm.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.SettingActivity;
 import com.android.nejm.activitys.WebViewActivity;
 
 import butterknife.ButterKnife;
@@ -20,6 +22,12 @@ public class MyFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.my_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @OnClick(R.id.textViewSetting)
+    public void onClickSetting() {
+        Intent intent = new Intent(getActivity(), SettingActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.textViewContactUs)

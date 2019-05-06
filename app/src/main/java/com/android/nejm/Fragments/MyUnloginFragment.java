@@ -1,5 +1,6 @@
 package com.android.nejm.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.LoginActivity;
+import com.android.nejm.activitys.RegisterActivity;
+import com.android.nejm.activitys.SettingActivity;
 import com.android.nejm.activitys.WebViewActivity;
 
 import butterknife.ButterKnife;
@@ -24,17 +28,20 @@ public class MyUnloginFragment extends BaseFragment {
 
     @OnClick(R.id.textViewSetting)
     public void onClickSetting() {
-
+        Intent intent = new Intent(getActivity(), SettingActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.textViewLogin)
     public void onClickLogin() {
-
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.textViewRegister)
     public void onClickRegister() {
-
+        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.textViewPrivacy)

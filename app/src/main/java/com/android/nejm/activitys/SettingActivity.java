@@ -19,22 +19,22 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewAbout)
     public void onClickAbout() {
-
+        WebViewActivity.launchActivity(this, "关于我们", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=aboutus");
     }
 
     @OnClick(R.id.textViewUsage)
     public void onClickUsage() {
-
+        //WebViewActivity.launchActivity(this, "");
     }
 
     @OnClick(R.id.textViewService)
     public void onClickService() {
-
+        WebViewActivity.launchActivity(this, "服务条款", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=terms");
     }
 
     @OnClick(R.id.textViewPrivacy)
     public void onClickPrivacy() {
-
+        WebViewActivity.launchActivity(this, "隐私政策", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
     }
 
     @OnClick(R.id.textViewVersion)
