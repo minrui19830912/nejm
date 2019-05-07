@@ -7,6 +7,7 @@ import android.widget.RadioGroup;
 
 import com.android.nejm.Fragments.BaseFragment;
 import com.android.nejm.Fragments.HomeFragment;
+import com.android.nejm.Fragments.MyFragment;
 import com.android.nejm.Fragments.MyUnloginFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
 import com.android.nejm.Fragments.PeriodArticleFragment;
@@ -97,7 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case 4:
               if (mMyFragment == null) {
-                    mMyFragment = new MyUnloginFragment();
+                    mMyFragment = new MyFragment();
                     trans.add(R.id.content, mMyFragment);
                 } else {
                     trans.show(mMyFragment);

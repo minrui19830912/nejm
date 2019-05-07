@@ -86,7 +86,8 @@ public class AdvertActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                startActivity(new Intent(mContext,MainActivity.class));
+                //startActivity(new Intent(mContext,MainActivity.class));
+                startActivity(new Intent(mContext,LoginActivity.class));
                 finish();
             }
         };
@@ -94,8 +95,8 @@ public class AdvertActivity extends BaseActivity {
         rlNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(mContext,MainActivity.class));
+                //startActivity(new Intent(mContext,MainActivity.class));
+                startActivity(new Intent(mContext,LoginActivity.class));
                 finish();
             }
         });

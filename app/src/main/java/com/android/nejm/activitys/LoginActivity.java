@@ -46,5 +46,13 @@ public class LoginActivity extends BaseActivity {
     public void onClickLogin() {
         String name = editTextName.getText().toString().trim();
         String pwd = editTextPassword.getText().toString().trim();
+        startActivity(new Intent(mContext,MainActivity.class));
+        finish();
+    }
+
+    @OnClick(R.id.textViewSkip)
+    public void onClickSkip() {
+        startActivity(new Intent(mContext,MainActivity.class));
+        finish();
     }
 }

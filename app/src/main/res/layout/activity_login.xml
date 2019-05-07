@@ -40,7 +40,7 @@
         android:padding="10dp"
         android:maxLines="1"
         android:inputType="textPassword"
-        android:text="密码"
+        android:hint="密码"
         android:textColor="@color/login_text_color"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/textViewShowPwd"
