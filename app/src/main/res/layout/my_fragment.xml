@@ -234,25 +234,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="14dp"
+        android:drawableRight="@drawable/icon_mine_image_next"
         android:text="下载本周文章"
         android:textColor="#C92700"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view15" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text=">"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewDownload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewDownload" />
 
     <View
         android:id="@+id/view16"
@@ -299,26 +289,18 @@
 
     <TextView
         android:id="@+id/textViewContactUs"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
+        android:drawableRight="@drawable/icon_mine_image_next"
         android:text="联系我们"
         android:textColor="#4A4A4A"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text=">"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewContactUs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewContactUs" />
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
 
     <View
         android:id="@+id/view7"

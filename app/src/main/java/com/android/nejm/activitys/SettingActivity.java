@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -54,6 +55,8 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewQuit)
     public void onClickQuit() {
-
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

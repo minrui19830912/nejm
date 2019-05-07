@@ -6,15 +6,30 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.EditPersonalInfoActivity;
+import com.android.nejm.activitys.FeedbackActivity;
 import com.android.nejm.activitys.SettingActivity;
 import com.android.nejm.activitys.WebViewActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MyFragment extends BaseFragment {
+    @BindView(R.id.textViewUserName)
+    TextView textViewUserName;
+    @BindView(R.id.textViewReadCount)
+    TextView textViewReadCount;
+    @BindView(R.id.textViewFavoriteCount)
+    TextView textViewFavoriteCount;
+    @BindView(R.id.textViewDownloadCount)
+    TextView textViewDownloadCount;
+    @BindView(R.id.textViewNotifyCount)
+    TextView textViewNotifyCount;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -22,6 +37,28 @@ public class MyFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.my_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @OnClick(R.id.textViewEmail)
+    public void onClickEmail() {
+
+    }
+
+    @OnClick(R.id.textViewMicroMsg)
+    public void onClickMicroMsg() {
+
+    }
+
+    @OnClick(R.id.textViewEditPersonalInfo)
+    public void onClickEditPersonalInfo() {
+        Intent intent = new Intent(getActivity(), EditPersonalInfoActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.textViewFeedback)
+    public void onClickFeedback() {
+        Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.textViewSetting)

@@ -3,12 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/comon_top_layout"
+        android:id="@+id/titleLayout"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_weight="1"/>
+       <RadioButton
+           android:id="@+id/radioButtonFindByPhone"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:drawableTop="@drawable/find_by_phone"
+           android:drawablePadding="5dp"
+           android:text="手机找回"
+           android:button="@null"
+           android:textColor="@color/radio_find_text_color"
+           android:textSize="12sp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/radioButtonFindByEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/find_by_email"
+            android:drawablePadding="5dp"
+            android:text="邮件找回"
+            android:button="@null"
+            android:textColor="#4A4A4A"
+            android:textSize="12sp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_weight="1"/>
+    </RadioGroup>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>

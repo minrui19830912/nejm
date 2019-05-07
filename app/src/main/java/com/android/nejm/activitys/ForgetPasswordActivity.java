@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.RadioGroup;
 
 import com.android.nejm.Fragments.FindPwdByEmailFragment;
 import com.android.nejm.Fragments.FindPwdByPhoneFragment;
@@ -17,20 +18,36 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ForgetPasswordActivity extends BaseActivity {
+public class ForgetPasswordActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
 
     List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_forget_pwd);
         ButterKnife.bind(this);
+        showBack();
+
+        radioGroup.setOnCheckedChangeListener(this);
+        radioGroup.check(R.id.radioButtonFindByPhone);
 
         fragmentList.add(new FindPwdByPhoneFragment());
         fragmentList.add(new FindPwdByEmailFragment());
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager()));
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if(R.id.radioButtonFindByPhone == checkedId) {
+            viewPager.setCurrentItem(0);
+        } else {
+            viewPager.setCurrentItem(1);
+        }
     }
 
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {

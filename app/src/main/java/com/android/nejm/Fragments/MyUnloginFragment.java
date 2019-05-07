@@ -46,7 +46,7 @@ public class MyUnloginFragment extends BaseFragment {
 
     @OnClick(R.id.textViewPrivacy)
     public void onClickPrivacy() {
-        WebViewActivity.launchActivity(getActivity(), "联系我们", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
+        WebViewActivity.launchActivity(getActivity(), "隐私政策", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
     }
 
     @OnClick(R.id.textViewInstruction)
