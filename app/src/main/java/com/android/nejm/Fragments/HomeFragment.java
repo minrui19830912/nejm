@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
+import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.Banner;
 import com.android.nejm.data.Paper;
@@ -68,6 +69,14 @@ public class HomeFragment extends BaseFragment {
         mRecyclerView.setAdapter(mHorizontalPaperListAdapter);
         mHorizontalPaperListAdapter.notifyDataSetChanged();
         processBanner(null);
+        view.findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                mContext.startActivity(intent);
+
+            }
+        });
          return view;
     }
 

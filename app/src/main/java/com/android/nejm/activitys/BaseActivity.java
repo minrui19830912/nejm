@@ -20,7 +20,12 @@ public  class BaseActivity extends AppCompatActivity {
     protected void setCommonTitle(String title){
         ((TextView)findViewById(R.id.common_tile)).setText(title);
     }
-
+    protected void setCommonTitle(String title,boolean showBack){
+        ((TextView)findViewById(R.id.common_tile)).setText(title);
+        if(showBack){
+            showBack();
+        }
+    }
     protected void showBack(){
       View back = findViewById(R.id.iv_back);
         back.setVisibility(View.VISIBLE);
