@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.EditPersonalInfoActivity;
+import com.android.nejm.activitys.FavoriteActivity;
 import com.android.nejm.activitys.FeedbackActivity;
+import com.android.nejm.activitys.NotificationActivity;
+import com.android.nejm.activitys.ReadHistoryActivity;
 import com.android.nejm.activitys.SettingActivity;
 import com.android.nejm.activitys.WebViewActivity;
 
@@ -70,5 +73,25 @@ public class MyFragment extends BaseFragment {
     @OnClick(R.id.textViewContactUs)
     public void onClickContactUs() {
         WebViewActivity.launchActivity(getActivity(), "联系我们", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=contactus");
+    }
+
+    @OnClick(R.id.readLayout)
+    public void onClickReadLayout() {
+        startActivity(new Intent(getActivity(), ReadHistoryActivity.class));
+    }
+
+    @OnClick(R.id.favoriteLayout)
+    public void onClickFavoriteLayout() {
+        startActivity(new Intent(getActivity(), FavoriteActivity.class));
+    }
+
+    @OnClick(R.id.downloadLayout)
+    public void onClickDownloadLayout() {
+
+    }
+
+    @OnClick(R.id.notifyLayout)
+    public void onClickNotifyLayout() {
+        startActivity(new Intent(getActivity(), NotificationActivity.class));
     }
 }

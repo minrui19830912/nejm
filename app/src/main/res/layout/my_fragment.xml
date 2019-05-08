@@ -57,99 +57,112 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewUserName"
         app:layout_constraintStart_toStartOf="@+id/textViewUserName"/>
 
-    <TextView
-        android:id="@+id/textViewReadCount"
+    <LinearLayout
+        android:id="@+id/readLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="99+"
-        android:textColor="#4A4A4A"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_chainStyle="spread"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewFavoriteCount"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHead" />
+        app:layout_constraintEnd_toStartOf="@+id/favoriteLayout"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHead"
+        app:layout_constraintHorizontal_chainStyle="spread">
+        <TextView
+            android:id="@+id/textViewReadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99+"
+            android:textColor="#4A4A4A"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textViewReadTips"
+        <TextView
+            android:id="@+id/textViewReadTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="阅读"
+            android:textColor="#999999"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/favoriteLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="阅读"
-        android:textColor="#999999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewReadCount"
-        app:layout_constraintEnd_toEndOf="@+id/textViewReadCount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewReadCount"/>
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/readLayout"
+        app:layout_constraintEnd_toStartOf="@+id/downloadLayout"
+        app:layout_constraintTop_toTopOf="@+id/readLayout">
+        <TextView
+            android:id="@+id/textViewFavoriteCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99+"
+            android:textColor="#4A4A4A"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textViewFavoriteCount"
+        <TextView
+            android:id="@+id/textViewFavoriteTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="收藏"
+            android:textColor="#999999"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/downloadLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="99+"
-        android:textColor="#4A4A4A"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewReadCount"
-        app:layout_constraintEnd_toStartOf="@+id/textViewDownloadCount"
-        app:layout_constraintTop_toTopOf="@+id/textViewReadCount" />
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/favoriteLayout"
+        app:layout_constraintEnd_toStartOf="@+id/notifyLayout"
+        app:layout_constraintTop_toTopOf="@+id/readLayout">
+        <TextView
+            android:id="@+id/textViewDownloadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99+"
+            android:textColor="#4A4A4A"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textViewFavoriteTips"
+        <TextView
+            android:id="@+id/textViewDownloadTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="下载"
+            android:textColor="#999999"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notifyLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="收藏"
-        android:textColor="#999999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewFavoriteCount"
-        app:layout_constraintEnd_toEndOf="@+id/textViewFavoriteCount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFavoriteCount"/>
-
-    <TextView
-        android:id="@+id/textViewDownloadCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="99+"
-        android:textColor="#4A4A4A"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewFavoriteCount"
-        app:layout_constraintEnd_toStartOf="@+id/textViewNotifyCount"
-        app:layout_constraintTop_toTopOf="@+id/textViewFavoriteCount" />
-
-    <TextView
-        android:id="@+id/textViewDownloadTips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="下载"
-        android:textColor="#999999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewDownloadCount"
-        app:layout_constraintEnd_toEndOf="@+id/textViewDownloadCount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDownloadCount"/>
-
-    <TextView
-        android:id="@+id/textViewNotifyCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="99+"
-        android:textColor="#4A4A4A"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewDownloadCount"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/downloadLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewFavoriteCount" />
+        app:layout_constraintTop_toTopOf="@+id/readLayout">
+        <TextView
+            android:id="@+id/textViewNotifyCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99+"
+            android:textColor="#4A4A4A"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textViewNotifyTips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="通知"
-        android:textColor="#999999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewNotifyCount"
-        app:layout_constraintEnd_toEndOf="@+id/textViewNotifyCount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNotifyCount"/>
+        <TextView
+            android:id="@+id/textViewNotifyTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="通知"
+            android:textColor="#999999"
+            android:textSize="12sp"/>
+    </LinearLayout>
 
     <View
         android:id="@+id/view14"
@@ -157,7 +170,7 @@
         android:layout_height="15dp"
         android:layout_marginTop="25dp"
         android:background="#F6F6F7"
-        app:layout_constraintTop_toBottomOf="@+id/textViewReadTips"
+        app:layout_constraintTop_toBottomOf="@+id/readLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
