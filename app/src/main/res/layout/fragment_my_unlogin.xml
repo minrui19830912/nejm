@@ -14,26 +14,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <TextView
-            android:id="@+id/textViewSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="设置"
-            android:drawableLeft="@drawable/setting"
-            android:drawablePadding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/imageViewHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSetting"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/head" />
 
         <TextView
@@ -76,44 +64,27 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textViewPrivacy"
-        android:layout_width="0dp"
+        android:id="@+id/textViewInstruction"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
-        android:layout_marginEnd="8dp"
-        android:drawableRight="@drawable/icon_mine_image_next"
-        android:text="服务条款与隐私政策"
+        android:text="当前版本"
         android:textColor="#4A4A4A"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout1" />
 
-    <View
-        android:id="@+id/view5"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#D6D6D6"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="@+id/textViewPrivacy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrivacy"/>
-
     <TextView
-        android:id="@+id/textViewInstruction"
-        android:layout_width="0dp"
+        android:id="@+id/textViewVersion"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
         android:layout_marginEnd="8dp"
-        android:drawableRight="@drawable/icon_mine_image_next"
-        android:text="使用说明"
-        android:textColor="#4A4A4A"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="V2.0"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewInstruction"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
+        app:layout_constraintTop_toTopOf="@+id/textViewInstruction" />
 
     <View
         android:id="@+id/view6"
@@ -146,32 +117,7 @@
         android:layout_height="1dp"
         android:background="#D6D6D6"
         android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="@+id/textViewContactUs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewContactUs"/>
-
-    <TextView
-        android:id="@+id/textViewVersion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="8dp"
-        android:drawableRight="@drawable/icon_mine_image_next"
-        android:text="版权说明"
-        android:textColor="#4A4A4A"
-        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view7" />
-
-    <View
-        android:id="@+id/view8"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#D6D6D6"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="@+id/textViewVersion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewVersion"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewContactUs"/>
 </android.support.constraint.ConstraintLayout>
