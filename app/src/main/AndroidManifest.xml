@@ -212,6 +212,7 @@
         <activity android:name=".activitys.IdentityInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.TitleActivity" />
     </application>
 
 </manifest>
