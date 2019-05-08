@@ -38,7 +38,6 @@ public class IdentityInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_identity_info);
         ButterKnife.bind(this);
         showBack();
-        setCommonTitle("");
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.content, new IdentityFragment());

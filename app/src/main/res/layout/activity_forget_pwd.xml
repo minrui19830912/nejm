@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/comon_top_layout"
+    <include layout="@layout/common_title_layout"
         android:id="@+id/titleLayout"/>
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -40,7 +40,7 @@
             android:drawablePadding="5dp"
             android:text="邮件找回"
             android:button="@null"
-            android:textColor="#4A4A4A"
+            android:textColor="@color/radio_find_text_color"
             android:textSize="12sp"/>
         <View
             android:layout_width="0dp"
