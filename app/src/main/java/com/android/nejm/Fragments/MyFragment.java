@@ -1,8 +1,15 @@
 package com.android.nejm.Fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +51,39 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.textViewEmail)
     public void onClickEmail() {
+        SpannableString msg = new SpannableString("您已开启邮件订阅，是否要关闭邮件订阅？");
+        msg.setSpan(new ForegroundColorSpan(Color.parseColor("#C92700")), 12, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        new AlertDialog.Builder(getActivity())
+                .setMessage(msg)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("关闭订阅", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
     }
 
     @OnClick(R.id.textViewMicroMsg)
     public void onClickMicroMsg() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage("立刻前往NEJM医学前沿官方微信。")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                }).setPositiveButton("立刻前往", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
     }
 
     @OnClick(R.id.textViewEditPersonalInfo)

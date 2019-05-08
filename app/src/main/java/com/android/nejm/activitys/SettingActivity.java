@@ -56,6 +56,7 @@ public class SettingActivity extends BaseActivity {
     @OnClick(R.id.textViewQuit)
     public void onClickQuit() {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
