@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,11 @@ public class ModifyPhoneStep1Activity extends BaseActivity {
     EditText editTextOldPhone;
     @BindView(R.id.editTextVerifyCode)
     EditText editTextVerifyCode;
+
+    public static void launchActivity(Context context) {
+        Intent intent = new Intent(context, ModifyPhoneStep1Activity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

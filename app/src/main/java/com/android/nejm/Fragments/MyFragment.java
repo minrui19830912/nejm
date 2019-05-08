@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.nejm.BuildConfig;
 import com.android.nejm.R;
 import com.android.nejm.activitys.EditPersonalInfoActivity;
 import com.android.nejm.activitys.FavoriteActivity;
@@ -39,6 +40,8 @@ public class MyFragment extends BaseFragment {
     TextView textViewDownloadCount;
     @BindView(R.id.textViewNotifyCount)
     TextView textViewNotifyCount;
+    @BindView(R.id.textViewVersion)
+    TextView textViewVersion;
 
     @Nullable
     @Override
@@ -46,7 +49,12 @@ public class MyFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.my_fragment, container, false);
         ButterKnife.bind(this, view);
+        initView();
         return view;
+    }
+
+    private void initView() {
+        textViewVersion.setText("V" + BuildConfig.VERSION_NAME);
     }
 
     @OnClick(R.id.textViewEmail)
