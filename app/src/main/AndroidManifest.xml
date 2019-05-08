@@ -206,6 +206,7 @@
         <activity android:name=".activitys.EditPersonalInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.IdentityInfoActivity" />
     </application>
 
 </manifest>

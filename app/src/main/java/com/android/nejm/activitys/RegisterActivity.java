@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -19,6 +20,7 @@ public class RegisterActivity extends BaseActivity {
 
     @OnClick(R.id.textViewNext)
     public void onClickNext() {
-
+        startActivity(new Intent(this, IdentityInfoActivity.class));
+        finish();
     }
 }
