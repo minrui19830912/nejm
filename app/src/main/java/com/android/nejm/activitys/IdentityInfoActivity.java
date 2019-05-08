@@ -3,6 +3,7 @@ package com.android.nejm.activitys;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.nejm.Fragments.IdentityDoctorFragment;
@@ -24,12 +25,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IdentityInfoActivity extends BaseActivity {
-    @BindView(R.id.textViewIdentity)
-    TextView textViewIdentity;
-    @BindView(R.id.textViewProfession)
-    TextView textViewProfession;
-    @BindView(R.id.textViewPersonalInfo)
-    TextView textViewPersonalInfo;
+    @BindView(R.id.radioButtonIdentity)
+    RadioButton radioButtonIdentity;
+    @BindView(R.id.radioButtonProfession)
+    RadioButton radioButtonProfession;
+    @BindView(R.id.radioButtonPersonalInfo)
+    RadioButton radioButtonPersonalInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +43,10 @@ public class IdentityInfoActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.content, new IdentityFragment());
         transaction.commitAllowingStateLoss();
+
+        radioButtonIdentity.setChecked(true);
+        radioButtonProfession.setChecked(false);
+        radioButtonPersonalInfo.setChecked(false);
     }
 
     @Override
@@ -74,6 +79,7 @@ public class IdentityInfoActivity extends BaseActivity {
         }
 
         transaction.commitAllowingStateLoss();
+        radioButtonProfession.setChecked(true);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -81,6 +87,8 @@ public class IdentityInfoActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content, new PersonalInfoStudentFragment());
         transaction.commitAllowingStateLoss();
+
+        radioButtonPersonalInfo.setChecked(true);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -88,5 +96,7 @@ public class IdentityInfoActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content, new PersonalInfoOtherFragment());
         transaction.commitAllowingStateLoss();
+
+        radioButtonPersonalInfo.setChecked(true);
     }
 }

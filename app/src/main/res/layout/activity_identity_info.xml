@@ -5,51 +5,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <include layout="@layout/comon_top_layout"
         android:id="@+id/titleLayout"/>
-    <TextView
-        android:id="@+id/textViewIdentity"
+    <RadioButton
+        android:id="@+id/radioButtonIdentity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewProfession"
+        app:layout_constraintEnd_toStartOf="@+id/radioButtonProfession"
         app:layout_constraintTop_toBottomOf="@+id/titleLayout"
         app:layout_constraintHorizontal_chainStyle="spread"
-        android:drawableTop="@drawable/find_by_phone"
+        android:drawableTop="@drawable/step_one"
         android:drawablePadding="5dp"
+        android:enabled="false"
         android:text="身份/职业"
         android:gravity="center_horizontal"
         android:button="@null"
         android:textColor="@color/radio_find_text_color"
         android:textSize="12sp"/>
-    <TextView
-        android:id="@+id/textViewProfession"
+    <RadioButton
+        android:id="@+id/radioButtonProfession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/textViewIdentity"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewIdentity"
-        app:layout_constraintStart_toEndOf="@+id/textViewIdentity"
-        app:layout_constraintEnd_toStartOf="@+id/textViewPersonalInfo"
-        android:drawableTop="@drawable/find_by_email"
+        app:layout_constraintTop_toTopOf="@+id/radioButtonIdentity"
+        app:layout_constraintBottom_toBottomOf="@+id/radioButtonIdentity"
+        app:layout_constraintStart_toEndOf="@+id/radioButtonIdentity"
+        app:layout_constraintEnd_toStartOf="@+id/radioButtonPersonalInfo"
+        android:drawableTop="@drawable/step_two"
         android:drawablePadding="5dp"
+        android:enabled="false"
         android:text="专业"
         android:gravity="center_horizontal"
         android:button="@null"
-        android:textColor="#4A4A4A"
+        android:textColor="@color/radio_find_text_color"
         android:textSize="12sp"/>
-    <TextView
-        android:id="@+id/textViewPersonalInfo"
+    <RadioButton
+        android:id="@+id/radioButtonPersonalInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/textViewProfession"
+        app:layout_constraintStart_toEndOf="@+id/radioButtonProfession"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewIdentity"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewIdentity"
-        android:drawableTop="@drawable/find_by_email"
+        app:layout_constraintTop_toTopOf="@+id/radioButtonIdentity"
+        app:layout_constraintBottom_toBottomOf="@+id/radioButtonIdentity"
+        android:drawableTop="@drawable/step_three"
         android:drawablePadding="5dp"
+        android:enabled="false"
         android:text="个人信息"
         android:gravity="center_horizontal"
         android:button="@null"
-        android:textColor="#4A4A4A"
+        android:textColor="@color/radio_find_text_color"
         android:textSize="12sp"/>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/content"
@@ -57,7 +60,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdentity"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonIdentity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>
