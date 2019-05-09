@@ -45,7 +45,7 @@ public class WebViewActivity extends BaseActivity {
         mWebView.getSettings()
                 .setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.loadUrl(mUrl);
-
+       // mWebView.loadUrl("file:///android_asset/articles.html");
 
     }
 
