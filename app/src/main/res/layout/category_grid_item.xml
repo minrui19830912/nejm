@@ -9,9 +9,9 @@
         android:id="@+id/category_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintTop_toTopOf="parent"
          />
     <TextView android:id="@+id/category_name"
