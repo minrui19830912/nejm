@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.SearchSchoolActivity;
 import com.android.nejm.activitys.TitleActivity;
 
 import butterknife.ButterKnife;
@@ -28,6 +29,11 @@ public class PersonalInfoStudentFragment extends BaseFragment {
     @OnClick(R.id.textViewTitle)
     public void onClickTitle() {
         startActivity(new Intent(getActivity(), TitleActivity.class));
+    }
+
+    @OnClick(R.id.textViewSchool)
+    public void onClickSchool() {
+        startActivity(new Intent(getActivity(), SearchSchoolActivity.class));
     }
 
     @OnClick(R.id.buttonConfirm)
