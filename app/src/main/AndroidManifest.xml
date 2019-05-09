@@ -104,13 +104,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitys.SearchSchoolActivity"></activity>
-        <activity android:name=".activitys.SearchHospitalActivity" />
-        <activity android:name=".activitys.EditEmailActivity" />
-        <activity android:name=".activitys.EditNameActivity" />
-        <activity android:name=".activitys.NotifyDetailActivity" />
-        <activity android:name=".activitys.ReadHistoryActivity" />
-        <activity android:name=".activitys.FavoriteActivity" /> <!-- <activity -->
+        <activity android:name=".activitys.SearchSchoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.SearchHospitalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.EditEmailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.EditNameActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.ReadHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.FavoriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/> <!-- <activity -->
         <!-- android:name=".Main2Activity" -->
         <!-- android:label="@string/title_activity_main2"></activity> -->
         <activity
@@ -119,7 +130,6 @@
             android:theme="@style/AppTheme.NoActionBar.Background">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -203,8 +213,12 @@
             android:name=".activitys.IdentityInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activitys.TitleActivity" />
-        <activity android:name=".activitys.NotificationActivity" />
+        <activity android:name=".activitys.TitleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

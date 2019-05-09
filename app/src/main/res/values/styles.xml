@@ -12,6 +12,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowSoftInputMode">adjustResize|stateHidden|stateAlwaysHidden</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Background">

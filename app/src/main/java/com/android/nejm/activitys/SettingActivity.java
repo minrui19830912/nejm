@@ -16,6 +16,7 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
         showBack();
+        setCommonTitle("设置");
     }
 
     @OnClick(R.id.textViewAbout)

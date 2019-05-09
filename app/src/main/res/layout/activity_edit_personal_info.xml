@@ -9,7 +9,7 @@
         android:id="@+id/titleLayout"/>
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textViewHead"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -28,8 +28,8 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="#D6D6D6"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintStart_toStartOf="@+id/textViewHead"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHead"
         app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
         android:id="@+id/textViewNameTips"
@@ -154,5 +154,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewIdentityTips"
         app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/textViewIdentityOne"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:textColor="#4A4A4A"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        android:drawableBottom="@drawable/horizontal_line_nor"
+        android:drawablePadding="13dp"/>
+    <TextView
+        android:id="@+id/textViewIdentityTwo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:textColor="#4A4A4A"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdentityOne"
+        android:drawableBottom="@drawable/horizontal_line_nor"
+        android:drawablePadding="13dp"/>
+    <TextView
+        android:id="@+id/textViewIdentityThree"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:textColor="#4A4A4A"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdentityTwo"
+        android:drawableBottom="@drawable/horizontal_line_nor"
+        android:drawablePadding="13dp"/>
+    <TextView
+        android:id="@+id/textViewIdentityFour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:textColor="#4A4A4A"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdentityThree"
+        android:drawableBottom="@drawable/horizontal_line_nor"
+        android:drawablePadding="13dp"/>
 
 </android.support.constraint.ConstraintLayout>
