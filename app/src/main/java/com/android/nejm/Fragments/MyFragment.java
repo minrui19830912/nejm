@@ -136,4 +136,9 @@ public class MyFragment extends BaseFragment {
     public void onClickNotifyLayout() {
         startActivity(new Intent(getActivity(), NotificationActivity.class));
     }
+
+    @OnClick(R.id.textViewDownload)
+    public void onDownload() {
+
+    }
 }

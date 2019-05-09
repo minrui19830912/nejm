@@ -6,4 +6,5 @@
     <string name="title_papers">期刊</string>
     <string name="title_videos">视频</string>
     <string name="title_my">我的</string>
+    <string name="request_update_storage">请求更新存储权限</string>
 </resources>
