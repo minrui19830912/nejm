@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.android.nejm.R;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class EditNameActivity extends BaseActivity {
 
@@ -23,5 +24,10 @@ public class EditNameActivity extends BaseActivity {
         showBack();
         setCommonTitle("编辑姓名");
         ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.buttonConfirm)
+    public void onClickConfirm() {
+        finish();
     }
 }
