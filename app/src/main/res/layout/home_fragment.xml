@@ -51,8 +51,8 @@
     <com.android.nejm.widgets.ImageIndicatorView android:id="@+id/imageIndicatorView"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
     />
         <RadioGroup android:layout_marginLeft="12dp"
             android:layout_width="match_parent" android:orientation="horizontal"
