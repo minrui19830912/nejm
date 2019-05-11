@@ -30,10 +30,13 @@ import static com.lzy.okgo.OkGo.post;
 public class HttpUtils {
     public static final String APP_KEY="gm8Pyx3sbuCdqsspYylv3rhh9Bt40vn7";
     public static final String CONTENT_TYPE="application/x-www-form-urlencoded";
-    public static final String BASE_URL="http://www.changmaichina.com";
-//    public static final String BASE_URL="http://changmai.cloudnapps.com";//test
+//    public static final String BASE_URL="https://nejmqianyan.cn";//production
+    public static final String BASE_URL="https://dev.nejmqianyan.com";//test
 
-    public static final String MAIN_URL=BASE_URL+"/api/index?";//首页
+    public static final String MAIN_URL=BASE_URL+"/?c=app&m=index";//首页
+
+
+
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
     public static final String QUERY_STORE_LIST=BASE_URL+"/api/query_stores?";//门店列表（输入地址时调用）
     public static final String STORE_LIST_DETAIL=BASE_URL+"/api/store?";//门店详情
@@ -88,23 +91,15 @@ public class HttpUtils {
     public static final String SEND_CUSTOMER_PHONE = BASE_URL +"/api/send_customer_phone_code?";//获取 messageNumber 接口
     public static final String QUERY_WATERFALL = BASE_URL +"/api/query_waterfall?";//获取 瀑布流数据 接口
 
-
-
-
     private static boolean isDebug=false;
-    public static void getMainData(final Context context, String lat, String lng, final OnNetResponseListener listener){
-       long timeStamp= System.currentTimeMillis();
-    //    String lat="123.3213";
-    //    String lng="30.2655";
-       String sign= generateMd5Str("","lat"+lat+"lng"+lng,timeStamp,APP_KEY,"");
-    //           Util.getMd5("lat"+lat+"lng"+lng+timeStamp+"gm8Pyx3sbuCdqsspYylv3rhh9Bt40vn7");
+
+    public static void getMainData(final Context context,final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("","",timeStamp,APP_KEY,"");
         StringBuilder build=new StringBuilder("access_token=");
-        build.append("&timestamp=").append(timeStamp).append("&app_key="+APP_KEY)
-                .append("&client=").append("&lat=").append(lat).append("&lng=").append(lng).append("&sign=").append(sign);
-
-//            if (isDebug)
-//                Log.e("changmai","jsonurl:"+MAIN_URL+build.toString()+">>>");
-
+        build.append("&timestamp=").append(timeStamp).append("&app_key="+APP_KEY).append("&client=")
+                .append("&sign=").append(sign);
         OkGo.get(MAIN_URL+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
@@ -117,6 +112,26 @@ public class HttpUtils {
         });
 
     }
+
+//    public static void getMainData(final Context context, String c,String m ,final OnNetResponseListener listener){
+//       long timeStamp= System.currentTimeMillis();
+//
+//       String sign= generateMd5Str("","c"+c+"m"+m,timeStamp,APP_KEY,"");
+//        StringBuilder build=new StringBuilder("access_token=");
+//        build.append("&timestamp=").append(timeStamp).append("&app_key="+APP_KEY).append("&client=")
+//             .append("&c=").append(c).append("&m=").append(m).append("&sign=").append(sign);
+//        OkGo.get(MAIN_URL+build.toString()).execute(new StringNetCallback(context) {
+//            @Override
+//            public void onSuccess(String s, Call call, Response response) {
+//
+//
+//                paraJson(context,s,listener);
+//            }
+//
+//
+//        });
+//
+//    }
 
     //瀑布流
     public static void getWaterFallData(final Context context, int page, final OnNetResponseListener listener){
@@ -1416,7 +1431,7 @@ StringBuilder parm =new StringBuilder();
     }
 
     private static void paraJson(Context context, String json, OnNetResponseListener listener){
-//        Log.e("minrui","json="+json);
+        Log.e("minrui","json="+json);
         JSONObject object = null;
         try {
             object = new JSONObject(json);

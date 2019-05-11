@@ -12,7 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.nejm.R;
@@ -28,7 +28,7 @@ public class AdvertActivity extends BaseActivity {
 //    SimpleDraweeView sdvSplash ;//显示启动图
     ImageView ivSplash;
     TextView tvNum;
-    RelativeLayout rlNum;
+    LinearLayout rlNum;
     String url="https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=f09901779bcad1c8cfbbfa274f3f67c4/83025aafa40f4bfb3b3a8f0c0d4f78f0f63618fb.jpg";
 
     @Override
@@ -39,7 +39,7 @@ public class AdvertActivity extends BaseActivity {
 //        sdvSplash = (SimpleDraweeView) findViewById(R.id.sdvSplash);
         ivSplash = (ImageView) findViewById(R.id.ivSplash);
         tvNum = (TextView) findViewById(R.id.tvNum);
-        rlNum = (RelativeLayout) findViewById(R.id.rlNum);
+        rlNum = (LinearLayout) findViewById(R.id.rlNum);
        String path= SPUtils.getSharedStringData(mContext,"adver_path");
        if(!TextUtils.isEmpty(path)){
         Bitmap bmp= BitmapFactory.decodeFile(path);

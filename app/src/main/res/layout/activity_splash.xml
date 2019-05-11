@@ -16,37 +16,33 @@
         <!--android:layout_height="match_parent"-->
         <!--android:scaleType="fitXY"-->
         <!--/>-->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rlNum"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="22dp"
         android:layout_alignParentRight="true"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@drawable/circle_gray_drawable">
-        <LinearLayout
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/circle_white_drawable">
+
             <TextView
-                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/color_4a"
+                android:textSize="11sp"
                 android:text="跳过"/>
             <TextView
-                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/tvNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/color_4a"
+                android:textSize="11sp"
                 android:text="3"/>
-        </LinearLayout>
 
-    </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

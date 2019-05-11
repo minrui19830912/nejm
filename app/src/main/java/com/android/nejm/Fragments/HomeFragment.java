@@ -18,8 +18,11 @@ import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.Banner;
 import com.android.nejm.data.Paper;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
 import com.android.nejm.widgets.ImageIndicatorView;
+import com.android.nejm.widgets.LoadingDialog;
 import com.android.nejm.widgets.NoScrollGridView;
 import com.android.nejm.widgets.SpacesItemDecoration;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -77,7 +80,27 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+        getData();
          return view;
+    }
+
+    private void getData() {
+//        LoadingDialog.showDialogForLoading(mContext);
+//        HttpUtils.getMainData(mContext,"app","index", new OnNetResponseListener() {
+//            @Override
+//            public void onNetDataResponse(JSONObject json) {
+//                LoadingDialog.cancelDialogForLoading();
+//
+//            }
+//        });
+        LoadingDialog.showDialogForLoading(mContext);
+        HttpUtils.getMainData(mContext, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+
+            }
+        });
     }
 
     private class GridAdapter extends BaseAdapter{
