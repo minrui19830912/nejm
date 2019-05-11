@@ -164,7 +164,8 @@
         <activity
             android:name=".activitys.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".activitys.LoginActivity"
             android:screenOrientation="portrait"

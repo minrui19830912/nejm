@@ -23,4 +23,14 @@ public class RegisterActivity extends BaseActivity {
         startActivity(new Intent(this, IdentityInfoActivity.class));
         finish();
     }
+
+    @OnClick(R.id.textViewVerifyCode)
+    public void onClickPhoneVerifyCode() {
+
+    }
+
+    @OnClick(R.id.textViewEmailVerifyCode)
+    public void onClickEmailVerifyCode() {
+
+    }
 }
