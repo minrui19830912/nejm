@@ -85,22 +85,15 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void getData() {
-//        LoadingDialog.showDialogForLoading(mContext);
-//        HttpUtils.getMainData(mContext,"app","index", new OnNetResponseListener() {
-//            @Override
-//            public void onNetDataResponse(JSONObject json) {
-//                LoadingDialog.cancelDialogForLoading();
-//
-//            }
-//        });
         LoadingDialog.showDialogForLoading(mContext);
-        HttpUtils.getMainData(mContext, new OnNetResponseListener() {
+        HttpUtils.getMainData(mContext,"app","index", new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
 
             }
         });
+
     }
 
     private class GridAdapter extends BaseAdapter{

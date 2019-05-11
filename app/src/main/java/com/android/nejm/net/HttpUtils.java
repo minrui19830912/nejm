@@ -3,6 +3,7 @@ package com.android.nejm.net;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.android.nejm.MyApplication;
 import com.android.nejm.utils.Util;
 import com.android.nejm.widgets.LoadingDialog;
@@ -93,14 +94,14 @@ public class HttpUtils {
 
     private static boolean isDebug=false;
 
-    public static void getMainData(final Context context,final OnNetResponseListener listener){
-        long timeStamp= System.currentTimeMillis();
+    public static void getMainData(final Context context, String c,String m ,final OnNetResponseListener listener){
+       long timeStamp= System.currentTimeMillis();
 
-        String sign= generateMd5Str("","",timeStamp,APP_KEY,"");
-        StringBuilder build=new StringBuilder("access_token=");
-        build.append("&timestamp=").append(timeStamp).append("&app_key="+APP_KEY).append("&client=")
-                .append("&sign=").append(sign);
-        OkGo.get(MAIN_URL+build.toString()).execute(new StringNetCallback(context) {
+       String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        OkGo.get(MAIN_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
 
@@ -112,26 +113,6 @@ public class HttpUtils {
         });
 
     }
-
-//    public static void getMainData(final Context context, String c,String m ,final OnNetResponseListener listener){
-//       long timeStamp= System.currentTimeMillis();
-//
-//       String sign= generateMd5Str("","c"+c+"m"+m,timeStamp,APP_KEY,"");
-//        StringBuilder build=new StringBuilder("access_token=");
-//        build.append("&timestamp=").append(timeStamp).append("&app_key="+APP_KEY).append("&client=")
-//             .append("&c=").append(c).append("&m=").append(m).append("&sign=").append(sign);
-//        OkGo.get(MAIN_URL+build.toString()).execute(new StringNetCallback(context) {
-//            @Override
-//            public void onSuccess(String s, Call call, Response response) {
-//
-//
-//                paraJson(context,s,listener);
-//            }
-//
-//
-//        });
-//
-//    }
 
     //瀑布流
     public static void getWaterFallData(final Context context, int page, final OnNetResponseListener listener){
@@ -1420,6 +1401,13 @@ StringBuilder parm =new StringBuilder();
                 paraJson(context,s,listener);
             }
         });
+    }
+    private static String generateMd5Str(String access_token, long  timeStamp, String appkey, String client){
+        StringBuilder builder = new StringBuilder(access_token);
+        builder.append(timeStamp).append(appkey).append(client);
+//        Log.e("json","str:"+builder.toString()+">>>");
+//        Log.e("json","md5Str:"+Util.getMd5(builder.toString()));
+        return Util.getMd5(builder.toString());
     }
 
     private static String generateMd5Str(String access_token, String parms, long  timeStamp, String appkey, String client){

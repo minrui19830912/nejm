@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 <RelativeLayout android:id="@+id/home_top_layout"
-    android:layout_width="match_parent" android:paddingLeft="16dp" android:paddingRight="16dp"
+    android:layout_width="match_parent" android:paddingLeft="10dp" android:paddingRight="12dp"
     android:layout_height="60dp" >
     <ImageView android:id="@+id/logo_negm"
         android:layout_width="wrap_content"
@@ -33,14 +33,15 @@
         android:layout_toLeftOf="@id/notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_centerInParent="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/main_search_bk"
         android:drawableLeft="@mipmap/icon_search"
-        android:drawablePadding="6dp"
+        android:drawablePadding="12dp"
         android:padding="5dp"
-        android:textSize="14sp"
+        android:textSize="12sp"
+        android:focusable="false"
         android:textColorHint="@color/color_999"
         android:hint="关键词、标题、摘要"
         android:gravity="center"
@@ -90,11 +91,11 @@
             android:id="@+id/horizontal_paper_list"
             android:layout_width="match_parent"
             android:layout_height="96dp"
-
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="26dp"/>
         <View android:layout_width="match_parent" android:layout_height="15dp"
             android:background="@color/color_67"/>
-        <RadioGroup android:layout_marginLeft="12dp"
+        <RadioGroup android:layout_marginLeft="10dp"
             android:layout_width="match_parent" android:orientation="horizontal"
             android:layout_marginTop="20dp" android:layout_marginBottom="20dp"
             android:layout_height="wrap_content">

@@ -4,5 +4,5 @@
     xmlns:android= "http://schemas.android.com/apk/res/android"
     android:shape= "oval"
     android:useLevel= "false" >
-    <solid android:color= "@color/red_tab" />
+    <solid android:color= "#E6360B" />
 </shape>
