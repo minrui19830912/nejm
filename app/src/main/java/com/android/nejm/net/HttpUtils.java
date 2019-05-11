@@ -35,6 +35,7 @@ public class HttpUtils {
     public static final String BASE_URL="https://dev.nejmqianyan.com";//test
 
     public static final String MAIN_URL=BASE_URL+"/?c=app&m=index";//首页
+    public static final String NEW_KNOWLEDGE_URL=BASE_URL+"/?c=app&m=activities";//新知列表
 
 
 
@@ -94,7 +95,7 @@ public class HttpUtils {
 
     private static boolean isDebug=false;
 
-    public static void getMainData(final Context context, String c,String m ,final OnNetResponseListener listener){
+    public static void getMainData(final Context context, final OnNetResponseListener listener){
        long timeStamp= System.currentTimeMillis();
 
        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
@@ -113,6 +114,29 @@ public class HttpUtils {
         });
 
     }
+
+    public static void getNewKnowledge(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        OkGo.get(NEW_KNOWLEDGE_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+
+
+                paraJson(context,s,listener);
+            }
+
+
+        });
+
+    }
+
+
+
 
     //瀑布流
     public static void getWaterFallData(final Context context, int page, final OnNetResponseListener listener){
@@ -1423,9 +1447,9 @@ StringBuilder parm =new StringBuilder();
         JSONObject object = null;
         try {
             object = new JSONObject(json);
-          boolean result=  object.optBoolean("result");
+          int result=  object.optInt("result");
             if(listener!=null){
-                if(result){
+                if(result==1){
                     listener.onNetDataResponse(object);
                 }else{
                     listener.onNetFailResponse(context,object.optString("msg"),object.optString("errcode"));

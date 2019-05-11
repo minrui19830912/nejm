@@ -11,7 +11,12 @@ import android.view.ViewGroup;
 import com.android.nejm.R;
 import com.android.nejm.adapter.NewKnowledgeAdapter;
 import com.android.nejm.data.Paper;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -36,6 +41,19 @@ public class NewKnowledgeFragment extends BaseFragment {
         mRecylerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         mRecylerView.setAdapter(mNewKnowledgeAdapter);
         mNewKnowledgeAdapter.notifyDataSetChanged();
+        getData();
         return view;
+    }
+
+    private void getData() {
+        LoadingDialog.showDialogForLoading(mContext);
+        HttpUtils.getNewKnowledge(mContext, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+
+            }
+        });
+
     }
 }

@@ -27,6 +27,7 @@ import com.android.nejm.widgets.NoScrollGridView;
 import com.android.nejm.widgets.SpacesItemDecoration;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -61,16 +62,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        mHorizontalPaperListAdapter = new HorizontalPaperListAdapter(mContext);
-        for (int i = 0; i < 6; i++) {
-            Paper paper = new Paper();
-            mPaperList.add(paper);
-        }
-        mHorizontalPaperListAdapter.setData(mPaperList);
-        mRecyclerView.addItemDecoration(new SpacesItemDecoration( DisplayUtil.dip2px(mContext,4)));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
-        mRecyclerView.setAdapter(mHorizontalPaperListAdapter);
-        mHorizontalPaperListAdapter.notifyDataSetChanged();
+
         processBanner(null);
         view.findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,11 +78,26 @@ public class HomeFragment extends BaseFragment {
 
     private void getData() {
         LoadingDialog.showDialogForLoading(mContext);
-        HttpUtils.getMainData(mContext,"app","index", new OnNetResponseListener() {
+        HttpUtils.getMainData(mContext, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-
+JSONArray articleList = json.optJSONArray("weekly");
+                mHorizontalPaperListAdapter = new HorizontalPaperListAdapter(mContext);
+                for (int i = 0; i < articleList.length(); i++) {
+                    JSONObject article = articleList.optJSONObject(i);
+                    Paper paper = new Paper();
+                    paper.id = article.optString("id");
+                    paper.title = article.optString("title");
+                    paper.date = article.optString("thedate");
+                    paper.url = article.optString("cover");
+                    mPaperList.add(paper);
+                }
+                mHorizontalPaperListAdapter.setData(mPaperList);
+                mRecyclerView.addItemDecoration(new SpacesItemDecoration( DisplayUtil.dip2px(mContext,4)));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
+                mRecyclerView.setAdapter(mHorizontalPaperListAdapter);
+                mHorizontalPaperListAdapter.notifyDataSetChanged();
             }
         });
 

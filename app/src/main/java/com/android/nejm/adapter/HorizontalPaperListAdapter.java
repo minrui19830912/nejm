@@ -36,7 +36,10 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.paper_img.setImageURI("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=27&gp=0.jpg");
+        Paper list = mPaperList.get(i);
+        viewHolder.paper_img.setImageURI(list.url);
+        viewHolder.paper_date.setText(list.date);
+        viewHolder.paper_name.setText(list.title);
     }
 
     @Override
@@ -52,12 +55,14 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
         public final View mView;
         public final SimpleDraweeView paper_img;
         public final TextView paper_name;
+        public final TextView paper_date;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             paper_img = (SimpleDraweeView) view.findViewById(R.id.paper_img);
             paper_name = (TextView) view.findViewById(R.id.paper_name);
+            paper_date = (TextView) view.findViewById(R.id.paper_date);
 
         }
 

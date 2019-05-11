@@ -29,7 +29,7 @@ public class SearchKnowledgeAdapter extends  RecyclerView.Adapter<SearchKnowledg
     @NonNull
     @Override
     public SearchKnowledgeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.new_knowledge_item,viewGroup,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.search_knowledge_item,viewGroup,false);
         return new SearchKnowledgeAdapter.ViewHolder(view);
     }
 
