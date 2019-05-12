@@ -47,7 +47,7 @@
                 android:paddingTop="4dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="4dp"
-                android:text="学术活动"
+                android:text="NEJM动画解读"
                 android:textColor="@color/tab_single_textcolor"
                 android:textSize="14sp" />
         </RadioGroup>

@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import com.android.nejm.R;
 import com.android.nejm.adapter.PeriodArticleAdapter;
 import com.android.nejm.data.Paper;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -33,6 +38,19 @@ public class PeriodArticleFragment extends BaseFragment {
         mRecylerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         mRecylerView.setAdapter(mPeriodArticleAdapter);
         mPeriodArticleAdapter.notifyDataSetChanged();
+        getData();
         return view;
+    }
+
+    private void getData() {
+        LoadingDialog.showDialogForLoading(mContext);
+        HttpUtils.getYearArticles(mContext,"", new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+
+            }
+        });
+
     }
 }

@@ -27,19 +27,27 @@
             android:layout_toLeftOf="@id/notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/main_search_bk"
-            android:drawableLeft="@mipmap/icon_search"
-            android:drawablePadding="6dp"
-            android:padding="5dp"
-            android:textSize="14sp"
+            android:paddingLeft="34dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textSize="12sp"
+            android:focusable="false"
             android:textColorHint="@color/color_999"
-            android:hint="关键词、标题、摘要"
-            android:gravity="center"
+            android:hint="关键词、标题、摘要..."
+            android:gravity="center_vertical|left"
             android:cursorVisible="false"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_search"
+            android:layout_alignLeft="@id/search"
+            android:layout_marginLeft="11dp"/>
 
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
