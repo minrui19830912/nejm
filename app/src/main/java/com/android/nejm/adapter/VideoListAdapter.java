@@ -35,7 +35,7 @@ public class VideoListAdapter extends  RecyclerView.Adapter<VideoListAdapter.Vie
 
     @Override
     public void onBindViewHolder(@NonNull VideoListAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.paper_img.setImageURI("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=27&gp=0.jpg");
+        viewHolder.paper_img.setImageURI("https://www.nejmqianyan.cn/data/upload/20190114/1547428095876430.png");
     }
 
     @Override

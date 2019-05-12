@@ -36,6 +36,9 @@ public class HttpUtils {
 
     public static final String MAIN_URL=BASE_URL+"/?c=app&m=index";//首页
     public static final String NEW_KNOWLEDGE_URL=BASE_URL+"/?c=app&m=activities";//新知列表
+    public static final String YEAR_ARTICLE_URL=BASE_URL+"/?c=app&m=weeks";//期刊列表
+    public static final String VIDEO_LIST_URL=BASE_URL+"/?c=app&m=videos";//视频列表
+    public static final String DOWNLOAD_ARTICLE_THIS_WEEK_URL=BASE_URL+"/?c=app&m=get_zip_url";//下载本周文章
 
 
 
@@ -135,7 +138,78 @@ public class HttpUtils {
 
     }
 
+    public static void getYearArticles(final Context context, String year,final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
 
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(YEAR_ARTICLE_URL);
+        if(!TextUtils.isEmpty(year)){
+            url.append("&id=").append(year);
+        }
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+
+
+                paraJson(context,s,listener);
+            }
+
+
+        });
+
+    }
+
+
+
+    public static void getVideoList(final Context context,String id,int page, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(VIDEO_LIST_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+        url.append("&page=").append(page);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+
+
+                paraJson(context,s,listener);
+            }
+
+
+        });
+
+    }
+
+
+    public static void getThisWeekArticle(final Context context, int  lastzipid,final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        String url = DOWNLOAD_ARTICLE_THIS_WEEK_URL+"&lastzipid="+lastzipid;
+        OkGo.get(url).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+
+
+                paraJson(context,s,listener);
+            }
+
+
+        });
+
+    }
 
 
     //瀑布流

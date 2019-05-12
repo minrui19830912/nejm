@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import com.android.nejm.R;
 import com.android.nejm.adapter.VideoListAdapter;
 import com.android.nejm.data.Paper;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -33,7 +38,21 @@ public class VideoListFragment extends BaseFragment {
         mRecylerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         mRecylerView.setAdapter(mVideoListAdapter);
         mVideoListAdapter.notifyDataSetChanged();
+        getData();
         return view;
+    }
+
+
+    private void getData() {
+        LoadingDialog.showDialogForLoading(mContext);
+        HttpUtils.getVideoList(mContext,"",1, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+
+            }
+        });
+
     }
 }
 
