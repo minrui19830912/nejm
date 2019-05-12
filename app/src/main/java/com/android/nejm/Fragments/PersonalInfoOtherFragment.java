@@ -34,4 +34,9 @@ public class PersonalInfoOtherFragment extends BaseFragment {
                     }
                 }).create().show();
     }
+
+    @OnClick(R.id.textViewSkip)
+    public void onClickSkip() {
+
+    }
 }
