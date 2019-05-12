@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
         android:text="具体身份选择"
         android:textColor="#C92700"

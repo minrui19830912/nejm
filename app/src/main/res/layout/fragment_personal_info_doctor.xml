@@ -8,7 +8,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
         android:text="填写个人信息"
         android:textColor="#C92700"
@@ -154,10 +153,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_skip_bg"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="46dp"
         android:text="跳过"
         android:gravity="center"
         android:textColor="@color/login_text_color"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonConfirm"/>
+        app:layout_constraintTop_toBottomOf="@+id/buttonConfirm"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>
