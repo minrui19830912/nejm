@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.data.Paper;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -36,16 +37,26 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        if(i==mPaperList.size()){
+            viewHolder.paper_img.setImageResource(R.mipmap.icon_img_more);
+            viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity)context).showTab(2);
+                }
+            });
+        } else {
         Paper list = mPaperList.get(i);
         viewHolder.paper_img.setImageURI(list.url);
         viewHolder.paper_date.setText(list.date);
         viewHolder.paper_name.setText(list.title);
+        }
     }
 
     @Override
     public int getItemCount() {
         if(mPaperList!=null){
-        return mPaperList.size();
+        return mPaperList.size()+1;
         }else{
             return 0;
         }

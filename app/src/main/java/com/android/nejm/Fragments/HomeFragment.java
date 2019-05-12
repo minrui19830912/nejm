@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
+import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.Banner;
@@ -73,6 +74,12 @@ public class HomeFragment extends BaseFragment {
             }
         });
         getData();
+        view.findViewById(R.id.nejm_anim).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)mContext).showTab(4);
+            }
+        });
          return view;
     }
 
@@ -107,7 +114,7 @@ JSONArray articleList = json.optJSONArray("weekly");
 
         @Override
         public int getCount() {
-            return gridArray.length;
+            return gridArray.length+1;
         }
 
         @Override
@@ -122,10 +129,12 @@ JSONArray articleList = json.optJSONArray("weekly");
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView==null){
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item,null);
-            }
-            ((SimpleDraweeView)convertView.findViewById(R.id.category_img)).setImageURI("https://publish-pic-cpu.baidu.com/4c121c86-7b68-4922-a87c-bc23052516d1.jpeg@q_90,w_450|f_webp");
+
+                if (convertView == null) {
+                    convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item, null);
+                }
+
+                ((SimpleDraweeView) convertView.findViewById(R.id.category_img)).setImageURI("https://publish-pic-cpu.baidu.com/4c121c86-7b68-4922-a87c-bc23052516d1.jpeg@q_90,w_450|f_webp");
 
             return convertView;
         }

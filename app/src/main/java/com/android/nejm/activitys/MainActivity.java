@@ -8,7 +8,6 @@ import android.widget.RadioGroup;
 import com.android.nejm.Fragments.BaseFragment;
 import com.android.nejm.Fragments.HomeFragment;
 import com.android.nejm.Fragments.MyFragment;
-import com.android.nejm.Fragments.MyUnloginFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
 import com.android.nejm.Fragments.PeriodArticleFragment;
 import com.android.nejm.Fragments.VideoListFragment;
@@ -132,6 +131,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         trans.commitAllowingStateLoss();
+    }
+
+    public void showTab(int index){
+        findViewById(mTabArray[index]).performClick();
     }
 
     @Override
