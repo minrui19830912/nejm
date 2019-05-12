@@ -7,12 +7,13 @@
 
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="13dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_marginStart="13dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="13dp"
-        android:background="@drawable/left"
+        android:src="@drawable/left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

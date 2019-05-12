@@ -32,6 +32,7 @@ public class ForgetPasswordActivity extends BaseActivity implements RadioGroup.O
         setContentView(R.layout.activity_forget_pwd);
         ButterKnife.bind(this);
         showBack();
+        setCommonTitle("密码找回");
 
         radioGroup.setOnCheckedChangeListener(this);
         radioGroup.check(R.id.radioButtonFindByPhone);
