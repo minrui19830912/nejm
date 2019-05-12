@@ -22,6 +22,7 @@ public class FeedbackActivity extends BaseActivity {
         setContentView(R.layout.activity_feedback);
         ButterKnife.bind(this);
         showBack();
+        setCommonTitle("意见与反馈");
     }
 
     @OnClick(R.id.buttonSubmit)

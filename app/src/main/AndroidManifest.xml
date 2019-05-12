@@ -202,7 +202,8 @@
         <activity
             android:name=".activitys.FeedbackActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".activitys.EditPersonalInfoActivity"
             android:screenOrientation="portrait"

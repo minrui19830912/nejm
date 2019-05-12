@@ -29,6 +29,7 @@ public class ModifyPhoneStep1Activity extends BaseActivity {
         setContentView(R.layout.activity_modify_phone_step1);
         ButterKnife.bind(this);
         showBack();
+        setCommonTitle("修改手机号码");
     }
 
     @OnClick(R.id.textViewSendVerifyCode)
