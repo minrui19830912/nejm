@@ -39,7 +39,7 @@
         android:id="@+id/viewDivider2"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:background="#D6D6D6"
+        android:background="@color/register_divider"
         app:layout_constraintTop_toTopOf="@+id/recyclerViewProfession"
         app:layout_constraintStart_toEndOf="@id/recyclerViewProfession"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerViewProfession"/>

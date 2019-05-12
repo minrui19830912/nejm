@@ -43,4 +43,5 @@
     <color name="nejm_text_unselect">#C92700</color>
     <color name="login_text_color">#4A4A4A</color>
     <color name="color_4a">#4A4A4A</color>
+    <color name="register_divider">#D6D6D6</color>
 </resources>

@@ -61,7 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="17dp"
-        android:background="#D6D6D6"
+        android:background="@color/register_divider"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="@id/editText"
         app:layout_constraintTop_toBottomOf="@id/textView7"/>
@@ -82,7 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="17dp"
-        android:background="#D6D6D6"
+        android:background="@color/register_divider"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintTop_toBottomOf="@id/textView8"/>
@@ -103,7 +103,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="17dp"
-        android:background="#D6D6D6"
+        android:background="@color/register_divider"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="@id/view3"
         app:layout_constraintTop_toBottomOf="@id/textView9"/>
