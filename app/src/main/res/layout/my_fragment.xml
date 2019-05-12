@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"   android:paddingBottom="36dp"
+        android:layout_height="match_parent"
+        android:paddingBottom="36dp"
         android:background="@color/white">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,336 +20,339 @@
             tools:ignore="MissingConstraints" />
 
         <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-  >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
-        android:padding="10dp"
-        android:drawableStart="@drawable/setting"
-        android:drawablePadding="5dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="设置"
-        android:textColor="#4A4A4A"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textViewSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:drawableStart="@drawable/setting"
+                android:drawablePadding="5dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="设置"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewHead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSetting"
-        app:srcCompat="@drawable/personal_head" />
+            <ImageView
+                android:id="@+id/imageViewHead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSetting"
+                app:srcCompat="@drawable/personal_head" />
 
-    <TextView
-        android:id="@+id/textViewUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="10dp"
-        android:text="Username"
-        android:textColor="#4A4A4A"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewHead"
-        app:layout_constraintTop_toTopOf="@+id/imageViewHead" />
+            <TextView
+                android:id="@+id/textViewUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="10dp"
+                android:text="Username"
+                android:textColor="#4A4A4A"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewHead"
+                app:layout_constraintTop_toTopOf="@+id/imageViewHead" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="5dp"
-        android:text="正式用户"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        android:background="@drawable/login_bg_shape"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUserName"
-        app:layout_constraintStart_toStartOf="@+id/textViewUserName"/>
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="正式用户"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:background="@drawable/login_bg_shape"
+                app:layout_constraintTop_toBottomOf="@+id/textViewUserName"
+                app:layout_constraintStart_toStartOf="@+id/textViewUserName" />
 
-    <LinearLayout
-        android:id="@+id/readLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/favoriteLayout"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHead"
-        app:layout_constraintHorizontal_chainStyle="spread">
-        <TextView
-            android:id="@+id/textViewReadCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99+"
-            android:textColor="#4A4A4A"
-            android:textSize="18sp"/>
+            <LinearLayout
+                android:id="@+id/readLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/favoriteLayout"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewHead"
+                app:layout_constraintHorizontal_chainStyle="spread">
 
-        <TextView
-            android:id="@+id/textViewReadTips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="阅读"
-            android:textColor="#999999"
-            android:textSize="12sp"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewReadCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99+"
+                    android:textColor="#4A4A4A"
+                    android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/favoriteLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintStart_toEndOf="@+id/readLayout"
-        app:layout_constraintEnd_toStartOf="@+id/downloadLayout"
-        app:layout_constraintTop_toTopOf="@+id/readLayout">
-        <TextView
-            android:id="@+id/textViewFavoriteCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99+"
-            android:textColor="#4A4A4A"
-            android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/textViewReadTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="阅读"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewFavoriteTips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="收藏"
-            android:textColor="#999999"
-            android:textSize="12sp"/>
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/favoriteLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintStart_toEndOf="@+id/readLayout"
+                app:layout_constraintEnd_toStartOf="@+id/downloadLayout"
+                app:layout_constraintTop_toTopOf="@+id/readLayout">
 
-    <LinearLayout
-        android:id="@+id/downloadLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintStart_toEndOf="@+id/favoriteLayout"
-        app:layout_constraintEnd_toStartOf="@+id/notifyLayout"
-        app:layout_constraintTop_toTopOf="@+id/readLayout">
-        <TextView
-            android:id="@+id/textViewDownloadCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99+"
-            android:textColor="#4A4A4A"
-            android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/textViewFavoriteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99+"
+                    android:textColor="#4A4A4A"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textViewDownloadTips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="下载"
-            android:textColor="#999999"
-            android:textSize="12sp"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewFavoriteTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="收藏"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/notifyLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintStart_toEndOf="@+id/downloadLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/readLayout">
-        <TextView
-            android:id="@+id/textViewNotifyCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99+"
-            android:textColor="#4A4A4A"
-            android:textSize="18sp"/>
+            <LinearLayout
+                android:id="@+id/downloadLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintStart_toEndOf="@+id/favoriteLayout"
+                app:layout_constraintEnd_toStartOf="@+id/notifyLayout"
+                app:layout_constraintTop_toTopOf="@+id/readLayout">
 
-        <TextView
-            android:id="@+id/textViewNotifyTips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="通知"
-            android:textColor="#999999"
-            android:textSize="12sp"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewDownloadCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99+"
+                    android:textColor="#4A4A4A"
+                    android:textSize="18sp" />
 
-    <View
-        android:id="@+id/view14"
-        android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="25dp"
-        android:background="#F6F6F7"
-        app:layout_constraintTop_toBottomOf="@+id/readLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+                <TextView
+                    android:id="@+id/textViewDownloadTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="下载"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        android:drawableTop="@drawable/icon_mine_email"
-        android:drawablePadding="12dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:text="订阅邮件"
-        android:textColor="#9B9B9B"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMicroMsg"
-        app:layout_constraintTop_toBottomOf="@+id/view14" />
+            <LinearLayout
+                android:id="@+id/notifyLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintStart_toEndOf="@+id/downloadLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/readLayout">
 
-    <TextView
-        android:id="@+id/textViewMicroMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTop="@drawable/icon_mine_wechat"
-        android:drawablePadding="12dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:text="官方微信"
-        android:textColor="#9B9B9B"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewEmail"
-        app:layout_constraintEnd_toStartOf="@+id/textViewEditPersonalInfo"
-        app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
+                <TextView
+                    android:id="@+id/textViewNotifyCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99+"
+                    android:textColor="#4A4A4A"
+                    android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textViewEditPersonalInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTop="@drawable/icon_mine_info"
-        android:drawablePadding="12dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:text="编辑个人信息"
-        android:textColor="#9B9B9B"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewMicroMsg"
-        app:layout_constraintEnd_toStartOf="@+id/textViewFeedback"
-        app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
+                <TextView
+                    android:id="@+id/textViewNotifyTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="通知"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewFeedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTop="@drawable/icon_mine_callback"
-        android:drawablePadding="12dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:text="意见与反馈"
-        android:textColor="#9B9B9B"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewEditPersonalInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
+            <View
+                android:id="@+id/view14"
+                android:layout_width="0dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="25dp"
+                android:background="#F6F6F7"
+                app:layout_constraintTop_toBottomOf="@+id/readLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:id="@+id/view15"
-        android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="25dp"
-        android:background="#F6F6F7"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                android:drawableTop="@drawable/icon_mine_email"
+                android:drawablePadding="12dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_horizontal"
+                android:text="订阅邮件"
+                android:textColor="#9B9B9B"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewMicroMsg"
+                app:layout_constraintTop_toBottomOf="@+id/view14" />
 
-    <TextView
-        android:id="@+id/textViewDownload"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:drawableEnd="@drawable/icon_img_download_selected"
-        android:text="下载本周文章"
-        android:textColor="#C92700"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view15" />
+            <TextView
+                android:id="@+id/textViewMicroMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_mine_wechat"
+                android:drawablePadding="12dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_horizontal"
+                android:text="官方微信"
+                android:textColor="#9B9B9B"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewEmail"
+                app:layout_constraintEnd_toStartOf="@+id/textViewEditPersonalInfo"
+                app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
 
-    <View
-        android:id="@+id/view16"
-        android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:background="#F6F6F7"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDownload"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/textViewEditPersonalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_mine_info"
+                android:drawablePadding="12dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_horizontal"
+                android:text="编辑个人信息"
+                android:textColor="#9B9B9B"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewMicroMsg"
+                app:layout_constraintEnd_toStartOf="@+id/textViewFeedback"
+                app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
 
-    <TextView
-        android:id="@+id/textViewInstruction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:text="当前版本"
-        android:textColor="#4A4A4A"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view16" />
+            <TextView
+                android:id="@+id/textViewFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_mine_callback"
+                android:drawablePadding="12dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_horizontal"
+                android:text="意见与反馈"
+                android:textColor="#9B9B9B"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewEditPersonalInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
 
-    <TextView
-        android:id="@+id/textViewVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="V2.0"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewInstruction"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewInstruction" />
+            <TextView
+                android:id="@+id/view15"
+                android:layout_width="0dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="25dp"
+                android:background="#F6F6F7"
+                android:drawableBottom="@drawable/horizontal_line_nor"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:id="@+id/view6"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/divider"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="@+id/textViewInstruction"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInstruction"/>
+            <TextView
+                android:id="@+id/textViewDownload"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableEnd="@drawable/icon_img_download_selected"
+                android:text="下载本周文章"
+                android:textColor="#C92700"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view15" />
 
-    <TextView
-        android:id="@+id/textViewContactUs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:paddingTop="14dp"
-        android:paddingEnd="8dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:drawableEnd="@drawable/icon_mine_image_next"
-        android:drawableBottom="@drawable/horizontal_line_nor"
-        android:drawablePadding="14dp"
-        android:text="联系我们"
-        android:textColor="#4A4A4A"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
+            <TextView
+                android:id="@+id/view16"
+                android:layout_width="0dp"
+                android:layout_height="17dp"
+                android:background="#F6F6F7"
+                android:drawableTop="@drawable/horizontal_line_nor"
+                android:drawableBottom="@drawable/horizontal_line_nor"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDownload"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/textViewInstruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:text="当前版本"
+                android:textColor="#4A4A4A"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view16" />
+
+            <TextView
+                android:id="@+id/textViewVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="V2.0"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewInstruction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewInstruction" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginTop="13dp"
+                app:layout_constraintStart_toStartOf="@+id/textViewInstruction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewInstruction" />
+
+            <TextView
+                android:id="@+id/textViewContactUs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableEnd="@drawable/icon_mine_image_next"
+                android:drawableBottom="@drawable/horizontal_line_nor"
+                android:drawablePadding="14dp"
+                android:text="联系我们"
+                android:textColor="#4A4A4A"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+        </android.support.constraint.ConstraintLayout>
     </RelativeLayout>
 </ScrollView>

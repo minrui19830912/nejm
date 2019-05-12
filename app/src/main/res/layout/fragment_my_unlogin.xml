@@ -22,6 +22,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/head" />
 
         <TextView
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:padding="5dp"
+            android:background="?android:attr/selectableItemBackground"
             android:text="登录"
             android:textColor="#4A4A4A"
             android:textSize="17sp"
@@ -55,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:padding="5dp"
+            android:background="?android:attr/selectableItemBackground"
             android:text="注册"
             android:textColor="#4A4A4A"
             android:textSize="17sp"
@@ -62,6 +65,15 @@
             app:layout_constraintStart_toEndOf="@+id/textViewOr"
             app:layout_constraintTop_toTopOf="@+id/imageViewHead" />
     </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout1"/>
 
     <TextView
         android:id="@+id/textViewInstruction"
@@ -73,13 +85,13 @@
         android:textColor="#4A4A4A"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout1" />
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
     <TextView
         android:id="@+id/textViewVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="13dp"
         android:text="V2.0"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewInstruction"
@@ -90,7 +102,7 @@
         android:id="@+id/view6"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="#D6D6D6"
+        android:background="@color/divider"
         android:layout_marginTop="13dp"
         app:layout_constraintStart_toStartOf="@+id/textViewInstruction"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,10 +112,13 @@
         android:id="@+id/textViewContactUs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="8dp"
+        android:paddingStart="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="14dp"
+        android:drawablePadding="14dp"
+        android:paddingEnd="13dp"
         android:drawableRight="@drawable/icon_mine_image_next"
+        android:drawableBottom="@drawable/horizontal_line_nor"
         android:text="联系我们"
         android:textColor="#4A4A4A"
         android:textSize="15sp"
@@ -111,13 +126,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view6" />
 
-    <View
-        android:id="@+id/view7"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#D6D6D6"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewContactUs"/>
 </android.support.constraint.ConstraintLayout>
