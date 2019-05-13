@@ -68,17 +68,21 @@ public class IdentityInfoActivity extends BaseActivity {
             case R.id.radioButtonResident:
             case R.id.radioButtonOtherDoctor:
                 transaction.replace(R.id.content, new IdentityDoctorFragment());
+                radioButtonProfession.setText("专业");
                 break;
             case R.id.radioButtonStudent:
                 transaction.replace(R.id.content, new IdentityStudentFragment());
+                radioButtonProfession.setText("身份");
                 break;
             case R.id.radioButtonOther:
                 transaction.replace(R.id.content, new IdentiyOtherFragment());
+                radioButtonProfession.setText("身份");
                 break;
         }
 
         transaction.commitAllowingStateLoss();
         radioButtonProfession.setChecked(true);
+        radioButtonIdentity.setBackgroundResource(R.drawable.step_one_after_checked);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -88,6 +92,7 @@ public class IdentityInfoActivity extends BaseActivity {
         transaction.commitAllowingStateLoss();
 
         radioButtonPersonalInfo.setChecked(true);
+        radioButtonProfession.setBackgroundResource(R.drawable.step_two_after_checked);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -97,5 +102,6 @@ public class IdentityInfoActivity extends BaseActivity {
         transaction.commitAllowingStateLoss();
 
         radioButtonPersonalInfo.setChecked(true);
+        radioButtonProfession.setBackgroundResource(R.drawable.step_two_after_checked);
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/icon_img_bg_circle"/>
+    <item android:drawable="@drawable/icon_step_one_red"
+        android:gravity="center"/>
+</layer-list>
