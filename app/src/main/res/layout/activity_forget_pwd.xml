@@ -3,56 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/common_title_layout"
-        android:id="@+id/titleLayout"/>
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
+    <View
+        android:id="@+id/guideLine1"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLayout">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"/>
-       <RadioButton
-           android:id="@+id/radioButtonFindByPhone"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:drawableTop="@drawable/find_by_phone"
-           android:drawablePadding="5dp"
-           android:text="手机找回"
-           android:button="@null"
-           android:textColor="@color/radio_find_text_color"
-           android:textSize="12sp"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"/>
-        <RadioButton
-            android:id="@+id/radioButtonFindByEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/find_by_email"
-            android:drawablePadding="5dp"
-            android:text="邮件找回"
-            android:button="@null"
-            android:textColor="@color/radio_find_text_color"
-            android:textSize="12sp"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_weight="1"/>
-    </RadioGroup>
+        app:layout_constraintTop_toTopOf="parent"/>
+    <RadioButton
+        android:id="@+id/radioButtonFindByPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/find_by_phone"
+        android:gravity="center_horizontal"
+        android:paddingTop="158dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/guideLine1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="手机找回"
+        android:button="@null"
+        android:textColor="@color/radio_find_text_color"
+        android:textSize="12sp"/>
+
+    <RadioButton
+        android:id="@+id/radioButtonFindByEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/find_by_email"
+        android:button="@null"
+        android:gravity="center_horizontal"
+        android:paddingTop="158dp"
+        android:text="邮件找回"
+        android:textColor="@color/radio_find_text_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/radioButtonFindByPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideLine1"
+        app:layout_constraintTop_toTopOf="@+id/radioButtonFindByPhone"/>
+    <include layout="@layout/common_title_layout"
+        android:id="@+id/titleLayout"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="172dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioButtonFindByPhone"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>
