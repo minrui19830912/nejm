@@ -21,6 +21,7 @@
         app:layout_constraintRight_toRightOf="@id/paper_img"
         app:layout_constraintBottom_toBottomOf="@id/paper_img"
         android:maxLines="1"
+        android:gravity="center"
         android:textSize="10sp"
         android:text="fdasfdsdfs"
         android:includeFontPadding="false"
