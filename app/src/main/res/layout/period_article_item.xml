@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:textSize="28sp"
+        android:textSize="25sp"
         android:text="12"
         android:textColor="@color/color_4a" />
 
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/year"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/year"
-        android:background="@color/black" />
+        android:background="@color/color_4a" />
 
     <com.android.nejm.widgets.NoScrollGridView
         android:id="@+id/period_gridview"

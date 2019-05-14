@@ -166,8 +166,8 @@
                     android:textColor="@color/tab_single_textcolor"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:paddingRight="12dp"
-                    android:paddingLeft="12dp"
+                    android:paddingRight="18dp"
+                    android:paddingLeft="18dp"
                     android:background="@drawable/home_radio_bg" />
 
                 <RadioButton
