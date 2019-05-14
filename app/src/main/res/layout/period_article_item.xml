@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:includeFontPadding="false"
         android:textSize="25sp"
         android:text="12"
         android:textColor="@color/color_4a" />
@@ -55,8 +56,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:numColumns="4"
         android:verticalSpacing="16dp"
-        android:horizontalSpacing="10dp"
-        android:layout_marginLeft="22dp"
+
+        android:layout_marginLeft="20dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content" />
 
