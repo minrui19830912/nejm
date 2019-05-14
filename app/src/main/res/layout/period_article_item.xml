@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="12dp"
+    android:padding="10dp"
     android:background="@color/white">
 
     <TextView
@@ -55,7 +55,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:numColumns="4"
         android:verticalSpacing="16dp"
-        android:layout_marginLeft="12dp"
+        android:horizontalSpacing="10dp"
+        android:layout_marginLeft="22dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content" />
 

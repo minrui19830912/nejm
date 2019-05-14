@@ -23,6 +23,7 @@
         android:maxLines="1"
         android:textSize="10sp"
         android:text="fdasfdsdfs"
+        android:includeFontPadding="false"
         android:textColor="@color/white"
         android:background="@color/nejm_red" />
 </android.support.constraint.ConstraintLayout>
