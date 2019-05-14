@@ -40,6 +40,8 @@ public class HttpUtils {
     public static final String VIDEO_LIST_URL=BASE_URL+"/?c=app&m=videos";//视频列表
     public static final String DOWNLOAD_ARTICLE_THIS_WEEK_URL=BASE_URL+"/?c=app&m=get_zip_url";//下载本周文章
 
+    public static final String PERIOD_ARTICLE_DETAIL_URL=BASE_URL+"/?c=app&m=week";//期刊详情
+
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -185,6 +187,28 @@ public class HttpUtils {
             }
 
 
+        });
+
+    }
+
+    public static void getPeriodArticleDetails(final Context context, String id, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        StringBuilder url = new StringBuilder(PERIOD_ARTICLE_DETAIL_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
         });
 
     }

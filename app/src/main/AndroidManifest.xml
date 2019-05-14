@@ -224,6 +224,7 @@
         <activity android:name=".activitys.NotificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.PeriodArticleDetailActivity" />
     </application>
 
 </manifest>
