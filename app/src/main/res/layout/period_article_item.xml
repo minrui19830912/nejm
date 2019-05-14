@@ -52,7 +52,7 @@
         android:id="@+id/period_gridview"
         app:layout_constraintLeft_toRightOf="@id/year"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/month"
         android:numColumns="4"
         android:verticalSpacing="16dp"
         android:horizontalSpacing="10dp"
