@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -26,11 +27,11 @@
                 android:id="@+id/all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/single_tab_choice_button"
+                android:background="@drawable/home_radio_bg"
                 android:button="@null"
-                android:paddingLeft="12dp"
+                android:paddingLeft="22dp"
                 android:paddingTop="4dp"
-                android:paddingRight="12dp"
+                android:paddingRight="22dp"
                 android:paddingBottom="4dp"
                 android:text="全部"
                 android:textColor="@color/tab_single_textcolor"
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/single_tab_choice_button"
+                android:background="@drawable/home_radio_bg"
                 android:button="@null"
                 android:paddingLeft="12dp"
                 android:paddingTop="4dp"

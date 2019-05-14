@@ -15,19 +15,20 @@ import com.android.nejm.widgets.NoScrollGridView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PeriodArticleAdapter extends  RecyclerView.Adapter<PeriodArticleAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Paper> mPaperList;
+    private List<PeriodArticleItem> mPaperList;
 
     public PeriodArticleAdapter(Context context) {
-
         this.context = context;
     }
 
-    public void setData(ArrayList<Paper> paperList){
+    public void setData(List<PeriodArticleItem> paperList){
         this.mPaperList = paperList;
     }
+
     @NonNull
     @Override
     public PeriodArticleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -36,9 +37,12 @@ public class PeriodArticleAdapter extends  RecyclerView.Adapter<PeriodArticleAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PeriodArticleAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull PeriodArticleAdapter.ViewHolder viewHolder, int position) {
         //viewHolder.paper_img.setImageURI("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=27&gp=0.jpg");
-        viewHolder.period_gridview.setAdapter(new MonthArticleAdapter());
+        PeriodArticleItem periodArticleItem = mPaperList.get(position);
+        viewHolder.month.setText(periodArticleItem.month);
+        viewHolder.year.setText(periodArticleItem.year);
+        viewHolder.period_gridview.setAdapter(new MonthArticleAdapter(periodArticleItem.articleItems));
     }
 
 
@@ -69,10 +73,14 @@ public class PeriodArticleAdapter extends  RecyclerView.Adapter<PeriodArticleAda
     }
 
     class MonthArticleAdapter extends BaseAdapter {
+        private List<PeriodArticleItem.ArticleItem> articleItems;
+        MonthArticleAdapter(List<PeriodArticleItem.ArticleItem> articleItems) {
+            this.articleItems = articleItems;
+        }
 
         @Override
         public int getCount() {
-            return 6;
+            return articleItems != null ? articleItems.size() : 0;
         }
 
         @Override
@@ -87,9 +95,31 @@ public class PeriodArticleAdapter extends  RecyclerView.Adapter<PeriodArticleAda
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = LayoutInflater.from(context).inflate(R.layout.month_article_item,null);
-            ((SimpleDraweeView)view.findViewById(R.id.paper_img)).setImageURI("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=27&gp=0.jpg");
-            return view;
+            //View view = LayoutInflater.from(context).inflate(R.layout.month_article_item,null);
+            PeriodArticleItem.ArticleItem articleItem = articleItems.get(position);
+            //((SimpleDraweeView)view.findViewById(R.id.paper_img)).setImageURI(articleItem.cover);
+            MonthArticleAdapterViewHolder holder;
+            if(convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.month_article_item,parent, false);
+                holder = new MonthArticleAdapterViewHolder(convertView);
+            } else {
+                holder = (MonthArticleAdapterViewHolder)convertView.getTag();
+            }
+
+            holder.paper_img.setImageURI(articleItem.cover);
+            holder.paper_name.setText(articleItem.thedate);
+            return convertView;
+        }
+
+        class MonthArticleAdapterViewHolder {
+            SimpleDraweeView paper_img;
+            TextView paper_name;
+
+            public MonthArticleAdapterViewHolder(View convertView) {
+                paper_img = convertView.findViewById(R.id.paper_img);
+                paper_name = convertView.findViewById(R.id.paper_name);
+                convertView.setTag(this);
+            }
         }
     }
 }

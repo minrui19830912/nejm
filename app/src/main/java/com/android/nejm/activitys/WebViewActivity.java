@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,11 +16,13 @@ public class WebViewActivity extends BaseActivity {
 
     private WebView mWebView;
     private String mUrl;
+    private boolean showHomeIcon;
 
     public static void launchActivity(Context context, String title, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("name", title);
         intent.putExtra("url", url);
+        intent.putExtra("showHomeIcon", false);
         context.startActivity(intent);
     }
 
@@ -32,6 +35,13 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_webview);
         setCommonTitle(name);
         showBack();
+
+        showHomeIcon = getIntent().getBooleanExtra("showHomeIcon", true);
+
+        if(!showHomeIcon) {
+            findViewById(R.id.home).setVisibility(View.INVISIBLE);
+        }
+
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setSupportZoom(true);

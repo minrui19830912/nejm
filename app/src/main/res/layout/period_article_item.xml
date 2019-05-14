@@ -5,15 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="12dp"
     android:background="@color/white">
-<TextView android:id="@+id/month" app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="16dp"
-    android:textSize="28sp"
-    android:text="12"
-    android:textColor="@color/color_4a"/>
-    <TextView android:id="@+id/month_text" app:layout_constraintLeft_toRightOf="@id/month"
+
+    <TextView
+        android:id="@+id/month"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:textSize="28sp"
+        android:text="12"
+        android:textColor="@color/color_4a" />
+
+    <TextView
+        android:id="@+id/month_text"
+        app:layout_constraintLeft_toRightOf="@id/month"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@id/month"
 
@@ -21,22 +27,27 @@
         android:layout_height="wrap_content"
         android:textSize="8sp"
         android:text="月"
-        android:textColor="@color/color_999"/>
+        android:textColor="@color/color_999" />
+
     <TextView
         android:id="@+id/year"
-app:layout_constraintRight_toRightOf="@id/month_text"
+        app:layout_constraintRight_toRightOf="@id/month_text"
         app:layout_constraintTop_toBottomOf="@id/month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:textSize="10sp"
         android:text="2018"
-        android:textColor="@color/color_4a"/>
-    <View android:layout_width="0dp" android:layout_height="4dp"
+        android:textColor="@color/color_4a" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="4dp"
         app:layout_constraintTop_toBottomOf="@id/year"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/year"
-        android:background="@color/black"/>
+        android:background="@color/black" />
+
     <com.android.nejm.widgets.NoScrollGridView
         android:id="@+id/period_gridview"
         app:layout_constraintLeft_toRightOf="@id/year"
@@ -46,6 +57,6 @@ app:layout_constraintRight_toRightOf="@id/month_text"
         android:verticalSpacing="16dp"
         android:layout_marginLeft="12dp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

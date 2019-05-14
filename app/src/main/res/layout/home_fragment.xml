@@ -3,162 +3,201 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<ScrollView app:layout_constraintTop_toTopOf="parent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical"
+
+    <ScrollView
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<RelativeLayout android:id="@+id/home_top_layout"
-    android:layout_width="match_parent" android:paddingLeft="10dp" android:paddingRight="12dp"
-    android:layout_height="60dp" >
-    <ImageView android:id="@+id/logo_negm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/logo_negm"/>
-    <CheckBox android:id="@+id/notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/icon_navi_notification_bk"
-        android:layout_centerVertical="true"
-        android:checked="true"
-        android:layout_alignParentRight="true"
-        android:clickable="false"/>
-    <EditText
-        android:id="@+id/search"
-        android:layout_toRightOf="@id/logo_negm"
-        android:layout_toLeftOf="@id/notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_centerVertical="true"
-        android:background="@drawable/main_search_bk"
-        android:paddingLeft="34dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:textSize="12sp"
-        android:focusable="false"
-        android:textColorHint="@color/color_999"
-        android:hint="关键词、标题、摘要..."
-        android:gravity="center_vertical|left"
-        android:cursorVisible="false"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/icon_search"
-        android:layout_alignLeft="@id/search"
-        android:layout_marginLeft="11dp"/>
 
-</RelativeLayout>
-    <com.android.nejm.widgets.ImageIndicatorView android:id="@+id/imageIndicatorView"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-    />
-        <RadioGroup android:layout_marginLeft="12dp"
-            android:layout_width="match_parent" android:orientation="horizontal"
-            android:layout_marginTop="21dp"
-            android:layout_height="wrap_content">
-            <RadioButton android:id="@+id/latest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="最近期刊"
-                android:textSize="10sp"
-                android:textColor="@color/tab_single_textcolor"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingRight="12dp"
-                android:paddingLeft="12dp"
-                android:button="@null"
-                android:background="@drawable/single_tab_choice_button"
-              />
-            <RadioButton android:id="@+id/nejm_anim"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NEJM动画解读"
-                android:layout_marginLeft="12dp"
-                android:button="@null"
-                android:textSize="10sp"
-                android:textColor="@color/tab_single_textcolor"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingRight="12dp"
-                android:paddingLeft="12dp"
-                android:background="@drawable/single_tab_choice_button"
-                />
-        </RadioGroup>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/horizontal_paper_list"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="93dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="26dp"
-            android:layout_marginBottom="26dp"/>
-        <View android:layout_width="match_parent" android:layout_height="15dp"
-            android:background="@color/color_67"/>
-        <RadioGroup android:layout_marginLeft="10dp"
-            android:layout_width="match_parent" android:orientation="horizontal"
-            android:layout_marginTop="21dp" android:layout_marginBottom="26dp"
             android:layout_height="wrap_content">
-            <RadioButton android:id="@+id/major_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="专业领域"
-                android:textSize="10sp"
-                android:textColor="@color/tab_single_textcolor"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingRight="12dp"
-                android:paddingLeft="12dp"
-                android:button="@null"
-                android:background="@drawable/single_tab_choice_button"
-                />
-            <RadioButton android:id="@+id/nejm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NEJM"
-                android:layout_marginLeft="11dp"
-                android:button="@null"
-                android:textSize="10sp"
-                android:textColor="@color/tab_single_textcolor"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingRight="12dp"
-                android:paddingLeft="12dp"
-                android:background="@drawable/single_tab_choice_button"
-                />
-            <RadioButton android:id="@+id/nejm_hot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NEJM期刊荟萃"
-                android:layout_marginLeft="12dp"
-                android:button="@null"
-                android:textSize="10sp"
-                android:textColor="@color/tab_single_textcolor"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingRight="12dp"
-                android:paddingLeft="12dp"
-                android:background="@drawable/single_tab_choice_button"
-                />
-        </RadioGroup>
-        <com.android.nejm.widgets.NoScrollGridView android:id="@+id/grdiview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="20dp"
-            android:verticalSpacing="24dp"
-            android:numColumns="4">
 
-        </com.android.nejm.widgets.NoScrollGridView>
-    </LinearLayout>
-</ScrollView>
+            <RelativeLayout
+                android:id="@+id/home_top_layout"
+                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="12dp"
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:id="@+id/logo_negm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/logo_negm" />
+
+                <CheckBox
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/icon_navi_notification_bk"
+                    android:layout_centerVertical="true"
+                    android:checked="true"
+                    android:layout_alignParentRight="true"
+                    android:clickable="false" />
+
+                <EditText
+                    android:id="@+id/search"
+                    android:layout_toRightOf="@id/logo_negm"
+                    android:layout_toLeftOf="@id/notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/main_search_bk"
+                    android:paddingLeft="34dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:textColorHint="@color/color_999"
+                    android:hint="关键词、标题、摘要..."
+                    android:gravity="center_vertical|left"
+                    android:cursorVisible="false" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_search"
+                    android:layout_alignLeft="@id/search"
+                    android:layout_marginLeft="11dp" />
+
+            </RelativeLayout>
+
+            <com.youth.banner.Banner
+                android:id="@+id/bannerView"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:banner_layout="@layout/home_banner"
+                app:title_textcolor="@color/white"
+                app:title_textsize="15sp"
+                app:indicator_drawable_unselected="@mipmap/image_indicator"
+                app:indicator_drawable_selected="@mipmap/image_indicator_focus"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_marginLeft="12dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="21dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/latest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="最近期刊"
+                    android:textSize="10sp"
+                    android:textColor="@color/tab_single_textcolor"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:button="@null"
+                    android:background="@drawable/home_radio_bg" />
+
+                <RadioButton
+                    android:id="@+id/nejm_anim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NEJM动画解读"
+                    android:layout_marginLeft="12dp"
+                    android:button="@null"
+                    android:textSize="10sp"
+                    android:textColor="@color/tab_single_textcolor"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:background="@drawable/home_radio_bg" />
+            </RadioGroup>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/horizontal_paper_list"
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginBottom="26dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/color_67" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="21dp"
+                android:layout_marginBottom="26dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/major_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="专业领域"
+                    android:textSize="10sp"
+                    android:textColor="@color/tab_single_textcolor"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:button="@null"
+                    android:background="@drawable/home_radio_bg" />
+
+                <RadioButton
+                    android:id="@+id/nejm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NEJM"
+                    android:layout_marginLeft="11dp"
+                    android:button="@null"
+                    android:textSize="10sp"
+                    android:textColor="@color/tab_single_textcolor"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:background="@drawable/home_radio_bg" />
+
+                <RadioButton
+                    android:id="@+id/nejm_hot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NEJM期刊荟萃"
+                    android:layout_marginLeft="12dp"
+                    android:button="@null"
+                    android:textSize="10sp"
+                    android:textColor="@color/tab_single_textcolor"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:background="@drawable/home_radio_bg" />
+            </RadioGroup>
+
+            <com.android.nejm.widgets.NoScrollGridView
+                android:id="@+id/grdiview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="20dp"
+                android:horizontalSpacing="18dp"
+                android:verticalSpacing="24dp"
+                android:numColumns="4">
+
+            </com.android.nejm.widgets.NoScrollGridView>
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

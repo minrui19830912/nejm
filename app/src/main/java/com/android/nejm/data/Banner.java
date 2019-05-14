@@ -5,9 +5,8 @@ package com.android.nejm.data;
  */
 
 public class Banner {
-    public String img_url;
-    public String url;
     public String title;
-    public String category_id;
-    public String category_name;
+    public String intro;
+    public String pic;
+    public String articleid;
 }

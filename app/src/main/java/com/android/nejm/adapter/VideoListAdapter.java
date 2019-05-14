@@ -9,22 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.data.Paper;
+import com.android.nejm.data.VideoInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class VideoListAdapter extends  RecyclerView.Adapter<VideoListAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Paper> mPaperList;
+    private List<VideoInfo.Videoitem> videoitems;
 
     public VideoListAdapter(Context context) {
-
         this.context = context;
     }
 
-    public void setData(ArrayList<Paper> paperList){
-        this.mPaperList = paperList;
+    public void setData(List<VideoInfo.Videoitem> paperList){
+        this.videoitems = paperList;
     }
     @NonNull
     @Override
@@ -34,14 +33,18 @@ public class VideoListAdapter extends  RecyclerView.Adapter<VideoListAdapter.Vie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VideoListAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.paper_img.setImageURI("https://www.nejmqianyan.cn/data/upload/20190114/1547428095876430.png");
+    public void onBindViewHolder(@NonNull VideoListAdapter.ViewHolder viewHolder, int position) {
+        VideoInfo.Videoitem videoitem = videoitems.get(position);
+        viewHolder.paper_img.setImageURI(videoitem.thumb);
+        viewHolder.paper_name.setText(videoitem.title);
+        viewHolder.textViewTypeName.setText(videoitem.typename);
+        viewHolder.textViewDate.setText(videoitem.postdate);
     }
 
     @Override
     public int getItemCount() {
-        if(mPaperList!=null){
-            return mPaperList.size();
+        if(videoitems !=null){
+            return videoitems.size();
         }else{
             return 0;
         }
@@ -51,15 +54,16 @@ public class VideoListAdapter extends  RecyclerView.Adapter<VideoListAdapter.Vie
         public final View mView;
         public final SimpleDraweeView paper_img;
         public final TextView paper_name;
-        public final TextView date;
+        public final TextView textViewTypeName;
+        public final TextView textViewDate;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             paper_img = (SimpleDraweeView) view.findViewById(R.id.paper_img);
             paper_name = (TextView) view.findViewById(R.id.paper_name);
-            date = (TextView) view.findViewById(R.id.date);
-
+            textViewTypeName = (TextView) view.findViewById(R.id.textViewTypeName);
+            textViewDate = (TextView) view.findViewById(R.id.textViewDate);
         }
     }
 }

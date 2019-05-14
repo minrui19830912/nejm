@@ -1,5 +1,6 @@
 package com.android.nejm.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,49 +12,89 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
-import com.android.nejm.data.Banner;
-import com.android.nejm.data.Paper;
+import com.android.nejm.data.HomeBean;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
-import com.android.nejm.widgets.ImageIndicatorView;
 import com.android.nejm.widgets.LoadingDialog;
 import com.android.nejm.widgets.NoScrollGridView;
 import com.android.nejm.widgets.SpacesItemDecoration;
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends BaseFragment {
+    Banner banner;
+    RadioGroup radioGroup1;
+    RadioGroup radioGroupField;
 
-    private ImageIndicatorView mImageIndicatorView;
     private ArrayList<String> mBannerUrlList = new ArrayList<String>();
-    private ArrayList<Banner>mBannerList=new ArrayList<Banner>();
     private NoScrollGridView mGridView;
     private RecyclerView mRecyclerView;
     private HorizontalPaperListAdapter mHorizontalPaperListAdapter;
-    private GridAdapter mGridAdapter;
-    private String[]gridArray={"fads","fads","fda","fad","fads","fads","fda","fad"};
-    private ArrayList<Paper> mPaperList = new ArrayList<>();
+    //private GridAdapter mGridAdapter;
+    //private String[] gridArray = {"fads", "fads", "fda", "fad", "fads", "fads", "fda", "fad"};
+    //private ArrayList<Paper> mPaperList = new ArrayList<>();
+    private HomeBean homeBean;
+
+    private ClassesGridAdapter classesGridAdapter;
+    private FilterOneGridAdapter filterOneGridAdapter;
+    private FilterTwoGridAdapter filterTwoGridAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
-         View view = inflater.inflate(R.layout.home_fragment,container,false);
-        mImageIndicatorView = view.findViewById(R.id.imageIndicatorView);
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
+        banner = view.findViewById(R.id.bannerView);
+        radioGroup1 = view.findViewById(R.id.radioGroup1);
+        radioGroup1.check(R.id.latest);
+
+        classesGridAdapter = new ClassesGridAdapter();
+        filterOneGridAdapter = new FilterOneGridAdapter();
+        filterTwoGridAdapter = new FilterTwoGridAdapter();
+
+        radioGroupField = view.findViewById(R.id.radioGroup2);
+        radioGroupField.check(R.id.major_field);
+        radioGroupField.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.major_field:
+                        mGridView.setAdapter(classesGridAdapter);
+                        break;
+                    case R.id.nejm:
+                        mGridView.setAdapter(filterOneGridAdapter);
+                        break;
+                    case R.id.nejm_hot:
+                        mGridView.setAdapter(filterTwoGridAdapter);
+                        break;
+                }
+            }
+        });
+
         mGridView = view.findViewById(R.id.grdiview);
         mRecyclerView = view.findViewById(R.id.horizontal_paper_list);
-        mGridAdapter  =new GridAdapter();
-        mGridView.setAdapter(mGridAdapter);
+        //mGridAdapter = new GridAdapter();
+        //mGridView.setAdapter(mGridAdapter);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -64,23 +105,22 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        processBanner(null);
+        //processBanner(null);
         view.findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, SearchActivity.class);
                 mContext.startActivity(intent);
-
             }
         });
         getData();
         view.findViewById(R.id.nejm_anim).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)mContext).showTab(4);
+                ((MainActivity) mContext).showTab(3);
             }
         });
-         return view;
+        return view;
     }
 
     private void getData() {
@@ -89,9 +129,10 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-JSONArray articleList = json.optJSONArray("weekly");
+                homeBean = new Gson().fromJson(json.toString(), HomeBean.class);
+                //JSONArray articleList = json.optJSONArray("weekly");
                 mHorizontalPaperListAdapter = new HorizontalPaperListAdapter(mContext);
-                for (int i = 0; i < articleList.length(); i++) {
+                /*for (int i = 0; i < articleList.length(); i++) {
                     JSONObject article = articleList.optJSONObject(i);
                     Paper paper = new Paper();
                     paper.id = article.optString("id");
@@ -100,21 +141,30 @@ JSONArray articleList = json.optJSONArray("weekly");
                     paper.url = article.optString("cover");
                     mPaperList.add(paper);
                 }
-                mHorizontalPaperListAdapter.setData(mPaperList);
-                mRecyclerView.addItemDecoration(new SpacesItemDecoration( DisplayUtil.dip2px(mContext,4)));
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
+                //mHorizontalPaperListAdapter.setData(mPaperList);*/
+                mHorizontalPaperListAdapter.setData(homeBean.weekly);
+                mRecyclerView.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 4)));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                 mRecyclerView.setAdapter(mHorizontalPaperListAdapter);
                 mHorizontalPaperListAdapter.notifyDataSetChanged();
+
+                processBanner();
+
+                mGridView.setAdapter(classesGridAdapter);
+                classesGridAdapter.notifyDataSetChanged();
             }
         });
 
     }
 
-    private class GridAdapter extends BaseAdapter{
-
+    private class ClassesGridAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return gridArray.length+1;
+            if(homeBean != null && homeBean.classes != null) {
+                return homeBean.classes.size();
+            }
+
+            return 0;
         }
 
         @Override
@@ -129,34 +179,153 @@ JSONArray articleList = json.optJSONArray("weekly");
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
 
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item, null);
-                }
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item, null);
+                holder = new ViewHolder();
+                holder.simpleDraweeView = convertView.findViewById(R.id.category_img);
+                holder.textView = convertView.findViewById(R.id.category_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder)convertView.getTag();
+            }
 
-                ((SimpleDraweeView) convertView.findViewById(R.id.category_img)).setImageURI("https://publish-pic-cpu.baidu.com/4c121c86-7b68-4922-a87c-bc23052516d1.jpeg@q_90,w_450|f_webp");
+            HomeBean.Classes classes = homeBean.classes.get(position);
+            holder.simpleDraweeView.setBackgroundResource(R.drawable.home_classes_bg);
+            holder.simpleDraweeView.setImageURI(classes.icon);
+            Log.e("grid", "icon = " + classes.icon);
+            holder.textView.setText(classes.classname);
 
             return convertView;
         }
     }
 
-    private void processBanner(JSONObject json){
-//        JSONArray banner = json.optJSONArray("rotate");
-//        for(int i=0;i<banner.length();i++){
-//            JSONObject banObject = banner.optJSONObject(i);
-//            Banner ban = new Banner();
-//            ban.img_url = banObject.optString("img_url");
-//            ban.url=banObject.optString("url");
-//            ban.title=banObject.optString("title");
-//            ban.category_name = banObject.optString("category_name");
-//            ban.category_id = banObject.optString("category_id");
-//            mBannerList.add(ban);
-//            mBannerUrlList.add(ban.img_url);
-//        }
-                    mBannerUrlList.add("http://www.windlinker.com/uploads/common/index_banner.jpg");
-                    mBannerUrlList.add("http://www.windlinker.com/uploads/common/2.png");
-                    mBannerUrlList.add("http://www.windlinker.com/uploads/common/3.png");
-        mImageIndicatorView.setIndicatorIconDrawable(R.drawable.circle_chang_focus_drawable,R.drawable.circle_chang_normal_drawable);
+    static class ViewHolder {
+        SimpleDraweeView simpleDraweeView;
+        TextView textView;
+    }
+
+    private class FilterOneGridAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            if(homeBean != null && homeBean.filter_1 != null) {
+                return homeBean.filter_1.size();
+            }
+
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item, null);
+                holder = new ViewHolder();
+                holder.simpleDraweeView = convertView.findViewById(R.id.category_img);
+                holder.textView = convertView.findViewById(R.id.category_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder)convertView.getTag();
+            }
+
+            HomeBean.Filter filter = homeBean.filter_1.get(position);
+            holder.simpleDraweeView.setBackgroundResource(R.drawable.icon_article);
+            holder.textView.setText(filter.filtername);
+
+            return convertView;
+        }
+    }
+
+    private class FilterTwoGridAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            if(homeBean != null && homeBean.filter_2 != null) {
+                return homeBean.filter_2.size();
+            }
+
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.category_grid_item, null);
+                holder = new ViewHolder();
+                holder.simpleDraweeView = convertView.findViewById(R.id.category_img);
+                holder.textView = convertView.findViewById(R.id.category_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder)convertView.getTag();
+            }
+
+            HomeBean.Filter filter = homeBean.filter_2.get(position);
+            holder.simpleDraweeView.setBackgroundResource(R.drawable.icon_article);
+            holder.textView.setText(filter.filtername);
+
+            return convertView;
+        }
+    }
+
+    private void processBanner() {
+        /*mBannerUrlList.add("http://www.windlinker.com/uploads/common/index_banner.jpg");
+        mBannerUrlList.add("http://www.windlinker.com/uploads/common/2.png");
+        mBannerUrlList.add("http://www.windlinker.com/uploads/common/3.png");*/
+
+        if (homeBean.banner == null || homeBean.banner.size() == 0) {
+            return;
+        }
+
+        List<String> titleList = new ArrayList<>();
+
+        for (HomeBean.Banner banner : homeBean.banner) {
+            mBannerUrlList.add(banner.pic);
+            titleList.add(banner.title);
+            Log.e("banner", banner.title + ", " + banner.pic);
+        }
+
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setImages(mBannerUrlList);
+        banner.setBannerTitles(titleList);
+        banner.isAutoPlay(true);
+        banner.setDelayTime(3000);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                ArticleDetailActivity.launchActivity(mContext, homeBean.banner.get(position).articleid);
+            }
+        });
+
+        banner.start();
+
+        /*mImageIndicatorView.setIndicatorIconDrawable(R.drawable.circle_chang_focus_drawable,R.drawable.circle_chang_normal_drawable);
         mImageIndicatorView.setupLayoutByImageUrl(mBannerUrlList,
                 R.mipmap.default_banner);
         //轮播图点击事件
@@ -170,13 +339,19 @@ JSONArray articleList = json.optJSONArray("weekly");
 //                    intent.putExtra("name", banner.category_name);
 //                    intent.putExtra("subcate", banner.category_id);
                     startActivity(intent);
-
             }
         });
         mImageIndicatorView.setBroadcastEnable(true);
         mImageIndicatorView.setBroadCastTimes(5);// 循环播放5次
         mImageIndicatorView.setBroadcastTimeIntevel(2 * 1000, 3 * 1000);// 播放启动时间及间隔
         mImageIndicatorView.loop();
-        mImageIndicatorView.show(DisplayUtil.dip2px(mContext,12),DisplayUtil.dip2px(mContext,12));
+        mImageIndicatorView.show(DisplayUtil.dip2px(mContext,12),DisplayUtil.dip2px(mContext,12));*/
+    }
+
+    static class GlideImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context).load(path).into(imageView);
+        }
     }
 }

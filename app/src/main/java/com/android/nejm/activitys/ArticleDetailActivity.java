@@ -1,5 +1,7 @@
 package com.android.nejm.activitys;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -11,13 +13,28 @@ import com.android.nejm.R;
 
 public class ArticleDetailActivity extends BaseActivity {
     private WebView mWebView;
+
+    private static final String EXTRA_ID = "id";
+
+    public static void launchActivity(Context context, String id) {
+        Intent intent = new Intent(context, ArticleDetailActivity.class);
+        intent.putExtra(EXTRA_ID, id);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.article_detail_activity);
         setCommonTitle("NEJM医学前沿");
         showBack();
+        initWebView();
 
+        //String id = getIntent().getStringExtra(EXTRA_ID);
+        mWebView.loadUrl("file:///android_asset/articles.html");
+    }
+
+    private void initWebView() {
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
@@ -30,9 +47,6 @@ public class ArticleDetailActivity extends BaseActivity {
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings()
                 .setJavaScriptCanOpenWindowsAutomatically(true);
-
-         mWebView.loadUrl("file:///android_asset/articles.html");
-
     }
 
 

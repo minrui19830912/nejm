@@ -118,7 +118,7 @@ public class HttpUtils {
 
     }
 
-    public static void getNewKnowledge(final Context context, final OnNetResponseListener listener){
+    public static void getNewKnowledge(final Context context, String id, int page, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
         String sign= generateMd5Str("",timeStamp,APP_KEY,"");

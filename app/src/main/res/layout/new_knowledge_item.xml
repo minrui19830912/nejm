@@ -13,12 +13,24 @@
         android:textSize="14sp"
         android:text="fdasfdsdfs"
         android:textColor="@color/black"/>
-    <TextView android:id="@+id/date"
-        android:layout_width="220dp"
+    <TextView android:id="@+id/textViewTypeName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="12sp"
+        android:textSize="10sp"
+        android:text="dfsa"
+        android:textColor="@color/color_9b"/>
+    <TextView android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/textViewTypeName"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTypeName"
+        app:layout_constraintStart_toEndOf="@+id/textViewTypeName"
+        android:drawableStart="@drawable/dot_3dp"
+        android:paddingStart="5dp"
+        android:drawablePadding="5dp"
+        android:textSize="10sp"
         android:text="dfsa"
         android:textColor="@color/color_9b"/>
     <com.facebook.drawee.view.SimpleDraweeView

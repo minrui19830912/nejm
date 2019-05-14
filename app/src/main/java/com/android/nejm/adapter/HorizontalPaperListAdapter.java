@@ -3,6 +3,7 @@ package com.android.nejm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,15 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.MainActivity;
+import com.android.nejm.data.HomeBean;
 import com.android.nejm.data.Paper;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalPaperListAdapter.ViewHolder> {
-    private ArrayList<Paper> mPaperList;
+    private List<HomeBean.Weekly> mPaperList;
     private Context context;
 
     public HorizontalPaperListAdapter(Context context) {
@@ -24,8 +27,13 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
         this.context = context;
     }
 
-    public void setData(ArrayList<Paper> paperList){
+    public void setData(List<HomeBean.Weekly> paperList){
         this.mPaperList = paperList;
+        if(paperList != null) {
+            for(HomeBean.Weekly weekly : paperList) {
+                Log.e("dpp", weekly.cover);
+            }
+        }
     }
 
     @NonNull
@@ -46,10 +54,10 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
                 }
             });
         } else {
-        Paper list = mPaperList.get(i);
-        viewHolder.paper_img.setImageURI(list.url);
-        viewHolder.paper_date.setText(list.date);
-        viewHolder.paper_name.setText(list.title);
+            HomeBean.Weekly list = mPaperList.get(i);
+            viewHolder.paper_img.setImageURI(list.cover);
+            viewHolder.paper_date.setText(list.thedate);
+            viewHolder.paper_name.setText(list.title);
         }
     }
 
