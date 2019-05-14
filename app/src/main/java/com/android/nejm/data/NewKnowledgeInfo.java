@@ -13,6 +13,7 @@ public class NewKnowledgeInfo {
         public String typename;
         public String is_article;
         public String articleid;
+        public String thumb;
     }
 
     public static class TypeItem {

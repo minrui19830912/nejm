@@ -1,6 +1,7 @@
 package com.android.nejm.Fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,10 @@ import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONObject;
 
@@ -26,8 +31,12 @@ import java.util.ArrayList;
 public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup radioGroup;
     private RecyclerView mRecylerView;
+    private SmartRefreshLayout refreshLayout;
     private NewKnowledgeAdapter mNewKnowledgeAdapter;
     private NewKnowledgeInfo newKnowledgeInfo;
+    private int pageIndex = 1;
+    private String id = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +45,21 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
         radioGroup = view.findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
         radioGroup.check(R.id.all);
+
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageIndex++;
+                getData(false);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                pageIndex = 1;
+                getData(false);
+            }
+        });
 
         mRecylerView = view.findViewById(R.id.new_knowledge_recyclerview);
         mNewKnowledgeAdapter = new NewKnowledgeAdapter(mContext);
@@ -47,15 +71,21 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
         return view;
     }
 
-    private void getData(String id) {
-        LoadingDialog.showDialogForLoading(mContext);
-        HttpUtils.getNewKnowledge(mContext, id, 1, new OnNetResponseListener() {
+    private void getData(boolean showLoadingDialog) {
+        if(showLoadingDialog) {
+            LoadingDialog.showDialogForLoading(mContext);
+        }
+
+        HttpUtils.getNewKnowledge(mContext, id, pageIndex, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 newKnowledgeInfo = new Gson().fromJson(json.toString(), NewKnowledgeInfo.class);
                 mNewKnowledgeAdapter.setData(newKnowledgeInfo.items);
                 mNewKnowledgeAdapter.notifyDataSetChanged();
+
+                refreshLayout.finishRefresh(2000);
+                refreshLayout.finishLoadMore(2000);
             }
         });
 
@@ -65,15 +95,17 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.all:
-                getData("");
+                this.id = "";
                 break;
             case R.id.nejm_anim:
                 if(newKnowledgeInfo != null && newKnowledgeInfo.types != null && newKnowledgeInfo.types.size() > 0) {
-                    getData(newKnowledgeInfo.types.get(0).id);
+                    this.id = newKnowledgeInfo.types.get(0).id;
                 } else {
-                    getData("");
+                    this. id = "";
                 }
                 break;
         }
+
+        getData(true);
     }
 }

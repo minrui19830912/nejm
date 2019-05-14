@@ -2,6 +2,7 @@ package com.android.nejm.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,9 @@ import com.android.nejm.data.Paper;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.LoadingDialog;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,9 +32,14 @@ import java.util.Locale;
 
 public class PeriodArticleFragment extends BaseFragment {
     private RecyclerView mRecylerView;
+    private SmartRefreshLayout refreshLayout;
     private PeriodArticleAdapter mPeriodArticleAdapter;
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private List<PeriodArticleItem> periodArticleItemList;
+
+    private int year = Calendar.getInstance().get(Calendar.YEAR);
+    private String id = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +56,21 @@ public class PeriodArticleFragment extends BaseFragment {
         mRecylerView.setAdapter(mPeriodArticleAdapter);
         //mPeriodArticleAdapter.notifyDataSetChanged();
 
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                year--;
+                getData(false);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                year = Calendar.getInstance().get(Calendar.YEAR);
+                getData(false);
+            }
+        });
+
         view.findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,16 +79,22 @@ public class PeriodArticleFragment extends BaseFragment {
             }
         });
 
-        getData();
+        getData(true);
         return view;
     }
 
-    private void getData() {
-        LoadingDialog.showDialogForLoading(mContext);
-        HttpUtils.getYearArticles(mContext,"", new OnNetResponseListener() {
+    private void getData(boolean showLoadingDialog) {
+        if(showLoadingDialog) {
+            LoadingDialog.showDialogForLoading(mContext);
+        }
+
+        HttpUtils.getYearArticles(mContext,String.valueOf(year), new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                refreshLayout.finishRefresh(2000);
+                refreshLayout.finishLoadMore(2000);
+
                 periodArticleItemList = new ArrayList<>();
 
                 JSONObject jsonObject = json.optJSONObject("items");

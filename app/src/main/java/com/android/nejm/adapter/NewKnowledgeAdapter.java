@@ -36,7 +36,7 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
     @Override
     public void onBindViewHolder(@NonNull NewKnowledgeAdapter.ViewHolder viewHolder, int position) {
         NewKnowledgeInfo.NewKnowledgeitem item = newKnowledgeitems.get(position);
-        viewHolder.paper_img.setImageURI("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=27&gp=0.jpg");
+        viewHolder.paper_img.setImageURI(item.thumb);
         viewHolder.textViewTypeName.setText(item.typename);
         viewHolder.date.setText(item.thedate);
         viewHolder.paper_name.setText(item.title);

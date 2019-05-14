@@ -50,10 +50,17 @@
             android:layout_marginLeft="11dp"/>
 
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/period_article_recyclerview"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_top_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        app:layout_constraintBottom_toBottomOf="parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/period_article_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </android.support.constraint.ConstraintLayout>
