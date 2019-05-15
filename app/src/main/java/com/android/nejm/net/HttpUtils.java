@@ -43,6 +43,7 @@ public class HttpUtils {
     public static final String PERIOD_ARTICLE_DETAIL_URL=BASE_URL+"/?c=app&m=week";//期刊详情
     public static final String ARTICLE_LIST_URL=BASE_URL+"/?c=app&m=article_filter";//文章列表
     public static final String ARTICLE_CLASS_URL=BASE_URL+"/?c=app&m=article_class";//专业领域
+    public static final String READ_RECORD_URL=BASE_URL+"/?c=app&m=read";//阅读记录
 
 
 
@@ -227,6 +228,23 @@ public class HttpUtils {
         if(!TextUtils.isEmpty(id)){
             url.append("&id=").append(id);
         }
+        url.append("&page=").append(page);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void getReadRecordList(final Context context, int page, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(READ_RECORD_URL);
         url.append("&page=").append(page);
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
