@@ -44,6 +44,9 @@ public class HttpUtils {
     public static final String ARTICLE_LIST_URL=BASE_URL+"/?c=app&m=article_filter";//文章列表
     public static final String ARTICLE_CLASS_URL=BASE_URL+"/?c=app&m=article_class";//专业领域
     public static final String READ_RECORD_URL=BASE_URL+"/?c=app&m=read";//阅读记录
+    public static final String SEND_SMS_URL=BASE_URL+"/?c=app&m=send_sms";//发送手机验证码
+    public static final String SEND_SMS_EMAIL_URL=BASE_URL+"/?c=app&m=send_sms_email";//发送邮件验证码
+    public static final String REGISTER_URL=BASE_URL+"/?c=app&m=register";//注册
 
 
 
@@ -247,6 +250,63 @@ public class HttpUtils {
         StringBuilder url = new StringBuilder(READ_RECORD_URL);
         url.append("&page=").append(page);
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void sendMobileVerifyCode(final Context context, String mobile, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("mobile", mobile);
+
+        OkGo.post(SEND_SMS_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void sendEmailVerifyCode(final Context context, String email, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("email", email);
+
+        OkGo.post(SEND_SMS_EMAIL_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void register(final Context context, Map<String, String> params, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        OkGo.post(REGISTER_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);
