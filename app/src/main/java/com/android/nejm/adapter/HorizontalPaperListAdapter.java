@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.MainActivity;
+import com.android.nejm.activitys.PeriodArticleDetailActivity;
 import com.android.nejm.data.HomeBean;
 import com.android.nejm.data.Paper;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -54,10 +55,16 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
                 }
             });
         } else {
-            HomeBean.Weekly list = mPaperList.get(i);
+            final HomeBean.Weekly list = mPaperList.get(i);
             viewHolder.paper_img.setImageURI(list.cover);
             viewHolder.paper_date.setText(list.thedate);
             viewHolder.paper_name.setText(list.title);
+            viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PeriodArticleDetailActivity.launchActivity(context, list.id);
+                }
+            });
         }
     }
 

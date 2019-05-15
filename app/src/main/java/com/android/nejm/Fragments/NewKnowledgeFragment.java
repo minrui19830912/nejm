@@ -27,6 +27,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup radioGroup;
@@ -36,6 +37,8 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
     private NewKnowledgeInfo newKnowledgeInfo;
     private int pageIndex = 1;
     private String id = "";
+
+    private List<NewKnowledgeInfo.NewKnowledgeitem> knowledgeitems = new ArrayList<>();
 
     @Nullable
     @Override
@@ -51,13 +54,13 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageIndex++;
-                getData(false);
+                getData(false, false);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageIndex = 1;
-                getData(false);
+                getData(false, true);
             }
         });
 
@@ -71,7 +74,7 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
         return view;
     }
 
-    private void getData(boolean showLoadingDialog) {
+    private void getData(boolean showLoadingDialog, final boolean clearList) {
         if(showLoadingDialog) {
             LoadingDialog.showDialogForLoading(mContext);
         }
@@ -81,7 +84,13 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 newKnowledgeInfo = new Gson().fromJson(json.toString(), NewKnowledgeInfo.class);
-                mNewKnowledgeAdapter.setData(newKnowledgeInfo.items);
+                if(clearList) {
+                    knowledgeitems.clear();
+                }
+
+                knowledgeitems.addAll(newKnowledgeInfo.items);
+
+                mNewKnowledgeAdapter.setData(knowledgeitems);
                 mNewKnowledgeAdapter.notifyDataSetChanged();
 
                 refreshLayout.finishRefresh(2000);
@@ -106,6 +115,6 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
                 break;
         }
 
-        getData(true);
+        getData(true, true);
     }
 }

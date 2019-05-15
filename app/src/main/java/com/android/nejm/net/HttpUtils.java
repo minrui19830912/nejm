@@ -41,6 +41,8 @@ public class HttpUtils {
     public static final String DOWNLOAD_ARTICLE_THIS_WEEK_URL=BASE_URL+"/?c=app&m=get_zip_url";//下载本周文章
 
     public static final String PERIOD_ARTICLE_DETAIL_URL=BASE_URL+"/?c=app&m=week";//期刊详情
+    public static final String ARTICLE_LIST_URL=BASE_URL+"/?c=app&m=article_filter";//文章列表
+    public static final String ARTICLE_CLASS_URL=BASE_URL+"/?c=app&m=article_class";//专业领域
 
 
 
@@ -127,15 +129,18 @@ public class HttpUtils {
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
         build.append("").append("^").append(timeStamp).append("^").append("");
-        OkGo.get(NEW_KNOWLEDGE_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+
+        StringBuilder url = new StringBuilder(NEW_KNOWLEDGE_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+        url.append("&page=").append(page);
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-
-
                 paraJson(context,s,listener);
             }
-
-
         });
 
     }
@@ -189,6 +194,46 @@ public class HttpUtils {
 
         });
 
+    }
+
+    public static void getArticleClassList(final Context context,String id,int page, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(ARTICLE_CLASS_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+        url.append("&page=").append(page);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void getArticleList(final Context context,String id,int page, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(ARTICLE_LIST_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+        url.append("&page=").append(page);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
     }
 
     public static void getPeriodArticleDetails(final Context context, String id, final OnNetResponseListener listener){

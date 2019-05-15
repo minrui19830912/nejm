@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.activitys.MainActivity;
+import com.android.nejm.activitys.OtherArticleListActivity;
 import com.android.nejm.activitys.SearchActivity;
+import com.android.nejm.activitys.SpecialFieldListActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.HomeBean;
 import com.android.nejm.net.HttpUtils;
@@ -36,6 +38,8 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -98,10 +102,65 @@ public class HomeFragment extends BaseFragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
+                //Intent intent = new Intent(mContext, ArticleDetailActivity.class);
 //                    intent.putExtra("name", banner.category_name);
 //                    intent.putExtra("subcate", banner.category_id);
-                startActivity(intent);
+                //startActivity(intent);
+                switch (radioGroupField.getCheckedRadioButtonId()) {
+                    case R.id.major_field: {
+                        JSONArray jsonArray = new JSONArray();
+                        for(HomeBean.Classes clazz : homeBean.classes) {
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.putOpt("id", clazz.id);
+                                jsonObject.putOpt("title", clazz.classname);
+                                jsonObject.putOpt("icon", clazz.icon);
+                                jsonArray.put(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                        HomeBean.Classes classes = homeBean.classes.get(position);
+                        SpecialFieldListActivity.launchActivity(mContext, classes.classname, "专业领域", classes.id, jsonArray.toString());
+                    }
+                        break;
+                    case R.id.nejm: {
+                        JSONArray jsonArray = new JSONArray();
+                        for(HomeBean.Filter filter : homeBean.filter_1) {
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.putOpt("id", filter.id);
+                                jsonObject.putOpt("title", filter.filtername);
+                                jsonObject.putOpt("icon", "");
+                                jsonArray.put(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        HomeBean.Filter filter = homeBean.filter_1.get(position);
+                        OtherArticleListActivity.launchActivity(mContext, filter.filtername, "NEJM", filter.id, jsonArray.toString());
+                    }
+                        break;
+                    case R.id.nejm_hot:
+                    {
+                        JSONArray jsonArray = new JSONArray();
+                        for(HomeBean.Filter filter : homeBean.filter_2) {
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.putOpt("id", filter.id);
+                                jsonObject.putOpt("title", filter.filtername);
+                                jsonObject.putOpt("icon", "");
+                                jsonArray.put(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        HomeBean.Filter filter2 = homeBean.filter_2.get(position);
+                        OtherArticleListActivity.launchActivity(mContext, filter2.filtername, "NEJM期刊荟萃", filter2.id, jsonArray.toString());
+                    }
+                        break;
+                }
             }
         });
 

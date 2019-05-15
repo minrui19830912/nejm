@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.PeriodArticleDetailActivity;
 import com.android.nejm.data.Paper;
 import com.android.nejm.widgets.NoScrollGridView;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -94,7 +95,7 @@ public class PeriodArticleAdapter extends  RecyclerView.Adapter<PeriodArticleAda
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             //View view = LayoutInflater.from(context).inflate(R.layout.month_article_item,null);
             PeriodArticleItem.ArticleItem articleItem = articleItems.get(position);
             //((SimpleDraweeView)view.findViewById(R.id.paper_img)).setImageURI(articleItem.cover);
@@ -105,6 +106,14 @@ public class PeriodArticleAdapter extends  RecyclerView.Adapter<PeriodArticleAda
             } else {
                 holder = (MonthArticleAdapterViewHolder)convertView.getTag();
             }
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PeriodArticleItem.ArticleItem articleItem = articleItems.get(position);
+                    PeriodArticleDetailActivity.launchActivity(context, articleItem.id);
+                }
+            });
 
             holder.paper_img.setImageURI(articleItem.cover);
             holder.paper_name.setText(articleItem.thedate);

@@ -49,44 +49,157 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/draweeViewCover"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="30dp"
                     android:text="NEJM目录"
                     android:textColor="@color/color_4a"
                     android:textSize="15sp"/>
-                <TextView
-                    android:id="@+id/textViewDir"
+                <com.android.nejm.widgets.NoScrollRecyclerView
+                    android:id="@+id/recyclerViewDir"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
                     app:layout_constraintTop_toBottomOf="@+id/textViewDirTips"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:drawableStart="@drawable/dot_3dp"
-                    android:drawablePadding="5dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:textColor="@color/color_4a"
-                    android:textSize="15sp"/>
+                    android:layout_marginEnd="20dp"/>
                 <View
                     android:id="@+id/viewDirDivider"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/horizontal_line_nor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewDir"/>
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewDir"/>
                 <TextView
                     android:id="@+id/textViewNEJMTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
                     app:layout_constraintTop_toBottomOf="@+id/viewDirDivider"
+                    android:layout_marginTop="21dp"
                     android:text="NEJM"
                     android:textColor="@color/color_4a"
                     android:textSize="15sp"/>
+                <com.android.nejm.widgets.NoScrollRecyclerView
+                    android:id="@+id/recyclerViewNEJM"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/textViewNEJMTips"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNEJMTips"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"/>
+                <View
+                    android:id="@+id/viewNEJMDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/horizontal_line_nor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewNEJM"/>
+                <TextView
+                    android:id="@+id/textViewNEJM2Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
+                    app:layout_constraintTop_toBottomOf="@+id/viewNEJMDivider"
+                    android:layout_marginTop="26dp"
+                    android:text="NEJM期刊荟萃"
+                    android:textColor="@color/color_4a"
+                    android:textSize="15sp"/>
+                <com.android.nejm.widgets.NoScrollRecyclerView
+                    android:id="@+id/recyclerViewNEJM2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/textViewNEJM2Tips"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNEJM2Tips"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"/>
+                <View
+                    android:id="@+id/viewNEJM2Divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/horizontal_line_nor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewNEJM2"/>
+                <TextView
+                    android:id="@+id/textViewSpecialistTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
+                    app:layout_constraintTop_toBottomOf="@+id/viewNEJM2Divider"
+                    android:layout_marginTop="25dp"
+                    android:text="专家述评"
+                    android:textColor="@color/color_4a"
+                    android:textSize="15sp"/>
+                <com.android.nejm.widgets.NoScrollRecyclerView
+                    android:id="@+id/recyclerViewSpecialist"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/textViewSpecialistTips"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewSpecialistTips"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"/>
+                <View
+                    android:id="@+id/viewSpecialistDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/horizontal_line_nor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewSpecialist"/>
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintStart_toStartOf="@+id/viewSpecialistDivider"
+                    app:layout_constraintEnd_toEndOf="@+id/viewSpecialistDivider"
+                    app:layout_constraintTop_toBottomOf="@+id/viewSpecialistDivider">
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/draweeViewVideo"
+                        android:layout_width="110dp"
+                        android:layout_height="83dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                    <TextView
+                        android:id="@+id/textViewVideoTips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@+id/draweeViewVideo"
+                        app:layout_constraintStart_toEndOf="@+id/draweeViewVideo"
+                        android:layout_marginStart="23dp"
+                        android:text="NEJM 动画解读"
+                        android:textColor="#C92700"
+                        android:textSize="13sp"/>
+                    <TextView
+                        android:id="@+id/textViewVideo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="@+id/textViewVideoTips"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewVideoTips"
+                        android:textColor="@color/color_4a"
+                        android:textSize="13sp"/>
+                </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
