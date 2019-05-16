@@ -9,19 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.data.HospitalBean;
 
 import java.util.List;
 
 public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHolder> {
     private Context context;
-    private List<String> list;
+    private List<HospitalBean.Hospital> hospitalList;
+    private int selectIndex = -1;
 
     public HospitalAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<String> list) {
-
+    public void setData(List<HospitalBean.Hospital> list) {
+        this.hospitalList = list;
     }
 
     @NonNull
@@ -34,11 +36,29 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         TextView textView = (TextView)viewHolder.itemView;
+        textView.setText(hospitalList.get(i).hospital);
+
+        if(selectIndex == i) {
+            textView.setTextColor(context.getResources().getColor(R.color.color_c92700));
+            textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.horizontal_line_red);
+        } else {
+            textView.setTextColor(context.getResources().getColor(R.color.color_5c));
+            textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.horizontal_line_nor);
+        }
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyItemChanged(selectIndex);
+                selectIndex = i;
+                notifyItemChanged(selectIndex);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return hospitalList != null ? hospitalList.size() : 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

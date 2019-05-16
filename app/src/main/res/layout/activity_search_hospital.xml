@@ -64,13 +64,14 @@
         android:paddingTop="11dp"
         android:paddingEnd="14dp"
         android:paddingBottom="11dp"
+        android:imeOptions="actionSearch"
         android:inputType="text"
         android:hint="搜索"
         android:textColor="#5C5C5C"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/view9" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

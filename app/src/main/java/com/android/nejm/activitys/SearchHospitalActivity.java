@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.HospitalAdapter;
+import com.android.nejm.data.HospitalBean;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -30,6 +32,7 @@ public class SearchHospitalActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     HospitalAdapter hospitalAdapter;
+    HospitalBean hospitalBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class SearchHospitalActivity extends BaseActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
+        //recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
         hospitalAdapter = new HospitalAdapter(this);
         recyclerView.setAdapter(hospitalAdapter);
@@ -69,6 +72,9 @@ public class SearchHospitalActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                hospitalBean = new Gson().fromJson(json.toString(), HospitalBean.class);
+                hospitalAdapter.setData(hospitalBean.items);
+                hospitalAdapter.notifyDataSetChanged();
             }
         });
     }
