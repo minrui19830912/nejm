@@ -153,9 +153,14 @@
             android:layout_height="15dp"
             android:background="@color/appbk" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyler_view"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -49,6 +49,8 @@ public class HttpUtils {
     public static final String REGISTER_URL=BASE_URL+"/?c=app&m=register";//注册
     public static final String SEARCH_HOSPITAL_URL=BASE_URL+"/?c=app&m=get_hospital";//搜索医院
     public static final String SEARCH_HOSPITAL_SCHOOL_URL=BASE_URL+"/?c=app&m=get_hospital_school";//搜索医学院
+    public static final String VIDEO_DETAIL_URL=BASE_URL+"/?c=app&m=video";//视频详情
+    public static final String SEARCH_URL=BASE_URL+"/?c=app&m=search";//搜索
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -348,6 +350,47 @@ public class HttpUtils {
 
         OkGo.post(SEARCH_HOSPITAL_SCHOOL_URL)
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void getVideoDetails(final Context context,String id, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(VIDEO_DETAIL_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void search(final Context context, String keyword, String id, int page, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(SEARCH_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+        url.append("&page=").append(page);
+        url.append("&keyword=").append(keyword);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);

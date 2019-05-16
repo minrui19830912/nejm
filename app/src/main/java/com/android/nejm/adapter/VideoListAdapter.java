@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.VideoDetailActivity;
 import com.android.nejm.data.VideoInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -39,6 +40,12 @@ public class VideoListAdapter extends  RecyclerView.Adapter<VideoListAdapter.Vie
         viewHolder.paper_name.setText(videoitem.title);
         viewHolder.textViewTypeName.setText(videoitem.typename);
         viewHolder.textViewDate.setText(videoitem.postdate);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideoDetailActivity.launchActivity(context, videoitem.id);
+            }
+        });
     }
 
     @Override
