@@ -39,9 +39,9 @@ public class RegisterActivity extends BaseActivity {
 
     @OnClick(R.id.textViewNext)
     public void onClickNext() {
-        /*startActivity(new Intent(this, IdentityInfoActivity.class));
-        finish();*/
-        Map<String, String> params = new HashMap<>();
+        startActivity(new Intent(this, IdentityInfoActivity.class));
+        finish();
+        /*Map<String, String> params = new HashMap<>();
         params.put("mobile", "13912345678");
         params.put("membername", "tom2019");
         params.put("mcode", "666666");
@@ -52,7 +52,7 @@ public class RegisterActivity extends BaseActivity {
             public void onNetDataResponse(JSONObject json) {
                 Log.e("dpp", "json = " + json.toString());
             }
-        });
+        });*/
     }
 
     @OnClick(R.id.textViewVerifyCode)

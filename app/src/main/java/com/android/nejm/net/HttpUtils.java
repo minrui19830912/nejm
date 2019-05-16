@@ -47,7 +47,8 @@ public class HttpUtils {
     public static final String SEND_SMS_URL=BASE_URL+"/?c=app&m=send_sms";//发送手机验证码
     public static final String SEND_SMS_EMAIL_URL=BASE_URL+"/?c=app&m=send_sms_email";//发送邮件验证码
     public static final String REGISTER_URL=BASE_URL+"/?c=app&m=register";//注册
-
+    public static final String SEARCH_HOSPITAL_URL=BASE_URL+"/?c=app&m=get_hospital";//搜索医院
+    public static final String SEARCH_HOSPITAL_SCHOOL_URL=BASE_URL+"/?c=app&m=get_hospital_school";//搜索医学院
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -306,6 +307,46 @@ public class HttpUtils {
         build.append("").append("^").append(timeStamp).append("^").append("");
 
         OkGo.post(REGISTER_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void searchHospital(final Context context, String keyWord, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("k", keyWord);
+
+        OkGo.post(SEARCH_HOSPITAL_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void searchHospitalSchool(final Context context, String keyWord, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("k", keyWord);
+
+        OkGo.post(SEARCH_HOSPITAL_SCHOOL_URL)
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {

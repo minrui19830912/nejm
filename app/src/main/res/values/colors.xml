@@ -44,4 +44,6 @@
     <color name="login_text_color">#4A4A4A</color>
     <color name="color_4a">#4A4A4A</color>
     <color name="register_divider">#D6D6D6</color>
+    <color name="color_5c">#5C5C5C</color>
+    <color name="color_c92700">#C92700</color>
 </resources>
