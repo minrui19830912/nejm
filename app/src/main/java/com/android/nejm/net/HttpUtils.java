@@ -53,6 +53,7 @@ public class HttpUtils {
     public static final String SEARCH_HOSPITAL_SCHOOL_URL=BASE_URL+"/?c=app&m=get_hospital_school";//搜索医学院
     public static final String VIDEO_DETAIL_URL=BASE_URL+"/?c=app&m=video";//视频详情
     public static final String SEARCH_URL=BASE_URL+"/?c=app&m=search";//搜索
+    public static final String LOGIN_URL=BASE_URL+"/?c=app&m=login";//登录
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -273,7 +274,12 @@ public class HttpUtils {
         Map<String, String> params = new HashMap<>();
         params.put("mobile", mobile);
 
-        OkGo.post(SEND_SMS_URL)
+        StringBuilder url = new StringBuilder(SEND_SMS_URL);
+        if(!TextUtils.isEmpty(mobile)){
+            url.append("&mobile=").append(mobile);
+        }
+
+        OkGo.get(url.toString())
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
@@ -293,7 +299,12 @@ public class HttpUtils {
         Map<String, String> params = new HashMap<>();
         params.put("email", email);
 
-        OkGo.post(SEND_SMS_EMAIL_URL)
+        StringBuilder url = new StringBuilder(SEND_SMS_EMAIL_URL);
+        if(!TextUtils.isEmpty(email)){
+            url.append("&email=").append(email);
+        }
+
+        OkGo.get(url.toString())
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
@@ -393,6 +404,27 @@ public class HttpUtils {
         url.append("&page=").append(page);
         url.append("&keyword=").append(keyword);
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void loginSystem(final Context context, String membername, String password, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("membername", membername);
+        params.put("password", password);
+
+        OkGo.post(LOGIN_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);

@@ -6,6 +6,13 @@ import android.support.annotation.Nullable;
 import android.widget.EditText;
 
 import com.android.nejm.R;
+import com.android.nejm.data.LoginBean;
+import com.android.nejm.manage.UserManager;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,8 +53,15 @@ public class LoginActivity extends BaseActivity {
     public void onClickLogin() {
         String name = editTextName.getText().toString().trim();
         String pwd = editTextPassword.getText().toString().trim();
-        startActivity(new Intent(mContext,MainActivity.class));
-        finish();
+        HttpUtils.loginSystem(this, name, pwd, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
+                UserManager.getInstance().save(loginBean);
+                startActivity(new Intent(mContext,MainActivity.class));
+                finish();
+            }
+        });
     }
 
     @OnClick(R.id.textViewSkip)
