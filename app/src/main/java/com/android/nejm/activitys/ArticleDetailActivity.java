@@ -15,10 +15,11 @@ public class ArticleDetailActivity extends BaseActivity {
     private WebView mWebView;
 
     private static final String EXTRA_ID = "id";
+    private static final String EXTRA_URL = "url";
 
-    public static void launchActivity(Context context, String id) {
+    public static void launchActivity(Context context, String url) {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
-        intent.putExtra(EXTRA_ID, id);
+        intent.putExtra(EXTRA_URL, url);
         context.startActivity(intent);
     }
 
@@ -30,8 +31,12 @@ public class ArticleDetailActivity extends BaseActivity {
         showBack();
         initWebView();
 
-        //String id = getIntent().getStringExtra(EXTRA_ID);
-        mWebView.loadUrl("file:///android_asset/articles.html");
+        String url = getIntent().getStringExtra(EXTRA_URL);
+        //https://dev.nejmqianyan.com/?c=article&m=app&id=163&uid=341
+        //String url = HttpUtils.ARTICLE_DETAIL_URL+id;
+        //if login url+="&uid=341"
+        mWebView.loadUrl(url);
+//        mWebView.loadUrl("file:///android_asset/articles.html");
     }
 
     private void initWebView() {

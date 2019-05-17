@@ -39,6 +39,8 @@ public class HttpUtils {
     public static final String YEAR_ARTICLE_URL=BASE_URL+"/?c=app&m=weeks";//期刊列表
     public static final String VIDEO_LIST_URL=BASE_URL+"/?c=app&m=videos";//视频列表
     public static final String DOWNLOAD_ARTICLE_THIS_WEEK_URL=BASE_URL+"/?c=app&m=get_zip_url";//下载本周文章
+    public static final String ARTICLE_DETAIL_URL=BASE_URL+"/?c=article&m=app&id=";//文章详情
+    public static final String NEW_KNOWLEDGE_DETAIL_URL=BASE_URL+"?c=activity&m=app&id=";//新知详情
 
     public static final String PERIOD_ARTICLE_DETAIL_URL=BASE_URL+"/?c=app&m=week";//期刊详情
     public static final String ARTICLE_LIST_URL=BASE_URL+"/?c=app&m=article_filter";//文章列表

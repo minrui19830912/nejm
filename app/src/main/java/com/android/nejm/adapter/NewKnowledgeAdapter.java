@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.data.NewKnowledgeInfo;
+import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -40,6 +42,12 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
         viewHolder.textViewTypeName.setText(item.typename);
         viewHolder.date.setText(item.thedate);
         viewHolder.paper_name.setText(item.title);
+        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleDetailActivity.launchActivity(context, HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+item.id);
+            }
+        });
     }
 
     @Override

@@ -378,7 +378,7 @@ public class HomeFragment extends BaseFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ArticleDetailActivity.launchActivity(mContext, homeBean.banner.get(position).articleid);
+                ArticleDetailActivity.launchActivity(mContext, HttpUtils.ARTICLE_DETAIL_URL+homeBean.banner.get(position).articleid);
             }
         });
 
