@@ -2,12 +2,17 @@ package com.android.nejm.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.android.nejm.R;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +39,13 @@ public class FindPwdByPhoneFragment extends BaseFragment {
 
     @OnClick(R.id.textViewSendVerifyCode)
     public void onClickSendVerifyCode() {
-
+        String mobile = editTextPhone.getText().toString().trim();
+        HttpUtils.sendMobileVerifyCode(mContext, mobile, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                Log.e("dpp", "json = " + json.toString());
+            }
+        });
     }
 
     @OnClick(R.id.textViewShowPwd)
