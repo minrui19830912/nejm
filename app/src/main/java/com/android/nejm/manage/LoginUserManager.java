@@ -3,27 +3,42 @@ package com.android.nejm.manage;
 import com.android.nejm.data.LoginBean;
 import com.android.nejm.utils.SPUtils;
 
-public class UserManager {
+public class LoginUserManager {
     public String access_token;
     public String client_id;
     public String uid;
     public String roleid;
 
-    private static UserManager userManager;
+    public boolean isLogin = false;
 
-    private UserManager() {
+    private static LoginUserManager userManager;
+
+    private LoginUserManager() {
         access_token = SPUtils.getStringPreference("access_token", "");
         client_id = SPUtils.getStringPreference("client_id", "");
         uid = SPUtils.getStringPreference("uid", "");
         roleid = SPUtils.getStringPreference("roleid", "");
     }
 
-    public static UserManager getInstance() {
+    public static LoginUserManager getInstance() {
         if(userManager == null) {
-            userManager = new UserManager();
+            userManager = new LoginUserManager();
         }
 
         return userManager;
+    }
+
+    public void quitLogin() {
+        access_token = "";
+        client_id = "";
+        uid = "";
+        roleid = "";
+
+        isLogin = false;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
     }
 
     public String getAccess_token() {
@@ -58,11 +73,13 @@ public class UserManager {
         this.roleid = roleid;
     }
 
-    public void save(LoginBean loginBean) {
+    public void login(LoginBean loginBean) {
         access_token = loginBean.access_token;
         client_id = loginBean.client_id;
         uid = loginBean.uid;
         roleid = loginBean.roleid;
+
+        isLogin = true;
 
         SPUtils.putStringPreference("access_token", loginBean.access_token);
         SPUtils.putStringPreference("client_id", loginBean.client_id);

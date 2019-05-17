@@ -6,11 +6,10 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.nejm.R;
 import com.android.nejm.data.LoginBean;
-import com.android.nejm.manage.UserManager;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.ToastUtil;
@@ -68,7 +67,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
-                UserManager.getInstance().save(loginBean);
+                LoginUserManager.getInstance().save(loginBean);
                 startActivity(new Intent(mContext,MainActivity.class));
                 finish();
             }
