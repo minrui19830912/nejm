@@ -65,6 +65,7 @@ public class HttpUtils {
     public static final String EDIT_PHONE_URL=BASE_URL+"/?c=app&m=edit_phone";//邮件订阅
     public static final String EDIT_EMAIL_URL=BASE_URL+"/?c=app&m=edit_email";//邮件订阅
     public static final String FEEDBACK_URL=BASE_URL+"/?c=app&m=system_report";//邮件订阅
+    public static final String GET_ROLE_URL=BASE_URL+"/?c=app&m=get_role";//邮件订阅
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -406,6 +407,25 @@ String client_id =LoginUserManager.getInstance().client_id;
         if(!TextUtils.isEmpty(email)){
             url.append("&email=").append(email);
         }
+
+        OkGo.get(url.toString())
+                .headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void getRole(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        StringBuilder url = new StringBuilder(GET_ROLE_URL);
 
         OkGo.get(url.toString())
                 .headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {

@@ -204,7 +204,8 @@ if(which==0){
                                 }).setPositiveButton("设置邮箱", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                EditEmailActivity.launchActivity(mContext);
+                                Intent intent = new Intent(mContext, EditPersonalInfoActivity.class);
+                                startActivity(intent);
                             }
                         }).create().show();
                     } else {
