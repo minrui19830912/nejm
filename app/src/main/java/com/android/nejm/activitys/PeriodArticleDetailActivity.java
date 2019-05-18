@@ -126,9 +126,10 @@ public class PeriodArticleDetailActivity extends BaseActivity {
 
                 specialistAdapter.setData(specialistList);
                 specialistAdapter.notifyDataSetChanged();
-
+if(articleDeatailInfo.video!=null){
                 draweeViewVideo.setImageURI(articleDeatailInfo.video.thumb);
                 textViewVideo.setText(articleDeatailInfo.video.title);
+}
             }
         });
     }

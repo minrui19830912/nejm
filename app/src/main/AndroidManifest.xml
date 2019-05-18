@@ -236,7 +236,10 @@
             android:name=".activitys.NotificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activitys.PeriodArticleDetailActivity" />
+        <activity android:name=".activitys.PeriodArticleDetailActivity" android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activitys.ReleatedArticleActivity" android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.ToastUtil;
+import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -27,12 +29,14 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.editTextPassword)
     EditText editTextPassword;
+    private boolean justFinish = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        justFinish =  getIntent().getBooleanExtra("just_finish",false);
     }
 
     @OnClick(R.id.textViewOr)
@@ -58,18 +62,32 @@ public class LoginActivity extends BaseActivity {
     public void onClickLogin() {
         String name = editTextName.getText().toString().trim();
         String pwd = editTextPassword.getText().toString().trim();
+        name = "13912345678";
+        pwd = "123456";
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
             ToastUtil.showShort(this, "用户名或密码不能为空");
             return;
         }
-
+        LoadingDialog.showDialogForLoading(mContext);
         HttpUtils.loginSystem(this, name, pwd, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
                 LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
                 LoginUserManager.getInstance().login(loginBean);
+                if(justFinish ){
+                    finish();
+                } else {
                 startActivity(new Intent(mContext,MainActivity.class));
                 finish();
+                }
+            }
+
+            @Override
+            public void onNetFailResponse(Context context, String msg, String msgCode) {
+               // super.onNetFailResponse(context, msg, msgCode);
+                LoadingDialog.cancelDialogForLoading();
+                ToastUtil.showShort(mContext,msg);
             }
         });
     }
