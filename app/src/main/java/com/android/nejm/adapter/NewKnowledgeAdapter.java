@@ -45,7 +45,8 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleDetailActivity.launchActivity(context, HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+item.id);
+                ArticleDetailActivity.launchActivity(context,
+                        HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+item.id,item.title,item.thumb,item.title);
             }
         });
     }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal" >
+        <RelativeLayout
+            android:id="@+id/view_share_weixin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+
+
+            <TextView
+                android:id="@+id/share_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/icon_share_wechat"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:gravity="center_horizontal"
+                android:text="微信"
+                android:textColor="@color/color_4a"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/view_share_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+
+
+            <TextView
+                android:id="@+id/share_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/icon_share_email"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:text="邮件"
+                android:gravity="center_horizontal"
+                android:textColor="@color/color_4a"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/view_share_weibo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/icon_share_weibo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:text="新浪微博"
+                android:gravity="center_horizontal"
+                android:textColor="@color/color_4a"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/view_share_pengyou"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:drawableTop="@mipmap/icon_share_circle"
+                android:text="朋友圈"
+                android:gravity="clip_horizontal"
+                android:textColor="@color/color_4a"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/divider" />
+
+    <Button
+        android:id="@+id/share_cancel_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="取消"
+        android:visibility="gone"
+        android:background="@color/transparent"
+        android:textColor="@color/color_666"/>
+
+</LinearLayout>
