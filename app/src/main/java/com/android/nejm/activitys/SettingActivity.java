@@ -27,7 +27,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewUsage)
     public void onClickUsage() {
-        //WebViewActivity.launchActivity(this, "");
+        WebViewActivity.launchActivity(this, "使用说明", "https://dev.nejmqianyan.com/index.php?c=singlepage&m=instructions");
     }
 
     @OnClick(R.id.textViewService)
@@ -42,7 +42,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewVersion)
     public void onClickVersion() {
-
+        WebViewActivity.launchActivity(this, "版权说明", "https://dev.nejmqianyan.com/index.php?c=singlepage&m=copyright");
     }
 
     @OnClick(R.id.textViewClean)

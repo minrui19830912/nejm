@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.android.nejm.BuildConfig;
 import com.android.nejm.R;
+import com.android.nejm.activitys.EditEmailActivity;
 import com.android.nejm.activitys.EditPersonalInfoActivity;
 import com.android.nejm.activitys.FavoriteActivity;
 import com.android.nejm.activitys.FeedbackActivity;
@@ -118,6 +119,7 @@ public class MyFragment extends BaseFragment {
                         @Override
                         public void onNetDataResponse(JSONObject json) {
                             ToastUtil.showShort(mContext, "关闭订阅成功");
+                            LoginUserManager.getInstance().accountInfo.email_unsubscribe = "1";
                         }
                     });
                 }
@@ -147,10 +149,17 @@ public class MyFragment extends BaseFragment {
                                 }).setPositiveButton("设置邮箱", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                EditEmailActivity.launchActivity(mContext);
                             }
                         }).create().show();
                     } else {
-                        ToastUtil.showShort(mContext, "打开订阅成功");
+                        HttpUtils.subscribeEmail(mContext, new OnNetResponseListener() {
+                            @Override
+                            public void onNetDataResponse(JSONObject json) {
+                                ToastUtil.showShort(mContext, "打开订阅成功");
+                                LoginUserManager.getInstance().accountInfo.email_unsubscribe = "0";
+                            }
+                        });
                     }
                 }
             }).create().show();
