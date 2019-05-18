@@ -56,6 +56,7 @@ public class HttpUtils {
     public static final String SEARCH_URL=BASE_URL+"/?c=app&m=search";//搜索
     public static final String LOGIN_URL=BASE_URL+"/?c=app&m=login";//登录
     public static final String ACCOUNT_URL=BASE_URL+"/?c=app&m=account";//个人中心
+    public static final String SUBSCRIBE_URL=BASE_URL+"/?c=app&m=subscribe";//邮件订阅
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -445,6 +446,24 @@ public class HttpUtils {
         build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
 
         OkGo.get(ACCOUNT_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void subscribeEmail(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        OkGo.get(SUBSCRIBE_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);

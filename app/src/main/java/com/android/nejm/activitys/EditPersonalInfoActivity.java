@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.data.AccountInfo;
+import com.android.nejm.manage.LoginUserManager;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -16,6 +19,12 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class EditPersonalInfoActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+    @BindView(R.id.textViewName)
+    TextView textViewName;
+    @BindView(R.id.textViewPhone)
+    TextView textViewPhone;
+    @BindView(R.id.textViewEmail)
+    TextView textViewEmail;
     @BindView(R.id.textViewIdentityOne)
     TextView textViewIdentityOne;
     @BindView(R.id.textViewIdentityTwo)
@@ -40,6 +49,17 @@ public class EditPersonalInfoActivity extends BaseActivity implements EasyPermis
         ButterKnife.bind(this);
         setCommonTitle("编辑个人信息");
         showBack();
+
+        AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
+        if(accountInfo != null) {
+            textViewName.setText(accountInfo.truename);
+            textViewPhone.setText(accountInfo.mobile);
+            textViewEmail.setText(accountInfo.email);
+            textViewIdentityOne.setText(accountInfo.identity);
+            textViewIdentityTwo.setText(accountInfo.hospital);
+            textViewIdentityThree.setText(accountInfo.jobname);
+            textViewIdentityFour.setText(accountInfo.company);
+        }
     }
 
     @OnClick(R.id.textViewName)

@@ -11,7 +11,8 @@
         android:paddingBottom="36dp"
         android:background="@color/white">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/draweeViewHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="-79dp"
