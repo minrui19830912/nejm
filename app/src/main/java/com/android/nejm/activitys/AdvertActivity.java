@@ -100,11 +100,11 @@ public class AdvertActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 //startActivity(new Intent(mContext,MainActivity.class));
-                if(MyApplication.mToken!=null){
-                    startActivity(new Intent(mContext,MainActivity.class));
+                if(TextUtils.isEmpty(MyApplication.mToken)){
+                    startActivity(new Intent(mContext,LoginActivity.class));
                     finish();
                 } else {
-                    startActivity(new Intent(mContext,LoginActivity.class));
+                    startActivity(new Intent(mContext,MainActivity.class));
                     finish();
                 }
             }
@@ -114,12 +114,12 @@ public class AdvertActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(mContext,MainActivity.class));
-                if(MyApplication.mToken!=null){
-                    startActivity(new Intent(mContext,MainActivity.class));
+                if(TextUtils.isEmpty(MyApplication.mToken)){
+                    startActivity(new Intent(mContext,LoginActivity.class));
                     finish();
                 } else {
-                startActivity(new Intent(mContext,LoginActivity.class));
-                finish();
+                    startActivity(new Intent(mContext,MainActivity.class));
+                    finish();
                 }
             }
         });

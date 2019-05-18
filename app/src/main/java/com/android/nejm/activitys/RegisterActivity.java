@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RegisterActivity extends BaseActivity {
+    @BindView(R.id.editTextUserName)
+    EditText editTextUserName;
     @BindView(R.id.editTextPhone)
     EditText editTextPhone;
     @BindView(R.id.editTextVerifyCode)
@@ -31,6 +33,8 @@ public class RegisterActivity extends BaseActivity {
     EditText editTextEmail;
     @BindView(R.id.editTextEmailVerifyCode)
     EditText editTextEmailVerifyCode;
+    @BindView(R.id.editTextPassword)
+    EditText editTextPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +46,18 @@ public class RegisterActivity extends BaseActivity {
 
     @OnClick(R.id.textViewNext)
     public void onClickNext() {
+        /*HttpUtils.getRole(this, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+
+            }
+        });*/
+        String userName = editTextUserName.getText().toString().trim();
+        if(TextUtils.isEmpty(userName)) {
+            ToastUtil.showShort(this, "用户名不能为空");
+            return;
+        }
+
         String phone = editTextPhone.getText().toString().trim();
         String phoneVerifyCode = editTextVerifyCode.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
@@ -58,6 +74,12 @@ public class RegisterActivity extends BaseActivity {
 
         if(!TextUtils.isEmpty(email) && TextUtils.isEmpty(emailVerifyCode)) {
             ToastUtil.showShort(this, "邮件验证码不能为空");
+            return;
+        }
+
+        String password = editTextPassword.getText().toString().trim();
+        if(TextUtils.isEmpty(password)) {
+            ToastUtil.showShort(this, "密码不能为空");
             return;
         }
 

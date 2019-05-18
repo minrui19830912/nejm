@@ -41,6 +41,11 @@ public class LoginUserManager {
         uid = "";
         roleid = "";
 
+        SPUtils.putStringPreference("access_token", access_token);
+        SPUtils.putStringPreference("client_id", client_id);
+        SPUtils.putStringPreference("uid", uid);
+        SPUtils.putStringPreference("roleid", roleid);
+
         isLogin = false;
     }
 
