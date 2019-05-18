@@ -24,6 +24,12 @@ import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.activitys.ReadHistoryActivity;
 import com.android.nejm.activitys.SettingActivity;
 import com.android.nejm.activitys.WebViewActivity;
+import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +61,17 @@ public class MyFragment extends BaseFragment {
 
     private void initView() {
         textViewVersion.setText("V" + BuildConfig.VERSION_NAME);
+        getData();
+    }
+
+    private void getData() {
+        LoadingDialog.showDialogForLoading(mContext);
+        HttpUtils.getPersonalInfo(mContext, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+            }
+        });
     }
 
     @OnClick(R.id.textViewEmail)
