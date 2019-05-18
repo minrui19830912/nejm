@@ -58,7 +58,12 @@ public class LoadingDialog {
      */
     public static void cancelDialogForLoading() {
         if(mLoadingDialog != null && mLoadingDialog.isShowing()) {
-            mLoadingDialog.cancel();
+            try {
+                mLoadingDialog.cancel();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             mLoadingDialog=null;
         }
     }

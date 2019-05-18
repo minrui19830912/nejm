@@ -78,6 +78,7 @@ public class EditEmailActivity extends BaseActivity {
                 new OnNetResponseListener() {
                     @Override
                     public void onNetDataResponse(JSONObject json) {
+                        LoadingDialog.cancelDialogForLoading();
                         LoginUserManager.getInstance().accountInfo.email = email;
                         ToastUtil.showShort(mContext, "编辑邮箱成功");
                         finish();
