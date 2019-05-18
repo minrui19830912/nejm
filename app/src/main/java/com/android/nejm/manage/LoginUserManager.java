@@ -46,6 +46,10 @@ public class LoginUserManager {
         SPUtils.putStringPreference("uid", uid);
         SPUtils.putStringPreference("roleid", roleid);
 
+        MyApplication.mToken = access_token;
+        MyApplication.client_id = client_id;
+        MyApplication.uid = uid;
+
         isLogin = false;
     }
 

@@ -9,10 +9,12 @@ import android.widget.RadioGroup;
 import com.android.nejm.Fragments.BaseFragment;
 import com.android.nejm.Fragments.HomeFragment;
 import com.android.nejm.Fragments.MyFragment;
+import com.android.nejm.Fragments.MyUnloginFragment;
 import com.android.nejm.Fragments.NewKnowledgeFragment;
 import com.android.nejm.Fragments.PeriodArticleFragment;
 import com.android.nejm.Fragments.VideoListFragment;
 import com.android.nejm.R;
+import com.android.nejm.manage.LoginUserManager;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private HomeFragment mHomeFragment;
@@ -98,7 +100,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case 4:
               if (mMyFragment == null) {
-                    mMyFragment = new MyFragment();
+                  if(LoginUserManager.getInstance().isLogin) {
+                      mMyFragment = new MyFragment();
+                  } else {
+                      mMyFragment = new MyUnloginFragment();
+                  }
+
                     trans.add(R.id.content, mMyFragment);
                 } else {
                     trans.show(mMyFragment);
