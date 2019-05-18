@@ -16,6 +16,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.nejm.MyApplication;
@@ -391,6 +392,7 @@ public class AppUtil {
 		return false;
 	}
 
-
-
+	public static String getTextContent(TextView textView) {
+		return textView.getText().toString().trim();
+	}
 }

@@ -66,6 +66,8 @@ public class HttpUtils {
     public static final String EDIT_EMAIL_URL=BASE_URL+"/?c=app&m=edit_email";//邮件订阅
     public static final String FEEDBACK_URL=BASE_URL+"/?c=app&m=system_report";//邮件订阅
     public static final String GET_ROLE_URL=BASE_URL+"/?c=app&m=get_role";//邮件订阅
+    public static final String RESET_PASSWORD_MOBILE_URL=BASE_URL+"/?c=app&m=reset_password_mobile";//邮件订阅
+    public static final String RESET_PASSWORD_EMAIL_URL=BASE_URL+"/?c=app&m=reset_password_email";//邮件订阅
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -465,6 +467,56 @@ String client_id =LoginUserManager.getInstance().client_id;
         params.put("k", keyWord);
 
         OkGo.post(SEARCH_HOSPITAL_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void resetPasswordMobile(final Context context, String mobile,
+                                           String verifyCode,
+                                           String password,
+                                           final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("mobile", mobile);
+        params.put("verifyCode", verifyCode);
+        params.put("password", password);
+
+        OkGo.post(RESET_PASSWORD_MOBILE_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void resetPasswordEmail(final Context context, String email,
+                                           final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("email", email);
+
+        OkGo.post(RESET_PASSWORD_EMAIL_URL)
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
