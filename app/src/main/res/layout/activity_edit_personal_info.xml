@@ -8,28 +8,38 @@
     <include layout="@layout/common_title_layout"
         android:id="@+id/titleLayout"/>
 
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/draweeViewHead"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:roundAsCircle="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleLayout"/>
     <TextView
         android:id="@+id/textViewHead"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="13dp"
         android:paddingEnd="14dp"
         android:background="?android:attr/selectableItemBackground"
-        android:drawableStart="@drawable/personal_head"
         android:drawableEnd="@drawable/icon_mine_image_next"
         android:drawablePadding="14dp"
         android:gravity="center_vertical"
         android:text="编辑头像"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/draweeViewHead"
+        app:layout_constraintTop_toTopOf="@+id/draweeViewHead"
+        app:layout_constraintBottom_toBottomOf="@+id/draweeViewHead"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLayout" />
+         />
     <View
         android:id="@+id/view1"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/divider"
-        app:layout_constraintStart_toStartOf="@+id/textViewHead"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/draweeViewHead"
         app:layout_constraintTop_toBottomOf="@+id/textViewHead"
         app:layout_constraintEnd_toEndOf="parent"/>
     <TextView

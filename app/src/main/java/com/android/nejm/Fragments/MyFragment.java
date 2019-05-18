@@ -104,7 +104,7 @@ public class MyFragment extends BaseFragment {
                 LoadingDialog.cancelDialogForLoading();
                 accountInfo = new Gson().fromJson(json.toString(), AccountInfo.class);
                 LoginUserManager.getInstance().setAccountInfo(accountInfo);
-                //draweeViewHead.setImageURI(accountInfo.avatar);
+                imageViewHead.setImageURI(accountInfo.avatar);
                 textViewUserName.setText(accountInfo.membername);
                 if(accountInfo.read_count >= 100) {
                     textViewReadCount.setText("99+");
@@ -121,21 +121,6 @@ public class MyFragment extends BaseFragment {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @OnClick(R.id.imageViewHead)
     public void onClickHead(){
@@ -143,11 +128,11 @@ public class MyFragment extends BaseFragment {
         builder.setItems(new String[]{"从相册选择","从相机选择"}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-if(which==0){
-    getPicFromAlbm();
-} else {
-    getPicFromCamera();
-}
+                if(which==0){
+                    getPicFromAlbm();
+                } else {
+                    getPicFromCamera();
+                }
             }
         });
         AlertDialog dialog = builder.create();
@@ -372,6 +357,7 @@ if(which==0){
                             ToastUtil.showShort(mContext,"头像上传成功");
                            String headUrl = json.optString("avatar");
                             imageViewHead.setImageURI(headUrl);
+                            LoginUserManager.getInstance().accountInfo.avatar = headUrl;
                         }
 
                         @Override

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.nejm.R;
 import com.android.nejm.data.AccountInfo;
 import com.android.nejm.manage.LoginUserManager;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class EditPersonalInfoActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+    @BindView(R.id.draweeViewHead)
+    SimpleDraweeView draweeViewHead;
     @BindView(R.id.textViewName)
     TextView textViewName;
     @BindView(R.id.textViewPhone)
@@ -61,6 +64,7 @@ public class EditPersonalInfoActivity extends BaseActivity implements EasyPermis
     private void loadPersonalInfo() {
         AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
         if(accountInfo != null && !TextUtils.isEmpty(accountInfo.truename)) {
+            draweeViewHead.setImageURI(accountInfo.avatar);
             textViewName.setText(accountInfo.truename);
             textViewPhone.setText(accountInfo.mobile);
             textViewEmail.setText(accountInfo.email);
