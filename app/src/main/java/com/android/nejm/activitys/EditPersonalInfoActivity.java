@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.android.nejm.R;
@@ -49,9 +50,17 @@ public class EditPersonalInfoActivity extends BaseActivity implements EasyPermis
         ButterKnife.bind(this);
         setCommonTitle("编辑个人信息");
         showBack();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPersonalInfo();
+    }
+
+    private void loadPersonalInfo() {
         AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
-        if(accountInfo != null) {
+        if(accountInfo != null && !TextUtils.isEmpty(accountInfo.truename)) {
             textViewName.setText(accountInfo.truename);
             textViewPhone.setText(accountInfo.mobile);
             textViewEmail.setText(accountInfo.email);

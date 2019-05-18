@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.android.nejm.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EditEmailActivity extends BaseActivity {
