@@ -3,6 +3,8 @@ package com.android.nejm.activitys;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -16,9 +18,17 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.AppUtil;
+import com.android.nejm.utils.ToastUtil;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -39,9 +49,11 @@ public class ArticleDetailActivity extends BaseActivity {
     private String mShareContent="NEJM医学前沿";
     private String cover;
     private String url;
-    public static void launchActivity(Context context, String url,String content,String cover,String title) {
+    private String mId;
+    public static void launchActivity(Context context,String id, String url,String content,String cover,String title) {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
         intent.putExtra(EXTRA_URL, url);
+        intent.putExtra(EXTRA_ID, id);
         intent.putExtra(EXTRA_CONTENT, content);
         intent.putExtra(EXTRA_COVER, cover);
         intent.putExtra(EXTRA_TITLE, title);
@@ -56,12 +68,22 @@ public class ArticleDetailActivity extends BaseActivity {
         setCommonTitle("NEJM医学前沿");
         showBack();
         initWebView();
-
+        mId= getIntent().getStringExtra(EXTRA_ID);
         url = getIntent().getStringExtra(EXTRA_URL);
-        //https://dev.nejmqianyan.com/?c=article&m=app&id=163&uid=341
-        //String url = HttpUtils.ARTICLE_DETAIL_URL+id;
-        //if login url+="&uid=341"
-        mWebView.loadUrl(url);
+        mTitle = getIntent().getStringExtra(EXTRA_TITLE);
+        mContent = getIntent().getStringExtra(EXTRA_CONTENT);
+        cover = getIntent().getStringExtra(EXTRA_COVER);
+
+        checkLogin();
+        findViewById(R.id.unlogin_text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,LoginActivity.class);
+                intent.putExtra("just_finish",true);
+                startActivityForResult(intent,1001);
+            }
+        });
+
 //        mWebView.loadUrl("file:///android_asset/articles.html");
         findViewById(R.id.share).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +91,41 @@ public class ArticleDetailActivity extends BaseActivity {
                 showShareDialog();
             }
         });
+        TextView storage =findViewById(R.id.storage);
+        storage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadingDialog.showDialogForLoading(mContext);
+                HttpUtils.saveArticle(mContext, mId, new OnNetResponseListener() {
+                    @Override
+                    public void onNetDataResponse(JSONObject json) {
+                        LoadingDialog.cancelDialogForLoading();
+                        ToastUtil.showShort(mContext,"收藏成功");
+                        Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
+                        storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void checkLogin() {
+        String appendUrl=url;
+        //https://dev.nejmqianyan.com/?c=article&m=app&id=163&uid=341
+        //String url = HttpUtils.ARTICLE_DETAIL_URL+id;
+        //if login url+="&uid=341"
+        if(LoginUserManager.getInstance().isLogin()){
+            appendUrl+="&uid=";
+            appendUrl+=LoginUserManager.getInstance().uid;
+            findViewById(R.id.operate_layout).setVisibility(View.VISIBLE);
+            findViewById(R.id.unlogin_text).setVisibility(View.GONE);
+
+        } else {
+            findViewById(R.id.operate_layout).setVisibility(View.GONE);
+            findViewById(R.id.unlogin_text).setVisibility(View.VISIBLE);
+        }
+        mWebView.loadUrl(appendUrl);
     }
 
     private void initWebView() {
@@ -182,7 +239,7 @@ public class ArticleDetailActivity extends BaseActivity {
                         // 取消
                         break;
                     case R.id.view_share_email:
-
+                        sendEmail( mTitle, mContent, url);
                         break;
                     case R.id.view_share_weibo:
                         AppUtil.shareToSinaWeibo(mContext, mTitle, mContent, url,cover, new PlatformActionListener() {
@@ -230,4 +287,23 @@ public class ArticleDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1001){
+            checkLogin();
+        }
+    }
+
+    public  Intent sendEmail(String title, String content, String emailUrl) {
+        Intent email = new Intent(Intent.ACTION_SENDTO);
+        email.setType("plain/text");
+        email.setData(Uri.parse("mailto:"));
+        email.putExtra(Intent.EXTRA_EMAIL, emailUrl);
+        //邮件主题
+        email.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
+        //邮件内容
+        email.putExtra(android.content.Intent.EXTRA_TEXT, content);
+        return Intent.createChooser(email,  "请选择邮件发送内容" );
+    }
 }
