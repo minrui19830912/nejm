@@ -84,6 +84,7 @@ public class ModifyPhoneStep2Activity extends BaseActivity {
         HttpUtils.editPhone(this, oldMobile, oldVerifyCode, mobile, verifyCode, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext, "修改手机号码成功");
                 LoginUserManager.getInstance().accountInfo.mobile = mobile;
                 finish();

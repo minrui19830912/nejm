@@ -5,6 +5,13 @@ import android.support.annotation.Nullable;
 import android.widget.EditText;
 
 import com.android.nejm.R;
+import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.ToastUtil;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +34,16 @@ public class FeedbackActivity extends BaseActivity {
 
     @OnClick(R.id.buttonSubmit)
     public void onClickSubmit() {
-
+        String content = editTextInfo.getText().toString().trim();
+        String phone = editTextPhone.getText().toString().trim();
+        LoadingDialog.showDialogForLoading(this);
+        HttpUtils.feedback(this, content, phone, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+                ToastUtil.showShort(mContext, "提交成功");
+                finish();
+            }
+        });
     }
 }

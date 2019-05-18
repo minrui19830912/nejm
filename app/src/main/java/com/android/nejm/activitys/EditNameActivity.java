@@ -36,8 +36,6 @@ public class EditNameActivity extends BaseActivity {
         showBack();
         setCommonTitle("编辑姓名");
         ButterKnife.bind(this);
-
-        
     }
 
     @OnClick(R.id.buttonConfirm)
@@ -51,6 +49,7 @@ public class EditNameActivity extends BaseActivity {
         HttpUtils.editName(this, name, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(EditNameActivity.this, "编辑姓名成功");
                 LoginUserManager.getInstance().accountInfo.truename = name;
                 finish();
