@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.android.nejm.R;
+import com.android.nejm.manage.LoginUserManager;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,6 +57,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewQuit)
     public void onClickQuit() {
+        LoginUserManager.getInstance().quitLogin();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
