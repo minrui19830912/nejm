@@ -1,6 +1,7 @@
 package com.android.nejm.Fragments;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -219,7 +220,7 @@ public class MyFragment extends BaseFragment {
                 }).setPositiveButton("立刻前往", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                WebViewActivity.launchActivity(getActivity(), "NEJM医学前沿", "http://edm.nejmqianyan.cn/wechat_info/wechat.html");
             }
         }).create().show();
     }
