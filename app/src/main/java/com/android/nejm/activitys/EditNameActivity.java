@@ -36,6 +36,8 @@ public class EditNameActivity extends BaseActivity {
         showBack();
         setCommonTitle("编辑姓名");
         ButterKnife.bind(this);
+
+        
     }
 
     @OnClick(R.id.buttonConfirm)

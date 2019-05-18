@@ -68,8 +68,15 @@ public class ModifyPhoneStep2Activity extends BaseActivity {
     public void onClickConfirm() {
         String mobile = editTextNewPhone.getText().toString().trim();
         String verifyCode = editTextVerifyCode.getText().toString().trim();
+        if(TextUtils.isEmpty(mobile)) {
+            ToastUtil.showShort(mContext, "新手机号码不能为空");
+            editTextNewPhone.requestFocus();
+            return;
+        }
+
         if(TextUtils.isEmpty(verifyCode)) {
             ToastUtil.showShort(mContext, "验证码不能为空");
+            editTextVerifyCode.requestFocus();
             return;
         }
 
