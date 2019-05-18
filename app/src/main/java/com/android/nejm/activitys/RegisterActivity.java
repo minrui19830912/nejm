@@ -83,20 +83,25 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
-        startActivity(new Intent(this, IdentityInfoActivity.class));
-        finish();
-        /*Map<String, String> params = new HashMap<>();
-        params.put("mobile", "13912345678");
-        params.put("membername", "tom2019");
-        params.put("mcode", "666666");
-        params.put("password", "123456");
+        Map<String, String> params = new HashMap<>();
+        params.put("mobile", phone);
+        params.put("email", email);
+        params.put("membername", userName);
+        params.put("mcode", phoneVerifyCode);
+        params.put("ecode", emailVerifyCode);
+        params.put("password", password);
 
+        LoadingDialog.showDialogForLoading(this);
         HttpUtils.register(this, params, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 Log.e("dpp", "json = " + json.toString());
+                LoadingDialog.cancelDialogForLoading();
+                ToastUtil.showShort(mContext, "注册成功");
+                startActivity(new Intent(mContext, IdentityInfoActivity.class));
+                finish();
             }
-        });*/
+        });
     }
 
     @OnClick(R.id.textViewVerifyCode)

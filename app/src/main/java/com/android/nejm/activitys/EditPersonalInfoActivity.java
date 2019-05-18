@@ -63,7 +63,7 @@ public class EditPersonalInfoActivity extends BaseActivity implements EasyPermis
 
     private void loadPersonalInfo() {
         AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
-        if(accountInfo != null && !TextUtils.isEmpty(accountInfo.truename)) {
+        if(accountInfo != null) {
             draweeViewHead.setImageURI(accountInfo.avatar);
             textViewName.setText(accountInfo.truename);
             textViewPhone.setText(accountInfo.mobile);
