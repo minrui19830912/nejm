@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="@id/paper_img"
         android:maxLines="1"
         android:gravity="center"
-        android:textSize="9sp"
+        android:textSize="10sp"
         android:text="fdasfdsdfs"
         android:includeFontPadding="false"
         android:textColor="@color/white"

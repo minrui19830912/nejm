@@ -18,9 +18,13 @@ import android.widget.TextView;
 import com.android.nejm.MyApplication;
 import com.android.nejm.R;
 import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.net.HttpUtils;
+import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
 import com.android.nejm.utils.SPUtils;
 import com.bumptech.glide.Glide;
+
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -31,7 +35,6 @@ public class AdvertActivity extends BaseActivity {
     ImageView ivSplash;
     TextView tvNum;
     LinearLayout rlNum;
-    String url="https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=f09901779bcad1c8cfbbfa274f3f67c4/83025aafa40f4bfb3b3a8f0c0d4f78f0f63618fb.jpg";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +53,15 @@ public class AdvertActivity extends BaseActivity {
        } else{
            ivSplash.setBackgroundResource(R.mipmap.splash);
        }
+        HttpUtils.getAdverstyData(mContext, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                String url = json.optString("img");
+                new getImageCacheAsyncTask(mContext).execute(url);
+            }
+        });
 
-       new getImageCacheAsyncTask(mContext).execute(url);
+
         //使用Glide缓存网络图片，
 //        long start = SPUtils.getSharedlongData(mContext,"startTime");
 //        long end = SPUtils.getSharedlongData(mContext,"endTime");
