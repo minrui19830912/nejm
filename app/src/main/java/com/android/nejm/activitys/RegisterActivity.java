@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.android.nejm.R;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.ToastUtil;
 
 import org.json.JSONObject;
 
@@ -61,7 +62,7 @@ public class RegisterActivity extends BaseActivity {
         HttpUtils.sendMobileVerifyCode(this, mobile, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
-
+                ToastUtil.showShort(RegisterActivity.this, "发送手机验证码成功");
             }
         });
     }
@@ -72,7 +73,7 @@ public class RegisterActivity extends BaseActivity {
         HttpUtils.sendEmailVerifyCode(this, email, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
-
+                ToastUtil.showShort(RegisterActivity.this, "发送邮件验证码成功");
             }
         });
     }

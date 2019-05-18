@@ -60,6 +60,10 @@ public class HttpUtils {
     public static final String SEARCH_URL=BASE_URL+"/?c=app&m=search";//搜索
     public static final String LOGIN_URL=BASE_URL+"/?c=app&m=login";//登录
     public static final String ACCOUNT_URL=BASE_URL+"/?c=app&m=account";//个人中心
+    public static final String SUBSCRIBE_URL=BASE_URL+"/?c=app&m=subscribe";//邮件订阅
+    public static final String EDIT_NAME_URL=BASE_URL+"/?c=app&m=edit_name";//邮件订阅
+    public static final String EDIT_PHONE_URL=BASE_URL+"/?c=app&m=edit_phone";//邮件订阅
+    public static final String EDIT_EMAIL_URL=BASE_URL+"/?c=app&m=edit_email";//邮件订阅
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -375,16 +379,13 @@ String client_id =LoginUserManager.getInstance().client_id;
 //access_token^timestamp^clientid
         build.append("").append("^").append(timeStamp).append("^").append("");
 
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", mobile);
-
         StringBuilder url = new StringBuilder(SEND_SMS_URL);
         if(!TextUtils.isEmpty(mobile)){
             url.append("&mobile=").append(mobile);
         }
 
         OkGo.get(url.toString())
-                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+                .headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);
@@ -400,16 +401,13 @@ String client_id =LoginUserManager.getInstance().client_id;
 //access_token^timestamp^clientid
         build.append("").append("^").append(timeStamp).append("^").append("");
 
-        Map<String, String> params = new HashMap<>();
-        params.put("email", email);
-
         StringBuilder url = new StringBuilder(SEND_SMS_EMAIL_URL);
         if(!TextUtils.isEmpty(email)){
             url.append("&email=").append(email);
         }
 
         OkGo.get(url.toString())
-                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+                .headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);
@@ -536,6 +534,82 @@ String client_id =LoginUserManager.getInstance().client_id;
         });
     }
 
+    public static void editName(final Context context, String name, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("name", name);
+
+        OkGo.post(EDIT_NAME_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void editPhone(final Context context, String old_phone, String old_mcode,
+                                String phone, String mcode,
+                                final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("old_phone", old_phone);
+        params.put("old_mcode", old_mcode);
+        params.put("phone", phone);
+        params.put("mcode", mcode);
+
+        OkGo.post(EDIT_PHONE_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void editEmail(final Context context, String old_email, String old_ecode,
+                                 String email, String ecode,
+                                 final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("old_email", old_email);
+        params.put("old_ecode", old_ecode);
+        params.put("email", email);
+        params.put("ecode", ecode);
+
+        OkGo.post(EDIT_EMAIL_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
     public static void getPersonalInfo(final Context context, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
@@ -547,6 +621,24 @@ String client_id =LoginUserManager.getInstance().client_id;
         build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
 
         OkGo.get(ACCOUNT_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void subscribeEmail(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        OkGo.get(SUBSCRIBE_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 paraJson(context,s,listener);

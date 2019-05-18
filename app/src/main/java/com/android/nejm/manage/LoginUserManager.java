@@ -1,6 +1,7 @@
 package com.android.nejm.manage;
 
 import com.android.nejm.MyApplication;
+import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.LoginBean;
 import com.android.nejm.utils.SPUtils;
 
@@ -9,6 +10,8 @@ public class LoginUserManager {
     public String client_id;
     public String uid;
     public String roleid;
+
+    public AccountInfo accountInfo;
 
     public boolean isLogin = false;
 
@@ -75,6 +78,14 @@ public class LoginUserManager {
 
     public void setRoleid(String roleid) {
         this.roleid = roleid;
+    }
+
+    public AccountInfo getAccountInfo() {
+        return accountInfo;
+    }
+
+    public void setAccountInfo(AccountInfo accountInfo) {
+        this.accountInfo = accountInfo;
     }
 
     public void login(LoginBean loginBean) {
