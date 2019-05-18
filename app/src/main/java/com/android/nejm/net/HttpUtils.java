@@ -36,6 +36,7 @@ public class HttpUtils {
     public static final String BASE_URL="https://dev.nejmqianyan.com";//test
 
     public static final String MAIN_URL=BASE_URL+"/?c=app&m=index";//首页
+    public static final String ADVERSTY_URL=BASE_URL+"/?c=app&m=loading";//广告
     public static final String NEW_KNOWLEDGE_URL=BASE_URL+"/?c=app&m=activities";//新知列表
     public static final String YEAR_ARTICLE_URL=BASE_URL+"/?c=app&m=weeks";//期刊列表
     public static final String VIDEO_LIST_URL=BASE_URL+"/?c=app&m=videos";//视频列表
@@ -138,6 +139,27 @@ public class HttpUtils {
         });
 
     }
+
+    public static void getAdverstyData(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        OkGo.get(ADVERSTY_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+
+
+                paraJson(context,s,listener);
+            }
+
+
+        });
+
+    }
+
 
     public static void saveArticle(final Context context, String id,final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
