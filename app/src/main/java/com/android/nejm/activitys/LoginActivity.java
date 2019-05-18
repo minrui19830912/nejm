@@ -67,7 +67,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
-                LoginUserManager.getInstance().save(loginBean);
+                LoginUserManager.getInstance().login(loginBean);
                 startActivity(new Intent(mContext,MainActivity.class));
                 finish();
             }
