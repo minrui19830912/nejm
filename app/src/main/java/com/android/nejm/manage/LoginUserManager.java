@@ -1,5 +1,6 @@
 package com.android.nejm.manage;
 
+import com.android.nejm.MyApplication;
 import com.android.nejm.data.LoginBean;
 import com.android.nejm.utils.SPUtils;
 
@@ -18,6 +19,9 @@ public class LoginUserManager {
         client_id = SPUtils.getStringPreference("client_id", "");
         uid = SPUtils.getStringPreference("uid", "");
         roleid = SPUtils.getStringPreference("roleid", "");
+        MyApplication.mToken = access_token;
+        MyApplication.client_id = client_id;
+        MyApplication.uid = uid;
     }
 
     public static LoginUserManager getInstance() {
@@ -80,6 +84,9 @@ public class LoginUserManager {
         roleid = loginBean.roleid;
 
         isLogin = true;
+        MyApplication.mToken = loginBean.access_token;
+        MyApplication.client_id = loginBean.client_id;
+        MyApplication.uid = loginBean.uid;
 
         SPUtils.putStringPreference("access_token", loginBean.access_token);
         SPUtils.putStringPreference("client_id", loginBean.client_id);

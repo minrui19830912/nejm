@@ -43,6 +43,7 @@ public class HttpUtils {
     public static final String ARTICLE_DETAIL_URL=BASE_URL+"/?c=article&m=app&id=";//文章详情
     public static final String NEW_KNOWLEDGE_DETAIL_URL=BASE_URL+"?c=activity&m=app&id=";//新知详情
     public static final String ARTICLE_SAVE_URL=BASE_URL+"/?c=app&m=deal_fav";//收藏文章
+    public static final String RELEATED_ARTICLE_URL=BASE_URL+"/?c=app&m=article_info";//相关文章
 
     public static final String PERIOD_ARTICLE_DETAIL_URL=BASE_URL+"/?c=app&m=week";//期刊详情
     public static final String ARTICLE_LIST_URL=BASE_URL+"/?c=app&m=article_filter";//文章列表
@@ -159,6 +160,33 @@ String client_id =LoginUserManager.getInstance().client_id;
         });
 
     }
+
+    public static void getRelateArticle(final Context context, String id,int page,final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+        String access_token =LoginUserManager.getInstance().access_token;
+        String client_id =LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+        StringBuilder url = new StringBuilder(RELEATED_ARTICLE_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+        url.append("&page=").append(page);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+
+
+                paraJson(context,s,listener);
+            }
+
+
+        });
+
+    }
+
 
 
     public static void getNewKnowledge(final Context context, String id, int page, final OnNetResponseListener listener){

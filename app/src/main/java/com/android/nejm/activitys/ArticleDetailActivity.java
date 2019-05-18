@@ -107,6 +107,15 @@ public class ArticleDetailActivity extends BaseActivity {
                 });
             }
         });
+        findViewById(R.id.relate_article).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,ReleatedArticleActivity.class);
+                intent.putExtra("id",mId);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -270,11 +279,13 @@ public class ArticleDetailActivity extends BaseActivity {
         ViewGroup mViewWeixin = (ViewGroup) view.findViewById(R.id.view_share_weixin);
         ViewGroup mViewPengyou = (ViewGroup) view.findViewById(R.id.view_share_pengyou);
         ViewGroup mViewWeibo = (ViewGroup) view.findViewById(R.id.view_share_weibo);
+        ViewGroup mViewEmail = (ViewGroup) view.findViewById(R.id.view_share_email);
         Button mBtnCancel = (Button) view.findViewById(R.id.share_cancel_btn);
 
         mViewWeixin.setOnClickListener(listener);
         mViewPengyou.setOnClickListener(listener);
         mViewWeibo.setOnClickListener(listener);
+        mViewEmail.setOnClickListener(listener);
         mBtnCancel.setOnClickListener(listener);
 
         // 设置相关位置，一定要在 show()之后

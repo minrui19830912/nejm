@@ -33,6 +33,7 @@ public class MyApplication extends Application {
     public static String lng = "0.0"/*"30.2655"*/;
     public static String mToken = null;
     public static String client_id = null;
+    public static String  uid;
 //    public static User user = new User();
     public static String mStoreId;
     public static String address;

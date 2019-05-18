@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -61,6 +62,8 @@ public class LoginActivity extends BaseActivity {
     public void onClickLogin() {
         String name = editTextName.getText().toString().trim();
         String pwd = editTextPassword.getText().toString().trim();
+        name = "13912345678";
+        pwd = "123456";
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
             ToastUtil.showShort(this, "用户名或密码不能为空");
             return;
@@ -78,6 +81,13 @@ public class LoginActivity extends BaseActivity {
                 startActivity(new Intent(mContext,MainActivity.class));
                 finish();
                 }
+            }
+
+            @Override
+            public void onNetFailResponse(Context context, String msg, String msgCode) {
+               // super.onNetFailResponse(context, msg, msgCode);
+                LoadingDialog.cancelDialogForLoading();
+                ToastUtil.showShort(mContext,msg);
             }
         });
     }

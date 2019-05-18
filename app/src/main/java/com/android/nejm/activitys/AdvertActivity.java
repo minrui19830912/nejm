@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.nejm.MyApplication;
 import com.android.nejm.R;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.utils.DisplayUtil;
 import com.android.nejm.utils.SPUtils;
 import com.bumptech.glide.Glide;
@@ -37,6 +39,7 @@ public class AdvertActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //        sdvSplash = (SimpleDraweeView) findViewById(R.id.sdvSplash);
+       LoginUserManager.getInstance();
         ivSplash = (ImageView) findViewById(R.id.ivSplash);
         tvNum = (TextView) findViewById(R.id.tvNum);
         rlNum = (LinearLayout) findViewById(R.id.rlNum);
@@ -87,8 +90,13 @@ public class AdvertActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 //startActivity(new Intent(mContext,MainActivity.class));
-                startActivity(new Intent(mContext,LoginActivity.class));
-                finish();
+                if(MyApplication.mToken!=null){
+                    startActivity(new Intent(mContext,MainActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                    finish();
+                }
             }
         };
         mCountDownTimer.start();// 开始计时
@@ -96,8 +104,13 @@ public class AdvertActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(mContext,MainActivity.class));
+                if(MyApplication.mToken!=null){
+                    startActivity(new Intent(mContext,MainActivity.class));
+                    finish();
+                } else {
                 startActivity(new Intent(mContext,LoginActivity.class));
                 finish();
+                }
             }
         });
     }
