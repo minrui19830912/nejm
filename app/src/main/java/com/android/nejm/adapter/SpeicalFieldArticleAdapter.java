@@ -3,14 +3,15 @@ package com.android.nejm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.data.SpecialFieldArticleInfo;
+import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -41,10 +42,10 @@ public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFiel
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         SpecialFieldArticleInfo.ArtitleItem artitleItem = artitleItemList.get(i);
-        Log.e("article", i + ": " + artitleItem.thumb + ", size = " + artitleItemList.size());
-        for(SpecialFieldArticleInfo.ArtitleItem item : artitleItemList) {
-            Log.e("test", "thumb = " + item.thumb);
-        }
+//        Log.e("article", i + ": " + artitleItem.thumb + ", size = " + artitleItemList.size());
+//        for(SpecialFieldArticleInfo.ArtitleItem item : artitleItemList) {
+//            Log.e("test", "thumb = " + item.thumb);
+//        }
         viewHolder.draweeViewCover.setImageURI(artitleItem.thumb);
         viewHolder.textViewType.setText(String.format(Locale.CHINA, "%s：%s", artitleItem.sourcename, artitleItem.typename));
         viewHolder.textViewAuthor.setText(artitleItem.author);
@@ -54,6 +55,12 @@ public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFiel
         } else {
             viewHolder.textViewField.setText("");
         }
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+            }
+        });
 
         viewHolder.textViewArticleTitle.setText(artitleItem.title);
     }
