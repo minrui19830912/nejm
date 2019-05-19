@@ -151,6 +151,7 @@
         <activity
             android:name=".activitys.MainActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activitys.AdvertActivity"
