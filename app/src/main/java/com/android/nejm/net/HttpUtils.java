@@ -547,16 +547,14 @@ String client_id =LoginUserManager.getInstance().client_id;
                                            final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
-        String access_token = LoginUserManager.getInstance().access_token;
-        String client_id = LoginUserManager.getInstance().client_id;
-        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+        build.append("").append("^").append(timeStamp).append("^").append("");
 
         Map<String, String> params = new HashMap<>();
         params.put("mobile", mobile);
-        params.put("verifyCode", verifyCode);
+        params.put("mcode", verifyCode);
         params.put("password", password);
 
         OkGo.post(RESET_PASSWORD_MOBILE_URL)
@@ -572,12 +570,10 @@ String client_id =LoginUserManager.getInstance().client_id;
                                            final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
-        String access_token = LoginUserManager.getInstance().access_token;
-        String client_id = LoginUserManager.getInstance().client_id;
-        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+        build.append("").append("^").append(timeStamp).append("^").append("");
 
         Map<String, String> params = new HashMap<>();
         params.put("email", email);

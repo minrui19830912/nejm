@@ -96,8 +96,20 @@ public class FindPwdByPhoneFragment extends BaseFragment {
             return;
         }
 
+        if(password.length() < 6) {
+            ToastUtil.showShort(mContext, "密码最少6位");
+            editTextPwd.requestFocus();
+            return;
+        }
+
         if(TextUtils.isEmpty(passwordAgain)) {
             ToastUtil.showShort(mContext, "密码不能为空");
+            editTextPwdAgain.requestFocus();
+            return;
+        }
+
+        if(passwordAgain.length() < 6) {
+            ToastUtil.showShort(mContext, "密码最少6位");
             editTextPwdAgain.requestFocus();
             return;
         }
