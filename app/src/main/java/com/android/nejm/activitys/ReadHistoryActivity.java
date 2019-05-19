@@ -51,13 +51,13 @@ public class ReadHistoryActivity extends BaseActivity {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
-                //getData(false, false);
+                getData(false, false);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
-                //getData(false, true);
+                getData(false, true);
             }
         });
 
@@ -67,7 +67,7 @@ public class ReadHistoryActivity extends BaseActivity {
         articleAdapter = new OtherArticleAdapter(this);
         recyclerView.setAdapter(articleAdapter);
 
-        //getData(true, true);
+        getData(true, true);
     }
 
     private void getData(boolean showLoadingDialog, final boolean clearList) {
