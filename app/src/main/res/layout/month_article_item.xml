@@ -10,6 +10,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="63dp"
         android:layout_height="63dp"
+        app:placeholderImage="@drawable/img_default"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 

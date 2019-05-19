@@ -115,6 +115,7 @@ public class HomeFragment extends BaseFragment {
                                 jsonObject.putOpt("id", clazz.id);
                                 jsonObject.putOpt("title", clazz.classname);
                                 jsonObject.putOpt("icon", clazz.icon);
+                                jsonObject.putOpt("xcx_icon_se", clazz.xcx_icon_se);
                                 jsonArray.put(jsonObject);
                             } catch (JSONException e) {
                                 e.printStackTrace();
