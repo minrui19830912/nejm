@@ -25,6 +25,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import java.util.List;
 import java.util.logging.Level;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 
 public class MyApplication extends Application {
@@ -104,14 +105,11 @@ public class MyApplication extends Application {
                 }
                 Fresco.initialize(getApplicationContext());
                 ShareSDK.initSDK(this);
+                JPushInterface.setDebugMode(true);
+                JPushInterface.init(getApplicationContext());
+                String rid = JPushInterface.getRegistrationID(getApplicationContext());
 
-//        TCAgent.LOG_ON=true;
-                // App ID: 在TalkingData创建应用后，进入数据报表页中，在“系统设置”-“编辑应用”页面里查看App ID。
-                // 渠道 ID: 是渠道标识符，可通过不同渠道单独追踪数据。
-//        TCAgent.init(this);
-                // 如果已经在AndroidManifest.xml配置了App ID和渠道ID，调用TCAgent.init(this)即可；或与AndroidManifest.xml中的对应参数保持一致。
-//        TCAgent.setReportUncaughtExceptions(true);
-//        setupProximity();
+                //JPushInterface.resumePush(getApplicationContext());
                 MyApplication.mToken = SPUtils.getSharedStringData(getApplicationContext(), "access_token");
                 MyApplication.client_id = SPUtils.getSharedStringData(getApplicationContext(), "client_id");
                 MyApplication.mStoreId = SPUtils.getSharedStringData(getApplicationContext(), "store_id");
