@@ -63,11 +63,11 @@ public class SpecialFieldGridAdapter extends BaseAdapter {
         } else {
             if(TextUtils.equals(focusId, info.id)) {
                 draweeView.setBackgroundResource(R.drawable.home_classes_bg);
+                draweeView.setImageURI(info.icon);
             } else {
                 draweeView.setBackgroundResource(R.drawable.home_classes_nor);
+                draweeView.setImageURI(info.xcx_icon_se);
             }
-
-            draweeView.setImageURI(info.icon);
         }
 
         return convertView;
