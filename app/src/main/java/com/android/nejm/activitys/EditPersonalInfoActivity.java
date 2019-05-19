@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.android.nejm.Fragments.IdentityDoctorFragment;
+import com.android.nejm.Fragments.IdentityStudentFragment;
+import com.android.nejm.Fragments.IdentiyOtherFragment;
 import com.android.nejm.R;
 import com.android.nejm.data.AccountInfo;
 import com.android.nejm.manage.LoginUserManager;
@@ -68,10 +71,30 @@ public class EditPersonalInfoActivity extends BaseActivity implements EasyPermis
             textViewName.setText(accountInfo.truename);
             textViewPhone.setText(accountInfo.mobile);
             textViewEmail.setText(accountInfo.email);
-            textViewIdentityOne.setText(accountInfo.identity);
-            textViewIdentityTwo.setText(accountInfo.hospital);
-            textViewIdentityThree.setText(accountInfo.jobname);
-            textViewIdentityFour.setText(accountInfo.company);
+            if(TextUtils.isEmpty(accountInfo.roleid)
+                || TextUtils.equals(accountInfo.roleid, "0")) {
+                textViewIdentityOne.setText("");
+                textViewIdentityTwo.setText("");
+                textViewIdentityThree.setText("");
+                textViewIdentityFour.setText("");
+            } else {
+                textViewIdentityOne.setText(accountInfo.role_name);
+                if(TextUtils.equals(accountInfo.roleid, "1")
+                        || TextUtils.equals(accountInfo.roleid, "2")
+                        || TextUtils.equals(accountInfo.roleid, "4")) {
+                    textViewIdentityTwo.setText(accountInfo.division);
+                    textViewIdentityThree.setText(accountInfo.hospital);
+                    textViewIdentityFour.setText(accountInfo.jobname);
+                } else if(TextUtils.equals(accountInfo.roleid, "5")) {
+                    textViewIdentityTwo.setText(accountInfo.identity);
+                    textViewIdentityThree.setText(accountInfo.hospital);
+                    textViewIdentityFour.setText(accountInfo.jobname);
+                } else {
+                    textViewIdentityTwo.setText(accountInfo.identity);
+                    textViewIdentityThree.setText(accountInfo.jobname);
+                    textViewIdentityFour.setText(accountInfo.company);
+                }
+            }
         }
     }
 

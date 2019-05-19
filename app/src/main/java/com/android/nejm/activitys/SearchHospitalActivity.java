@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.android.nejm.R;
 import com.android.nejm.adapter.HospitalAdapter;
 import com.android.nejm.data.HospitalBean;
+import com.android.nejm.data.HospitalSchool;
+import com.android.nejm.data.RoleInfo;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
@@ -63,6 +66,13 @@ public class SearchHospitalActivity extends BaseActivity {
 
     @OnClick(R.id.textViewConfirm)
     public void onClickConfirm() {
+        int index = hospitalAdapter.getSelectIndex();
+        HospitalBean.Hospital hospital = hospitalBean.items.get(index);
+
+        RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
+        roleInfo.hospitalId = hospital.id;
+        roleInfo.hospitalName = hospital.hospital;
+
         finish();
     }
 

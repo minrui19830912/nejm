@@ -9,21 +9,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.data.HospitalBean;
+import com.android.nejm.data.HospitalSchool;
+import com.android.nejm.data.RoleBean;
 
 import java.util.List;
 
-public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHolder> {
+public class TeacherTitleAdapter extends RecyclerView.Adapter<TeacherTitleAdapter.ViewHolder> {
     private Context context;
-    private List<HospitalBean.Hospital> hospitalList;
+    private List<RoleBean.IdentityInfo> schoolList;
     private int selectIndex = -1;
 
-    public HospitalAdapter(Context context) {
+    public TeacherTitleAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<HospitalBean.Hospital> list) {
-        this.hospitalList = list;
+    public void setData(List<RoleBean.IdentityInfo> list) {
+        this.schoolList = list;
     }
 
     public int getSelectIndex() {
@@ -38,10 +39,10 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        TextView textView = (TextView)viewHolder.itemView;
-        textView.setText(hospitalList.get(i).hospital);
-
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+        TextView textView = (TextView) viewHolder.itemView;
+        RoleBean.IdentityInfo school = schoolList.get(i);
+        textView.setText(school.name);
         if(selectIndex == i) {
             textView.setTextColor(context.getResources().getColor(R.color.color_c92700));
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.horizontal_line_red);
@@ -62,7 +63,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return hospitalList != null ? hospitalList.size() : 0;
+        return schoolList != null ? schoolList.size() : 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

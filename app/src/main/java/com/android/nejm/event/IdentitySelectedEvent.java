@@ -1,9 +1,9 @@
 package com.android.nejm.event;
 
 public class IdentitySelectedEvent {
-    public int id;
+    public String id;
 
-    public IdentitySelectedEvent(int id) {
+    public IdentitySelectedEvent(String id) {
         this.id = id;
     }
 }

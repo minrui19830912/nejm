@@ -29,6 +29,10 @@ public class HospitalSchoolAdapter extends RecyclerView.Adapter<HospitalSchoolAd
         this.schoolList = list;
     }
 
+    public int getSelectIndex() {
+        return selectIndex;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

@@ -70,6 +70,7 @@ public class HttpUtils {
     public static final String RESET_PASSWORD_EMAIL_URL=BASE_URL+"/?c=app&m=reset_password_email";//邮件订阅
     public static final String MESSAGE_URL=BASE_URL+"/?c=app&m=messages";//邮件订阅
     public static final String MESSAGE_DETAIL_URL=BASE_URL+"/?c=app&m=message";//邮件订阅
+    public static final String EDIT_ROLE_URL=BASE_URL+"/?c=app&m=edit_role";//邮件订阅
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -465,14 +466,14 @@ String client_id =LoginUserManager.getInstance().client_id;
     public static void getRole(final Context context, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
-        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append("").append("^").append(timeStamp).append("^").append("");
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
 
-        StringBuilder url = new StringBuilder(GET_ROLE_URL);
-
-        OkGo.get(url.toString())
+        OkGo.get(GET_ROLE_URL)
                 .headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
@@ -490,6 +491,25 @@ String client_id =LoginUserManager.getInstance().client_id;
         build.append("").append("^").append(timeStamp).append("^").append("");
 
         OkGo.post(REGISTER_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void editRole(final Context context, Map<String, String> params, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        OkGo.post(EDIT_ROLE_URL)
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {

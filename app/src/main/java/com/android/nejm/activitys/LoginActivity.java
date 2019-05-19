@@ -62,8 +62,8 @@ public class LoginActivity extends BaseActivity {
     public void onClickLogin() {
         String name = editTextName.getText().toString().trim();
         String pwd = editTextPassword.getText().toString().trim();
-        name = "13912345678";
-        pwd = "123456";
+        //name = "13912345678";
+        //pwd = "123456";
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
             ToastUtil.showShort(this, "用户名或密码不能为空");
             return;
