@@ -6,25 +6,37 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.adapter.SearchKnowledgeAdapter;
+import com.android.nejm.adapter.SpeicalFieldArticleAdapter;
 import com.android.nejm.data.Paper;
+import com.android.nejm.data.Source;
+import com.android.nejm.data.SpecialFieldArticleInfo;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,35 +51,47 @@ public class SearchActivity extends BaseActivity {
     RecyclerView mRecylerView;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.grdiview)
+    GridView grdiview;
 
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private int page = 1;
-
+    private SpeicalFieldArticleAdapter articleAdapter;
+    private SpecialFieldArticleInfo articleInfo;
+    public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
+    private ArrayList<Source>mSourceList = new ArrayList<>();
+    private int totalCount;
+    private CheckBox mCurrentCheckBox;
+    private String id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_activity);
         setCommonTitle("搜索",true);
         ButterKnife.bind(this);
-
-        SearchKnowledgeAdapter adapter = new SearchKnowledgeAdapter(mContext);
-        for (int i = 0; i < 6; i++) {
-            Paper paper = new Paper();
-            mPaperList.add(paper);
-        }
-        adapter.setData(mPaperList);
+        articleAdapter = new SpeicalFieldArticleAdapter(this);
+//        SearchKnowledgeAdapter adapter = new SearchKnowledgeAdapter(mContext);
+//        for (int i = 0; i < 6; i++) {
+//            Paper paper = new Paper();
+//            mPaperList.add(paper);
+//        }
+//        adapter.setData(mPaperList);
         mRecylerView.addItemDecoration(new DividerItemDecoration(mContext,
                 DividerItemDecoration.VERTICAL_LIST));
         mRecylerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
 
-        mRecylerView.setAdapter(adapter);
+        mRecylerView.setAdapter(articleAdapter);
 
         refreshLayout.autoLoadMore();
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                if(artitleItems.size()<totalCount){
                 page++;
                 search(false, true);
+                } else{
+                    ToastUtil.showShort(mContext,"没有更多数据");
+                }
             }
         });
     }
@@ -82,17 +106,84 @@ public class SearchActivity extends BaseActivity {
         return false;
     }
 
-    private void search(boolean showLoading, boolean loadMore) {
+    private void search(boolean showLoading, final boolean loadMore) {
         if(showLoading) {
             LoadingDialog.showDialogForLoading(this);
         }
 
         String keyword = editTextSearch.getText().toString();
-        HttpUtils.search(this, keyword, "", page, new OnNetResponseListener() {
+        HttpUtils.search(this, keyword, id, page, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                refreshLayout.finishRefresh(100);
+                refreshLayout.finishLoadMore(100);
+                if(!loadMore) {
+                    artitleItems.clear();
+                    mSourceList.clear();
+                }
+                JSONArray sources = json.optJSONArray("sources");
+                for (int i = 0; sources!=null&&i < sources.length(); i++) {
+                    JSONObject sourceJsonObject = sources.optJSONObject(i);
+                    Source source = new Source();
+                   source.id = sourceJsonObject.optString("id");
+                   source.sourcename = sourceJsonObject.optString("sourcename");
+                    mSourceList.add(source);
+                }
+
+                totalCount = json.optInt("total_count");
+                articleInfo = new Gson().fromJson(json.toString(), SpecialFieldArticleInfo.class);
+
+
+                artitleItems.addAll(articleInfo.items);
+
+                articleAdapter.setData(artitleItems);
+                articleAdapter.notifyDataSetChanged();
             }
         });
     }
+
+
+    private class ClassesGridAdapter extends BaseAdapter {
+        @Override
+        public int getCount() {
+            return mSourceList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_grid_item, null);
+            }
+
+           Source source = mSourceList.get(position);
+            if(mCurrentCheckBox!=null){
+                mCurrentCheckBox.setChecked(false);
+            }
+            mCurrentCheckBox= (CheckBox)convertView;
+            mCurrentCheckBox.setText(source.sourcename);
+            mCurrentCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        id = source.id;
+                        search(true,false);
+                    }
+                }
+            });
+            return convertView;
+        }
+    }
+
+
 }
