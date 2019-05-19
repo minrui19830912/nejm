@@ -97,6 +97,15 @@ public class MyFragment extends BaseFragment {
         getData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
+        if(accountInfo != null && !TextUtils.isEmpty(accountInfo.avatar)) {
+            imageViewHead.setImageURI(accountInfo.avatar);
+        }
+    }
+
     private void getData() {
         LoadingDialog.showDialogForLoading(mContext);
         HttpUtils.getPersonalInfo(mContext, new OnNetResponseListener() {

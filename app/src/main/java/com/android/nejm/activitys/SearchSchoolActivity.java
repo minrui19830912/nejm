@@ -12,12 +12,17 @@ import android.widget.TextView;
 import com.android.nejm.R;
 import com.android.nejm.adapter.HospitalSchoolAdapter;
 import com.android.nejm.data.HospitalSchool;
+import com.android.nejm.data.RoleBean;
+import com.android.nejm.data.RoleInfo;
+import com.android.nejm.data.SchoolSelectedEvent;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -62,6 +67,14 @@ public class SearchSchoolActivity extends BaseActivity {
 
     @OnClick(R.id.textViewConfirm)
     public void onClickConfirm() {
+        int index = hospitalSchoolAdapter.getSelectIndex();
+        HospitalSchool.School school = hospitalSchool.items.get(index);
+
+        RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
+        roleInfo.hospitalId = school.id;
+        roleInfo.hospitalName = school.name;
+
+        EventBus.getDefault().post(new SchoolSelectedEvent(school.id, school.name));
         finish();
     }
 

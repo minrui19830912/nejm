@@ -26,6 +26,10 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
         this.hospitalList = list;
     }
 
+    public int getSelectIndex() {
+        return selectIndex;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

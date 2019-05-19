@@ -19,78 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" >
-
-        <RadioButton
-            android:id="@+id/radioButtonDoctor"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            style="@style/CustomRadioButton"
-            android:text="医生" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonResident"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            style="@style/CustomRadioButton"
-            android:text="住院医生" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonOtherDoctor"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:text="其他医务工作者"
-            style="@style/CustomRadioButton" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonStudent"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            style="@style/CustomRadioButton"
-            android:text="医学院师生" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonOther"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            style="@style/CustomRadioButton"
-            android:text="其他" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </RadioGroup>
+        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 </android.support.constraint.ConstraintLayout>

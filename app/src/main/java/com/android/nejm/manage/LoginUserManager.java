@@ -3,6 +3,8 @@ package com.android.nejm.manage;
 import com.android.nejm.MyApplication;
 import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.LoginBean;
+import com.android.nejm.data.RoleBean;
+import com.android.nejm.data.RoleInfo;
 import com.android.nejm.utils.SPUtils;
 
 public class LoginUserManager {
@@ -12,6 +14,8 @@ public class LoginUserManager {
     public String roleid;
 
     public AccountInfo accountInfo;
+    public RoleBean roleBean;
+    public RoleInfo roleInfo;
 
     public boolean isLogin = false;
 
@@ -25,6 +29,10 @@ public class LoginUserManager {
         MyApplication.mToken = access_token;
         MyApplication.client_id = client_id;
         MyApplication.uid = uid;
+
+        roleInfo = new RoleInfo();
+        roleBean = new RoleBean();
+        accountInfo = new AccountInfo();
     }
 
     public static LoginUserManager getInstance() {
@@ -95,6 +103,22 @@ public class LoginUserManager {
 
     public void setAccountInfo(AccountInfo accountInfo) {
         this.accountInfo = accountInfo;
+    }
+
+    public RoleBean getRoleBean() {
+        return roleBean;
+    }
+
+    public void setRoleBean(RoleBean roleBean) {
+        this.roleBean = roleBean;
+    }
+
+    public RoleInfo getRoleInfo() {
+        return roleInfo;
+    }
+
+    public void setRoleInfo(RoleInfo roleInfo) {
+        this.roleInfo = roleInfo;
     }
 
     public void login(LoginBean loginBean) {

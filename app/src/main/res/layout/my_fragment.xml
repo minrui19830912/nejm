@@ -96,7 +96,7 @@
                     android:id="@+id/textViewReadCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99+"
+                    android:text="0"
                     android:textColor="#4A4A4A"
                     android:textSize="18sp" />
 
@@ -115,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:gravity="center_horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintStart_toEndOf="@+id/readLayout"
                 app:layout_constraintEnd_toStartOf="@+id/downloadLayout"
@@ -124,7 +125,7 @@
                     android:id="@+id/textViewFavoriteCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99+"
+                    android:text="0"
                     android:textColor="#4A4A4A"
                     android:textSize="18sp" />
 
@@ -143,6 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:gravity="center_horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintStart_toEndOf="@+id/favoriteLayout"
                 app:layout_constraintEnd_toStartOf="@+id/notifyLayout"
@@ -152,7 +154,7 @@
                     android:id="@+id/textViewDownloadCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99+"
+                    android:text="0"
                     android:textColor="#4A4A4A"
                     android:textSize="18sp" />
 
@@ -171,6 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:gravity="center_horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintStart_toEndOf="@+id/downloadLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -180,7 +183,7 @@
                     android:id="@+id/textViewNotifyCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99+"
+                    android:text="0"
                     android:textColor="#4A4A4A"
                     android:textSize="18sp" />
 
