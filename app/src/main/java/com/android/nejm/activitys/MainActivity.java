@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +36,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             findViewById(mTabArray[i]).setOnClickListener(this);
         }
         findViewById(mTabArray[0]).performClick();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(mIndex == 4) {
+            showFragment(4);
+        }
     }
 
     private void showFragment(int index) {
@@ -99,7 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case 4:
-              if (mMyFragment == null) {
+                if (mMyFragment == null) {
                   if(LoginUserManager.getInstance().isLogin) {
                       mMyFragment = new MyFragment();
                   } else {
@@ -108,6 +117,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                     trans.add(R.id.content, mMyFragment);
                 } else {
+                    if(mMyFragment instanceof MyUnloginFragment
+                            && LoginUserManager.getInstance().isLogin) {
+                        trans.remove(mMyFragment);
+                        mMyFragment = new MyFragment();
+                        trans.add(R.id.content, mMyFragment);
+                    } else if(mMyFragment instanceof MyFragment
+                            && !LoginUserManager.getInstance().isLogin) {
+                        trans.remove(mMyFragment);
+                        mMyFragment = new MyUnloginFragment();
+                        trans.add(R.id.content, mMyFragment);
+                    }
+
                     trans.show(mMyFragment);
                 }
                 break;

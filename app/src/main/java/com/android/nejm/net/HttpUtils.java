@@ -402,12 +402,16 @@ String client_id =LoginUserManager.getInstance().client_id;
     public static void getMessage(final Context context, String id, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
-        String access_token = LoginUserManager.getInstance().access_token;
+        /*String access_token = LoginUserManager.getInstance().access_token;
         String client_id = LoginUserManager.getInstance().client_id;
         String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);*/
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
 
         StringBuilder url = new StringBuilder(MESSAGE_DETAIL_URL);
         if(!TextUtils.isEmpty(id)){

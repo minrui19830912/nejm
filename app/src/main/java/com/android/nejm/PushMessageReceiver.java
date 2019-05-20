@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.android.nejm.activitys.MainActivity;
+import com.android.nejm.activitys.NotifyDetailActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -25,7 +29,7 @@ public class PushMessageReceiver extends JPushMessageReceiver{
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage message) {
         Log.e(TAG,"[onNotifyMessageOpened] "+message);
-        try{
+        /*try{
             //打开自定义的Activity
             Intent i = new Intent(context, MainActivity.class);
             Bundle bundle = new Bundle();
@@ -37,7 +41,17 @@ public class PushMessageReceiver extends JPushMessageReceiver{
             context.startActivity(i);
         }catch (Throwable throwable){
 
+        }*/
+        if(message.notificationExtras != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(message.notificationExtras);
+                String id = jsonObject.optString("id");
+                NotifyDetailActivity.launchActivity(context, id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     @Override
