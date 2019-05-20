@@ -156,9 +156,17 @@ public class VideoDetailActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                ToastUtil.showShort(mContext,"收藏成功");
-                Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
-                textViewFavorite.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                if(TextUtils.equals(videoDetail.isfav, "1")) {
+                    ToastUtil.showShort(mContext,"已取消收藏");
+                    videoDetail.isfav = "0";
+                    textViewFavorite.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_collect_normal,0,0,0);
+                    textViewFavorite.setTextColor(getResources().getColor(R.color.color_444));
+                } else {
+                    ToastUtil.showShort(mContext,"收藏成功");
+                    videoDetail.isfav = "1";
+                    textViewFavorite.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_collect_selected,0,0,0);
+                    textViewFavorite.setTextColor(getResources().getColor(R.color.color_c92700));
+                }
             }
         });
     }
@@ -313,6 +321,13 @@ public class VideoDetailActivity extends BaseActivity {
                 textViewEnglishTitle.setText(videoDetail.item.outtitle);
                 draweeViewVideoCover.setImageURI(videoDetail.item.thumb);
                 textViewContent.setText(Html.fromHtml(videoDetail.item.content));
+                if(TextUtils.equals(videoDetail.isfav, "1")) {
+                    textViewFavorite.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_collect_selected,0,0,0);
+                    textViewFavorite.setTextColor(getResources().getColor(R.color.color_c92700));
+                } else {
+                    textViewFavorite.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_collect_normal,0,0,0);
+                    textViewFavorite.setTextColor(getResources().getColor(R.color.color_444));
+                }
             }
         });
     }

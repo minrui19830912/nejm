@@ -185,7 +185,7 @@
             android:drawableStart="@mipmap/icon_collect_normal"
             android:drawablePadding="2dp"
             android:text="收藏"
-            android:textColor="@color/color_c92700"
+            android:textColor="#444444"
             android:textSize="13sp"/>
         <TextView
             android:id="@+id/textViewShare"
@@ -197,7 +197,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="分享"
-            android:textColor="@color/color_c92700"
+            android:textColor="#444444"
             android:textSize="13sp"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

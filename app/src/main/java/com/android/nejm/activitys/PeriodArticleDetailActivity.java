@@ -24,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PeriodArticleDetailActivity extends BaseActivity {
     @BindView(R.id.draweeViewCover)
@@ -126,11 +127,16 @@ public class PeriodArticleDetailActivity extends BaseActivity {
 
                 specialistAdapter.setData(specialistList);
                 specialistAdapter.notifyDataSetChanged();
-if(articleDeatailInfo.video!=null){
+                if(articleDeatailInfo.video!=null){
                 draweeViewVideo.setImageURI(articleDeatailInfo.video.thumb);
                 textViewVideo.setText(articleDeatailInfo.video.title);
 }
             }
         });
+    }
+
+    @OnClick(R.id.videoLayout)
+    public void onClickVideoLayout() {
+        VideoDetailActivity.launchActivity(this, articleDeatailInfo.video.id);
     }
 }
