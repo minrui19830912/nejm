@@ -15,9 +15,11 @@ import java.util.List;
 public class ArticleDetailDirAdapter extends RecyclerView.Adapter<ArticleDetailDirAdapter.ViewHolder> {
     private Context context;
     private List<String> dirList;
+    private OnItemClickListener itemClickListener;
 
-    public ArticleDetailDirAdapter(Context context) {
+    public ArticleDetailDirAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
+        itemClickListener = listener;
     }
 
     public void setData(List<String> dirList) {
@@ -35,6 +37,14 @@ public class ArticleDetailDirAdapter extends RecyclerView.Adapter<ArticleDetailD
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         TextView textView = (TextView) viewHolder.itemView;
         textView.setText(dirList.get(position));
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(itemClickListener != null) {
+                    itemClickListener.onItemClicked(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -46,5 +56,9 @@ public class ArticleDetailDirAdapter extends RecyclerView.Adapter<ArticleDetailD
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(int index);
     }
 }

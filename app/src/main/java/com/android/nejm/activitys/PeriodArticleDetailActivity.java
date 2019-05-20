@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.android.nejm.R;
@@ -66,19 +67,48 @@ public class PeriodArticleDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         recyclerViewDir.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        dirAdapter = new ArticleDetailDirAdapter(this);
+        dirAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                DirectoryDetailActivity.launchActivity(mContext, articleDeatailInfo.items_0.get(index).id);
+            }
+        });
         recyclerViewDir.setAdapter(dirAdapter);
 
         recyclerViewNEJM.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        nejmAdapter = new ArticleDetailDirAdapter(this);
+        nejmAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.items_5.get(index).id;
+                Log.e("dpp", "url = " + url);
+                ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.items_5.get(index).id,
+                        url,articleDeatailInfo.items_5.get(index).title,articleDeatailInfo.video.thumb,articleDeatailInfo.items_5.get(index).title);
+            }
+        });
         recyclerViewNEJM.setAdapter(nejmAdapter);
 
         recyclerViewNEJM2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        nejm2Adapter = new ArticleDetailDirAdapter(this);
+        nejm2Adapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.items_6.get(index).id;
+                Log.e("dpp", "url = " + url);
+                ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.items_6.get(index).id,
+                        url,articleDeatailInfo.items_6.get(index).title,articleDeatailInfo.video.thumb,articleDeatailInfo.items_6.get(index).title);
+            }
+        });
         recyclerViewNEJM2.setAdapter(nejm2Adapter);
 
         recyclerViewSpecialist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        specialistAdapter = new ArticleDetailDirAdapter(this);
+        specialistAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.wantsay.get(index).id;
+                Log.e("dpp", "url = " + url);
+                ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.wantsay.get(index).id,
+                        url,articleDeatailInfo.wantsay.get(index).title,articleDeatailInfo.video.thumb,articleDeatailInfo.wantsay.get(index).title);
+            }
+        });
         recyclerViewSpecialist.setAdapter(specialistAdapter);
 
         getData();
@@ -138,17 +168,5 @@ public class PeriodArticleDetailActivity extends BaseActivity {
     @OnClick(R.id.videoLayout)
     public void onClickVideoLayout() {
         VideoDetailActivity.launchActivity(this, articleDeatailInfo.video.id);
-    }
-
-    //@OnClick(R.id.contentLayout)
-    public void onClickContentLayout() {
-        String url = HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+ articleDeatailInfo.item.id;
-        ArticleDetailActivity.launchActivity(this,articleDeatailInfo.item.id,
-                url,articleDeatailInfo.item.title,articleDeatailInfo.video.thumb,articleDeatailInfo.item.title);
-    }
-
-    //@OnClick(R.id.layoutDir)
-    public void onClickLayoutDir() {
-        DirectoryDetailActivity.launchActivity(this, articleDeatailInfo.item.id);
     }
 }
