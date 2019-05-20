@@ -54,20 +54,24 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.grdiview)
     GridView grdiview;
 
+
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private int page = 1;
     private SpeicalFieldArticleAdapter articleAdapter;
     private SpecialFieldArticleInfo articleInfo;
     public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
-    private ArrayList<Source>mSourceList = new ArrayList<>();
+    private ArrayList<Source> mSourceList = new ArrayList<>();
     private int totalCount;
     private CheckBox mCurrentCheckBox;
+    private int mCheckIndex = 0;
     private String id;
+    private ClassesGridAdapter mClassesGridAdapter = new ClassesGridAdapter();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_activity);
-        setCommonTitle("搜索",true);
+        setCommonTitle("搜索", true);
         ButterKnife.bind(this);
         articleAdapter = new SpeicalFieldArticleAdapter(this);
 //        SearchKnowledgeAdapter adapter = new SearchKnowledgeAdapter(mContext);
@@ -78,7 +82,7 @@ public class SearchActivity extends BaseActivity {
 //        adapter.setData(mPaperList);
         mRecylerView.addItemDecoration(new DividerItemDecoration(mContext,
                 DividerItemDecoration.VERTICAL_LIST));
-        mRecylerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+        mRecylerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
         mRecylerView.setAdapter(articleAdapter);
 
@@ -86,19 +90,20 @@ public class SearchActivity extends BaseActivity {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                if(artitleItems.size()<totalCount){
-                page++;
-                search(false, true);
-                } else{
-                    ToastUtil.showShort(mContext,"没有更多数据");
+                if (artitleItems.size() < totalCount) {
+                    page++;
+                    search(false, true);
+                } else {
+                    ToastUtil.showShort(mContext, "没有更多数据");
                 }
             }
         });
+        grdiview.setAdapter(mClassesGridAdapter);
     }
 
     @OnEditorAction(R.id.search_box)
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             search(true, false);
             return true;
         }
@@ -107,7 +112,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void search(boolean showLoading, final boolean loadMore) {
-        if(showLoading) {
+        if (showLoading) {
             LoadingDialog.showDialogForLoading(this);
         }
 
@@ -118,16 +123,17 @@ public class SearchActivity extends BaseActivity {
                 LoadingDialog.cancelDialogForLoading();
                 refreshLayout.finishRefresh(100);
                 refreshLayout.finishLoadMore(100);
-                if(!loadMore) {
+                if (!loadMore) {
                     artitleItems.clear();
-                    mSourceList.clear();
+
                 }
+                mSourceList.clear();
                 JSONArray sources = json.optJSONArray("sources");
-                for (int i = 0; sources!=null&&i < sources.length(); i++) {
+                for (int i = 0; sources != null && i < sources.length(); i++) {
                     JSONObject sourceJsonObject = sources.optJSONObject(i);
                     Source source = new Source();
-                   source.id = sourceJsonObject.optString("id");
-                   source.sourcename = sourceJsonObject.optString("sourcename");
+                    source.id = sourceJsonObject.optString("id");
+                    source.sourcename = sourceJsonObject.optString("sourcename");
                     mSourceList.add(source);
                 }
 
@@ -139,6 +145,8 @@ public class SearchActivity extends BaseActivity {
 
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();
+                mClassesGridAdapter.notifyDataSetChanged();
+                mSearchContent.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -163,24 +171,38 @@ public class SearchActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_grid_item, null);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_grid_item, parent,false);
             }
 
-           Source source = mSourceList.get(position);
-            if(mCurrentCheckBox!=null){
-                mCurrentCheckBox.setChecked(false);
+            Source source = mSourceList.get(position);
+            final int pos = position;
+            CheckBox checkBox = (CheckBox) convertView;
+            if (mCheckIndex == pos) {
+                mCurrentCheckBox = checkBox;
+                mCurrentCheckBox.setChecked(true);
+
+            } else {
+                checkBox.setChecked(false);
             }
-            mCurrentCheckBox= (CheckBox)convertView;
-            mCurrentCheckBox.setText(source.sourcename);
-            mCurrentCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            if (source != null) {
+                checkBox.setText(source.sourcename);
+            }
+            CompoundButton.OnCheckedChangeListener mCheckListener=new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
+
+                    if (isChecked) {
+                        if (mCurrentCheckBox != null) {
+                            mCurrentCheckBox.setChecked(false);
+                        }
+                        mCurrentCheckBox = (CheckBox) buttonView;
+                        mCheckIndex = pos;
                         id = source.id;
-                        search(true,false);
+                        search(true, false);
                     }
                 }
-            });
+            };
+            checkBox.setOnCheckedChangeListener(mCheckListener);
             return convertView;
         }
     }
