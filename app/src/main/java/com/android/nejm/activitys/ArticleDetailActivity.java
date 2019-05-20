@@ -1,6 +1,7 @@
 package com.android.nejm.activitys;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -306,7 +307,7 @@ public class ArticleDetailActivity extends BaseActivity {
         }
     }
 
-    public  Intent sendEmail(String title, String content, String emailUrl) {
+    public  void sendEmail(String title, String content, String emailUrl) {
         Intent email = new Intent(Intent.ACTION_SENDTO);
         email.setType("plain/text");
         email.setData(Uri.parse("mailto:"));
@@ -315,6 +316,12 @@ public class ArticleDetailActivity extends BaseActivity {
         email.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
         //邮件内容
         email.putExtra(android.content.Intent.EXTRA_TEXT, content);
-        return Intent.createChooser(email,  "请选择邮件发送内容" );
+
+        try {
+            Intent intent = Intent.createChooser(email,  "请选择邮件发送内容" );
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            ToastUtil.showShort(this, "您没有安装邮件客户端");
+        }
     }
 }

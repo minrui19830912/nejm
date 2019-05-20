@@ -8,10 +8,13 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.android.nejm.R;
+import com.android.nejm.data.LoginBean;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -97,6 +100,8 @@ public class RegisterActivity extends BaseActivity {
             public void onNetDataResponse(JSONObject json) {
                 Log.e("dpp", "json = " + json.toString());
                 LoadingDialog.cancelDialogForLoading();
+                LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
+                LoginUserManager.getInstance().register(loginBean);
                 ToastUtil.showShort(mContext, "注册成功");
                 startActivity(new Intent(mContext, IdentityInfoActivity.class));
                 finish();

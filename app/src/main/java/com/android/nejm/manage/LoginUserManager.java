@@ -137,4 +137,16 @@ public class LoginUserManager {
         SPUtils.putStringPreference("uid", loginBean.uid);
         SPUtils.putStringPreference("roleid", loginBean.roleid);
     }
+
+    public void register(LoginBean loginBean) {
+        access_token = loginBean.access_token;
+        client_id = loginBean.client_id;
+        uid = loginBean.uid;
+
+        isLogin = false;
+
+        MyApplication.mToken = loginBean.access_token;
+        MyApplication.client_id = loginBean.client_id;
+        MyApplication.uid = loginBean.uid;
+    }
 }
