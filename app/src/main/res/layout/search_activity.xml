@@ -46,7 +46,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
             android:verticalSpacing="8dp"
-            android:numColumns="4">
+            android:numColumns="3">
 
         </com.android.nejm.widgets.NoScrollGridView>
         <!--<LinearLayout-->
@@ -163,7 +163,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:background="@color/appbk" />
+            android:background="#F6F6F7" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
