@@ -29,7 +29,7 @@
         android:textSize="15sp"
         android:gravity="center_vertical"/>
 
-    <LinearLayout
+    <LinearLayout android:visibility="invisible"
         android:id="@+id/search_content"
         app:layout_constraintTop_toBottomOf="@id/search_box"
         android:orientation="vertical"
@@ -163,7 +163,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:background="#F6F6F7" />
+            android:background="#F6F6F7"
+         />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"

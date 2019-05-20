@@ -54,6 +54,7 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.grdiview)
     GridView grdiview;
 
+
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private int page = 1;
     private SpeicalFieldArticleAdapter articleAdapter;
@@ -124,8 +125,9 @@ public class SearchActivity extends BaseActivity {
                 refreshLayout.finishLoadMore(100);
                 if (!loadMore) {
                     artitleItems.clear();
-                    mSourceList.clear();
+
                 }
+                mSourceList.clear();
                 JSONArray sources = json.optJSONArray("sources");
                 for (int i = 0; sources != null && i < sources.length(); i++) {
                     JSONObject sourceJsonObject = sources.optJSONObject(i);
@@ -144,6 +146,7 @@ public class SearchActivity extends BaseActivity {
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();
                 mClassesGridAdapter.notifyDataSetChanged();
+                mSearchContent.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -168,7 +171,7 @@ public class SearchActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_grid_item, null);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_grid_item, parent,false);
             }
 
             Source source = mSourceList.get(position);
