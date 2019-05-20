@@ -75,6 +75,9 @@ public class PersonalInfoOtherFragment extends BaseFragment {
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext, "编辑身份成功");
+                if(mContext != null && mContext instanceof Activity) {
+                    ((Activity)mContext).finish();
+                }
             }
         });
     }

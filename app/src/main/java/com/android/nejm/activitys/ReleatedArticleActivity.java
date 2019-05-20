@@ -84,7 +84,9 @@ public class ReleatedArticleActivity extends BaseActivity {
                     artitleItems.clear();
                 }
 
-                artitleItems.addAll(articleInfo.items);
+                if(articleInfo.items != null) {
+                    artitleItems.addAll(articleInfo.items);
+                }
 
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();

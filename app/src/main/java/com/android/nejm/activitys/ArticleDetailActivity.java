@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -157,6 +158,13 @@ public class ArticleDetailActivity extends BaseActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if(TextUtils.equals(url, "http://www.nejm.login/")) {
+                Intent intent = new Intent(mContext,LoginActivity.class);
+                intent.putExtra("just_finish",true);
+                startActivityForResult(intent,1001);
+                return true;
+            }
+
             return false;
         }
 

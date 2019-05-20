@@ -159,7 +159,7 @@ public class IdentityDoctorFragment extends BaseFragment {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3) {
                         String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
-                        ToastUtil.showShort(mContext, str);
+                        //ToastUtil.showShort(mContext, str);
                     }
                 })
                 .build();

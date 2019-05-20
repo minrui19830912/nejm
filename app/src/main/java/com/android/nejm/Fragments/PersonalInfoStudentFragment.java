@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.LoginActivity;
 import com.android.nejm.activitys.SearchSchoolActivity;
 import com.android.nejm.activitys.TeacherTitleActivity;
 import com.android.nejm.activitys.TitleActivity;
@@ -115,6 +116,9 @@ public class PersonalInfoStudentFragment extends BaseFragment {
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext, "编辑身份成功");
+                if(mContext != null && mContext instanceof Activity) {
+                    ((Activity)mContext).finish();
+                }
             }
         });
     }

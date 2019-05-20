@@ -31,6 +31,12 @@ public class LoginActivity extends BaseActivity {
     EditText editTextPassword;
     private boolean justFinish = false;
 
+    public static void launchActivity(Context context, boolean just_finish) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra("just_finish", just_finish);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

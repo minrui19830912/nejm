@@ -139,4 +139,16 @@ public class PeriodArticleDetailActivity extends BaseActivity {
     public void onClickVideoLayout() {
         VideoDetailActivity.launchActivity(this, articleDeatailInfo.video.id);
     }
+
+    //@OnClick(R.id.contentLayout)
+    public void onClickContentLayout() {
+        String url = HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+ articleDeatailInfo.item.id;
+        ArticleDetailActivity.launchActivity(this,articleDeatailInfo.item.id,
+                url,articleDeatailInfo.item.title,articleDeatailInfo.video.thumb,articleDeatailInfo.item.title);
+    }
+
+    //@OnClick(R.id.layoutDir)
+    public void onClickLayoutDir() {
+        DirectoryDetailActivity.launchActivity(this, articleDeatailInfo.item.id);
+    }
 }
