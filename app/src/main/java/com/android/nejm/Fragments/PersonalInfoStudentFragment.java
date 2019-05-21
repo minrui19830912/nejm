@@ -26,9 +26,6 @@ import com.android.nejm.utils.AppUtil;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -52,7 +49,6 @@ public class PersonalInfoStudentFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_personal_info_student, container, false);
         ButterKnife.bind(this, root);
-        EventBus.getDefault().register(this);
         return root;
     }
 
@@ -65,12 +61,6 @@ public class PersonalInfoStudentFragment extends BaseFragment {
             textViewSchool.setText(roleInfo.hospitalName);
             textViewTitle.setText(roleInfo.jobnameName);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R.id.textViewTitle)
