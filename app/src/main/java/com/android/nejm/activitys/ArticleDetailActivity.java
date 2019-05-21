@@ -118,7 +118,17 @@ public class ArticleDetailActivity extends BaseActivity {
             }
         });
 
+        loadShareContent();
+    }
 
+    private void loadShareContent() {
+        LoadingDialog.showDialogForLoading(this);
+        HttpUtils.getArticleShareContent(this, mId, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+            }
+        });
     }
 
     private void checkLogin() {

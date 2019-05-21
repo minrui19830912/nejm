@@ -19,7 +19,6 @@ import com.android.nejm.activitys.TeacherTitleActivity;
 import com.android.nejm.activitys.TitleActivity;
 import com.android.nejm.adapter.TeacherTitleAdapter;
 import com.android.nejm.data.RoleInfo;
-import com.android.nejm.data.SchoolSelectedEvent;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
@@ -72,11 +71,6 @@ public class PersonalInfoStudentFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSchoolSelectedEvent(SchoolSelectedEvent event) {
-        textViewSchool.setText(event.name);
     }
 
     @OnClick(R.id.textViewTitle)

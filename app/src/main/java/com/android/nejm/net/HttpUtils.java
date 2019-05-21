@@ -72,6 +72,7 @@ public class HttpUtils {
     public static final String MESSAGE_DETAIL_URL=BASE_URL+"/?c=app&m=message";//邮件订阅
     public static final String EDIT_ROLE_URL=BASE_URL+"/?c=app&m=edit_role";//邮件订阅
     public static final String DIRECTORY_DETAIL_URL=BASE_URL+"/?c=app&m=catalog";//期刊详情
+    public static final String ARTICLE_SHARE_CONTENT_URL=BASE_URL+"/?c=app&m=article_share";//期刊详情
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -632,6 +633,29 @@ String client_id =LoginUserManager.getInstance().client_id;
         });
     }
 
+    public static void getArticleShareContent(final Context context,String id, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        StringBuilder url = new StringBuilder(ARTICLE_SHARE_CONTENT_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
     public static void search(final Context context, String keyword, String id, int page, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
@@ -851,8 +875,9 @@ String client_id =LoginUserManager.getInstance().client_id;
                 paraJson(context,s,listener);
             }
         });
-
     }
+
+
 
 
     public static void getThisWeekArticle(final Context context, int  lastzipid,final OnNetResponseListener listener){

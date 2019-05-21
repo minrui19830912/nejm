@@ -43,11 +43,13 @@ public class TeacherTitleActivity extends BaseActivity {
     @OnClick(R.id.textViewConfirm)
     public void onClickConfirm() {
         int index = teacherTitleAdapter.getSelectIndex();
-        RoleBean.IdentityInfo identityInfo = teacherJobs.get(index);
+        if(index >= 0) {
+            RoleBean.IdentityInfo identityInfo = teacherJobs.get(index);
 
-        RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
-        roleInfo.jobnameId = identityInfo.id;
-        roleInfo.jobnameName = identityInfo.name;
+            RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
+            roleInfo.jobnameId = identityInfo.id;
+            roleInfo.jobnameName = identityInfo.name;
+        }
 
         finish();
     }

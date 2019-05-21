@@ -67,11 +67,13 @@ public class SearchHospitalActivity extends BaseActivity {
     @OnClick(R.id.textViewConfirm)
     public void onClickConfirm() {
         int index = hospitalAdapter.getSelectIndex();
-        HospitalBean.Hospital hospital = hospitalBean.items.get(index);
+        if(index >= 0) {
+            HospitalBean.Hospital hospital = hospitalBean.items.get(index);
 
-        RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
-        roleInfo.hospitalId = hospital.id;
-        roleInfo.hospitalName = hospital.hospital;
+            RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
+            roleInfo.hospitalId = hospital.id;
+            roleInfo.hospitalName = hospital.hospital;
+        }
 
         finish();
     }
