@@ -123,7 +123,11 @@ public class ArticleDetailActivity extends BaseActivity {
             }
         });
 
-        loadShareContent();
+        if(url != null && url.startsWith(HttpUtils.NEW_KNOWLEDGE_DETAIL_URL)) {
+            findViewById(R.id.shareLayout).setVisibility(View.GONE);
+        } else {
+            loadShareContent();
+        }
     }
 
     private void loadShareContent() {

@@ -880,7 +880,7 @@ String client_id =LoginUserManager.getInstance().client_id;
 
 
 
-    public static void getThisWeekArticle(final Context context, int  lastzipid,final OnNetResponseListener listener){
+    public static void getThisWeekArticle(final Context context, String lastzipid,final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
         String sign= generateMd5Str("",timeStamp,APP_KEY,"");

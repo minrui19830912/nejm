@@ -12,6 +12,7 @@ public class LoginUserManager {
     public String client_id;
     public String uid;
     public String roleid;
+    public String lastzipid;
 
     public AccountInfo accountInfo;
     public RoleBean roleBean;
@@ -26,6 +27,7 @@ public class LoginUserManager {
         client_id = SPUtils.getStringPreference("client_id", "");
         uid = SPUtils.getStringPreference("uid", "");
         roleid = SPUtils.getStringPreference("roleid", "");
+        lastzipid = SPUtils.getStringPreference("lastzipid", "0");
         MyApplication.mToken = access_token;
         MyApplication.client_id = client_id;
         MyApplication.uid = uid;

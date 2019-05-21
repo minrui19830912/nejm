@@ -43,12 +43,14 @@ import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -279,7 +281,17 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.textViewDownload)
     public void onDownload() {
-
+        LoadingDialog.showDialogForLoading(mContext);
+        String lastzipid = LoginUserManager.getInstance().lastzipid;
+        HttpUtils.getThisWeekArticle(mContext, lastzipid, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                LoadingDialog.cancelDialogForLoading();
+                LoginUserManager.getInstance().lastzipid = json.optString("lastzipid");
+                List<String> ids = new Gson().fromJson(json.optJSONArray("ids").toString(),
+                        new TypeToken<List<String>>(){}.getType());
+            }
+        });
     }
 
     /**
