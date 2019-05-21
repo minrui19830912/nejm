@@ -3,8 +3,10 @@ package com.android.nejm.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 import com.android.nejm.R;
@@ -38,6 +40,12 @@ public class RegisterActivity extends BaseActivity {
     EditText editTextEmailVerifyCode;
     @BindView(R.id.editTextPassword)
     EditText editTextPassword;
+    @BindView(R.id.editTextPasswordAgain)
+    EditText editTextPasswordAgain;
+    @BindView(R.id.layoutPageOne)
+    ConstraintLayout layoutPageOne;
+    @BindView(R.id.layoutPageTwo)
+    ConstraintLayout layoutPageTwo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,16 +53,24 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         showBack();
+        layoutPageOne.setVisibility(View.VISIBLE);
+        layoutPageTwo.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.textViewNext)
+    @OnClick(R.id.buttonNext)
     public void onClickNext() {
-        /*HttpUtils.getRole(this, new OnNetResponseListener() {
-            @Override
-            public void onNetDataResponse(JSONObject json) {
+        layoutPageOne.setVisibility(View.GONE);
+        layoutPageTwo.setVisibility(View.VISIBLE);
+    }
 
-            }
-        });*/
+    @OnClick(R.id.buttonPrev)
+    public void onClickPrev() {
+        layoutPageOne.setVisibility(View.VISIBLE);
+        layoutPageTwo.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.buttonRegister)
+    public void onClickRegister() {
         String userName = editTextUserName.getText().toString().trim();
         if(TextUtils.isEmpty(userName)) {
             ToastUtil.showShort(this, "用户名不能为空");

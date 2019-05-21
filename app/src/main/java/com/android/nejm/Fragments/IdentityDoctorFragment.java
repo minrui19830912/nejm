@@ -117,18 +117,6 @@ public class IdentityDoctorFragment extends BaseFragment {
                 EventBus.getDefault().post(new DoctorIdentitySelectedEvent(options1, options2));
             }
         })
-                .setContentTextSize(20)//设置滚轮文字大小
-                .setDividerColor(Color.LTGRAY)//设置分割线的颜色
-                .setSelectOptions(0, 0)//默认选中项
-                .setBgColor(Color.TRANSPARENT)
-                .setTitleBgColor(Color.DKGRAY)
-                .setTitleColor(getResources().getColor(R.color.color_5c))
-                .setCancelColor(Color.YELLOW)
-                .setSubmitColor(Color.YELLOW)
-                .setTextColorCenter(getResources().getColor(R.color.color_c92700))
-                .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
-                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                //.setLabels("省", "市", "区")
                 .setBackgroundId(0x00000000) //设置外部遮罩颜色
                 .isDialog(false)
                 .setDecorView(layoutContainer)
@@ -137,20 +125,12 @@ public class IdentityDoctorFragment extends BaseFragment {
                     @Override
                     public void customLayout(View v) {
                         final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
                         tvSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 pvOptions.returnData();
                                 //pvCustomOptions.dismiss();
                                 //EventBus.getDefault().post(new DoctorIdentitySelectedEvent(options1, options2));
-                            }
-                        });
-
-                        ivCancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //pvCustomOptions.dismiss();
                             }
                         });
                     }

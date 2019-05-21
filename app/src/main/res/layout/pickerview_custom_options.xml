@@ -13,14 +13,14 @@
             android:layout_height="0.5dp"
             android:background="#aaa" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/iv_cancel"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="17dp"
             android:padding="8dp"
-            android:src="@drawable/to_down" />
+            android:src="@drawable/to_down" />-->
 
         <TextView
             android:id="@+id/tv_finish"
@@ -31,7 +31,7 @@
             android:layout_marginRight="17dp"
             android:padding="8dp"
             android:text="完成"
-            android:textColor="#24AD9D"
+            android:textColor="@color/color_c92700"
             android:textSize="18sp" />
 
         <View
