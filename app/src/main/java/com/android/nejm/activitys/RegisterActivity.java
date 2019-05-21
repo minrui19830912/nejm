@@ -7,6 +7,7 @@ import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.android.nejm.R;
@@ -46,6 +47,8 @@ public class RegisterActivity extends BaseActivity {
     ConstraintLayout layoutPageOne;
     @BindView(R.id.layoutPageTwo)
     ConstraintLayout layoutPageTwo;
+    @BindView(R.id.checkBox)
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +102,11 @@ public class RegisterActivity extends BaseActivity {
         String password = editTextPassword.getText().toString().trim();
         if(TextUtils.isEmpty(password)) {
             ToastUtil.showShort(this, "密码不能为空");
+            return;
+        }
+
+        if(!checkBox.isChecked()) {
+            ToastUtil.showShort(this, "请勾选上面的服务和隐私条款");
             return;
         }
 

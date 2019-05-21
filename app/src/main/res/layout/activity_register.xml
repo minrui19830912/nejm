@@ -195,9 +195,7 @@
             android:id="@+id/editTextPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
             android:drawablePadding="17dp"
             android:drawableBottom="@drawable/horizontal_line_register"
             android:background="@color/transparent"
@@ -205,16 +203,14 @@
             android:textSize="14sp"
             android:textColor="#4A4A4A"
             android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextUserName"
+            app:layout_constraintStart_toStartOf="@+id/editTextUserName"
             app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
         <EditText
             android:id="@+id/editTextPasswordAgain"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
             android:drawablePadding="17dp"
             android:drawableBottom="@drawable/horizontal_line_register"
             android:background="@color/transparent"
@@ -222,29 +218,32 @@
             android:textSize="14sp"
             android:textColor="#4A4A4A"
             android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+            app:layout_constraintStart_toStartOf="@+id/editTextPassword"
             app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
-        <TextView
-            android:id="@+id/textView5"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="15dp"
             android:text="提交注册代表您同意NEJM医学前沿"
             android:textColor="#9B9B9B"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/editTextPasswordAgain"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextPasswordAgain" />
         <TextView
             android:id="@+id/textViewPrivacy"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
             android:text="服务和隐私条款"
             android:textColor="@color/color_c92700"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/textView5" />
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintTop_toTopOf="@+id/checkBox"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBox"/>
         <Button
             android:id="@+id/buttonPrev"
             android:layout_width="wrap_content"
@@ -258,8 +257,8 @@
             android:text="上一步"
             android:textColor="@color/white"
             android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintStart_toStartOf="@+id/checkBox"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="wrap_content"
