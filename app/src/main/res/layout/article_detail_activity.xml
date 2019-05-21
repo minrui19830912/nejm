@@ -94,9 +94,9 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/unlogin_text"
-android:visibility="gone"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@color/white"
@@ -105,5 +105,5 @@ android:visibility="gone"
         android:textColor="#C92700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />-->
 </android.support.constraint.ConstraintLayout>

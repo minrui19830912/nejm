@@ -71,6 +71,7 @@ public class HttpUtils {
     public static final String MESSAGE_URL=BASE_URL+"/?c=app&m=messages";//邮件订阅
     public static final String MESSAGE_DETAIL_URL=BASE_URL+"/?c=app&m=message";//邮件订阅
     public static final String EDIT_ROLE_URL=BASE_URL+"/?c=app&m=edit_role";//邮件订阅
+    public static final String DIRECTORY_DETAIL_URL=BASE_URL+"/?c=app&m=catalog";//期刊详情
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -818,6 +819,28 @@ String client_id =LoginUserManager.getInstance().client_id;
         build.append("").append("^").append(timeStamp).append("^").append("");
 
         StringBuilder url = new StringBuilder(PERIOD_ARTICLE_DETAIL_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+
+    }
+
+    public static void getDirectoryDetails(final Context context, String id, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        StringBuilder url = new StringBuilder(DIRECTORY_DETAIL_URL);
         if(!TextUtils.isEmpty(id)){
             url.append("&id=").append(id);
         }

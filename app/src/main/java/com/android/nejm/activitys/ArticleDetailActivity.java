@@ -77,14 +77,14 @@ public class ArticleDetailActivity extends BaseActivity {
         cover = getIntent().getStringExtra(EXTRA_COVER);
 
         checkLogin();
-        findViewById(R.id.unlogin_text).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.unlogin_text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,LoginActivity.class);
                 intent.putExtra("just_finish",true);
                 startActivityForResult(intent,1001);
             }
-        });
+        });*/
 
 //        mWebView.loadUrl("file:///android_asset/articles.html");
         findViewById(R.id.share).setOnClickListener(new View.OnClickListener() {
@@ -130,11 +130,11 @@ public class ArticleDetailActivity extends BaseActivity {
             appendUrl+="&uid=";
             appendUrl+=LoginUserManager.getInstance().uid;
             findViewById(R.id.operate_layout).setVisibility(View.VISIBLE);
-            findViewById(R.id.unlogin_text).setVisibility(View.GONE);
+            //findViewById(R.id.unlogin_text).setVisibility(View.GONE);
 
         } else {
             findViewById(R.id.operate_layout).setVisibility(View.GONE);
-            findViewById(R.id.unlogin_text).setVisibility(View.VISIBLE);
+            //findViewById(R.id.unlogin_text).setVisibility(View.VISIBLE);
         }
         mWebView.loadUrl(appendUrl);
     }
@@ -208,7 +208,7 @@ public class ArticleDetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-
+                String url = "https://www.nejmqianyan.cn/article/" + mId;
                 switch (v.getId()) {
 
                     case R.id.view_share_weixin:

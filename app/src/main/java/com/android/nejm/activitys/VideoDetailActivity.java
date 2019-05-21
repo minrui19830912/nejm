@@ -192,7 +192,7 @@ public class VideoDetailActivity extends BaseActivity {
                 String mTitle = AppUtil.getTextContent(textViewTitle);
                 String mContent = AppUtil.getTextContent(textViewContent);
                 String cover = videoDetail.item.thumb;
-                String url = videoDetail.item.video_url;
+                String url = "https://www.nejmqianyan.cn/article/" + id;
 
                 switch (v.getId()) {
 
