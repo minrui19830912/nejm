@@ -81,8 +81,12 @@ public class PeriodArticleDetailActivity extends BaseActivity {
             public void onItemClicked(int index) {
                 String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.items_5.get(index).id;
                 Log.e("dpp", "url = " + url);
+                String cover = "";
+                if(articleDeatailInfo.video != null && articleDeatailInfo.video.thumb != null) {
+                    cover = articleDeatailInfo.video.thumb;
+                }
                 ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.items_5.get(index).id,
-                        url,articleDeatailInfo.items_5.get(index).title,articleDeatailInfo.video.thumb,articleDeatailInfo.items_5.get(index).title);
+                        url,articleDeatailInfo.items_5.get(index).title,cover,articleDeatailInfo.items_5.get(index).title);
             }
         });
         recyclerViewNEJM.setAdapter(nejmAdapter);
