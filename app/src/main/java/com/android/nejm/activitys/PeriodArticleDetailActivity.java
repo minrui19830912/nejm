@@ -70,7 +70,7 @@ public class PeriodArticleDetailActivity extends BaseActivity {
         dirAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int index) {
-                //DirectoryDetailActivity.launchActivity(mContext, articleDeatailInfo.items_0.get(index).id);
+                DirectoryDetailActivity.launchActivity(mContext, articleDeatailInfo.items_0.get(index).id);
             }
         });
         recyclerViewDir.setAdapter(dirAdapter);

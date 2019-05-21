@@ -3,6 +3,7 @@ package com.android.nejm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class ArticleDetailDirAdapter extends RecyclerView.Adapter<ArticleDetailD
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         TextView textView = (TextView) viewHolder.itemView;
-        textView.setText(dirList.get(position));
+        textView.setText(Html.fromHtml(dirList.get(position)));
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
