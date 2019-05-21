@@ -23,12 +23,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.data.ArticleShareContent;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.AppUtil;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -52,6 +54,9 @@ public class ArticleDetailActivity extends BaseActivity {
     private String cover;
     private String url;
     private String mId;
+
+    ArticleShareContent shareContent;
+
     public static void launchActivity(Context context,String id, String url,String content,String cover,String title) {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
         intent.putExtra(EXTRA_URL, url);
@@ -127,6 +132,7 @@ public class ArticleDetailActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                shareContent = new Gson().fromJson(json.optJSONObject("item").toString(), ArticleShareContent.class);
             }
         });
     }
@@ -218,6 +224,12 @@ public class ArticleDetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+                if(shareContent != null) {
+                    mTitle = shareContent.title;
+                    mShareContent = shareContent.keyword;
+                    cover = shareContent.thumb;
+                }
+
                 String url = "https://www.nejmqianyan.cn/article/" + mId;
                 switch (v.getId()) {
 

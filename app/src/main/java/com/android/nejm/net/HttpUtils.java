@@ -891,14 +891,9 @@ String client_id =LoginUserManager.getInstance().client_id;
         OkGo.get(url).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-
-
                 paraJson(context,s,listener);
             }
-
-
         });
-
     }
 
 

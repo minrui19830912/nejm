@@ -96,9 +96,13 @@ public class PeriodArticleDetailActivity extends BaseActivity {
             @Override
             public void onItemClicked(int index) {
                 String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.items_6.get(index).id;
+                String cover = "";
+                if(articleDeatailInfo.video != null && articleDeatailInfo.video.thumb != null) {
+                    cover = articleDeatailInfo.video.thumb;
+                }
                 Log.e("dpp", "url = " + url);
                 ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.items_6.get(index).id,
-                        url,articleDeatailInfo.items_6.get(index).title,articleDeatailInfo.video.thumb,articleDeatailInfo.items_6.get(index).title);
+                        url,articleDeatailInfo.items_6.get(index).title,cover,articleDeatailInfo.items_6.get(index).title);
             }
         });
         recyclerViewNEJM2.setAdapter(nejm2Adapter);
@@ -108,9 +112,13 @@ public class PeriodArticleDetailActivity extends BaseActivity {
             @Override
             public void onItemClicked(int index) {
                 String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.wantsay.get(index).id;
+                String cover = "";
+                if(articleDeatailInfo.video != null && articleDeatailInfo.video.thumb != null) {
+                    cover = articleDeatailInfo.video.thumb;
+                }
                 Log.e("dpp", "url = " + url);
                 ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.wantsay.get(index).id,
-                        url,articleDeatailInfo.wantsay.get(index).title,articleDeatailInfo.video.thumb,articleDeatailInfo.wantsay.get(index).title);
+                        url,articleDeatailInfo.wantsay.get(index).title,cover,articleDeatailInfo.wantsay.get(index).title);
             }
         });
         recyclerViewSpecialist.setAdapter(specialistAdapter);
