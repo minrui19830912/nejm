@@ -29,6 +29,7 @@ import com.android.nejm.Fragments.PeriodArticleFragment;
 import com.android.nejm.Fragments.VideoListFragment;
 import com.android.nejm.R;
 import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.manage.UploadManager;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 
@@ -54,6 +55,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             findViewById(mTabArray[i]).setOnClickListener(this);
         }
         findViewById(mTabArray[0]).performClick();
+
+        UploadManager.getInstance().checkUpdate(this);
     }
 
     @Override

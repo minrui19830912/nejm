@@ -73,6 +73,7 @@ public class HttpUtils {
     public static final String EDIT_ROLE_URL=BASE_URL+"/?c=app&m=edit_role";//邮件订阅
     public static final String DIRECTORY_DETAIL_URL=BASE_URL+"/?c=app&m=catalog";//期刊详情
     public static final String ARTICLE_SHARE_CONTENT_URL=BASE_URL+"/?c=app&m=article_share";//期刊详情
+    public static final String VERSION_URL=BASE_URL+"/?c=app&m=version";//期刊详情
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -335,6 +336,24 @@ String client_id =LoginUserManager.getInstance().client_id;
             }
 
 
+        });
+
+    }
+
+    public static void updateVersion(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        StringBuilder url = new StringBuilder(VERSION_URL);
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
         });
 
     }
