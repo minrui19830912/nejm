@@ -21,6 +21,7 @@ import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
+import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.SPUtils;
 import com.bumptech.glide.Glide;
 
@@ -123,6 +124,14 @@ public class AdvertActivity extends BaseActivity {
                 }
             }
         });
+
+        copyAssetsFiles();
+    }
+
+    private void copyAssetsFiles() {
+        File filePath = new File(getExternalFilesDir(""), "/html");
+        Log.e("dpp", "filePath.getAbsolutePath() = " + filePath.getAbsolutePath());
+        FileUtils1.getInstance(this).copyAssetsToSD("", filePath.getAbsolutePath());
     }
 
     @Override
