@@ -27,21 +27,51 @@ import javax.net.ssl.HttpsURLConnection;
 public class MyDownloadManager {
     private static final String TAG = "MyDownloadManager";
 
-    public static void download(Context context, List<String> urlList, List<String> filePathList, DownloadCompleteListener listener) {
+    public static void download(Context context, List<String> urlList, List<String> filePathList,
+                                List<String> imgUrlList, List<String> imgFilePathList,
+                                DownloadCompleteListener listener) {
         DownloadManager downloadManager = (DownloadManager)context.getSystemService(Context.DOWNLOAD_SERVICE);
         int index = 0;
-        context.registerReceiver(new DownloadCompleteReceiver(urlList.size(), listener),
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        int downloadCount = 0;
+        if(urlList != null) {
+            downloadCount += urlList.size();
+        }
 
-        for(String url : urlList) {
-            String filePath = filePathList.get(index++);
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setDestinationInExternalFilesDir(context,
-                    null,
-                    filePath);
-            downloadManager.enqueue(request);
+        if(imgUrlList != null) {
+            downloadCount += imgUrlList.size();
+        }
 
-            //DownloadRecord record = new DownloadRecord();
+        if(downloadCount > 0) {
+            context.registerReceiver(new DownloadCompleteReceiver(downloadCount, listener),
+                    new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        }
+
+        if(urlList != null) {
+            for(String url : urlList) {
+                String filePath = filePathList.get(index++);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setDestinationInExternalFilesDir(context,
+                        null,
+                        filePath);
+                downloadManager.enqueue(request);
+            }
+        }
+
+        if(imgUrlList != null) {
+            index = 0;
+            for(String url : imgUrlList) {
+                Log.e("DPP", "url = " + url);
+                String filePath = imgFilePathList.get(index++);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setDestinationInExternalFilesDir(context,
+                        null,
+                        filePath);
+                downloadManager.enqueue(request);
+            }
+        }
+
+        if(downloadCount == 0 && listener != null) {
+            listener.downloadComplete();
         }
     }
 

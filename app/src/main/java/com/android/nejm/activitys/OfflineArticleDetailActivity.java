@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Entity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -39,8 +41,13 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -184,6 +191,9 @@ public class OfflineArticleDetailActivity extends BaseActivity {
         webSettings.setAllowUniversalAccessFromFileURLs(true);
     }
 
+    public String getMimeType(String str) {
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(str));
+    }
 
     private class MyWebViewClient extends WebViewClient {
         @Override
@@ -203,6 +213,48 @@ public class OfflineArticleDetailActivity extends BaseActivity {
             // TODO Auto-generated method stub
             super.onPageFinished(view, url);
 
+        }
+
+        @Override
+        public void onLoadResource(WebView view, String url) {
+            super.onLoadResource(view, url);
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            Log.e("dpp", "shouldInterceptRequest, uri = " + url);
+            return super.shouldInterceptRequest(view, url);
+        }
+
+        @TargetApi(21)
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            String uri = request.getUrl().toString();
+            Log.e("dpp", "shouldInterceptRequest, request, uri = " + uri.toString());
+            Log.e("dpp", "shouldInterceptRequest, request, mime = " + getMimeType(uri));
+            Map<String, String> params = request.getRequestHeaders();
+            for(Map.Entry<String,String> entry : params.entrySet()) {
+                Log.e("dpp", "key = " + entry.getKey() + ", value = " + entry.getValue());
+            }
+
+            String mimeType = null;
+            if(uri.endsWith(".png")
+                || uri.endsWith(".jpg")
+                || uri.endsWith(".jpeg")) {
+                //return new WebResourceResponse();
+                mimeType = getMimeType(uri);
+                String fileName = request.getUrl().getLastPathSegment();
+                Log.e("TAG", "fileName = " + fileName);
+                InputStream inputStream = null;
+                try {
+                    inputStream = new FileInputStream(new File(getExternalFilesDir(null), "/html/" + fileName));
+                    return new WebResourceResponse(mimeType, "utf-8", inputStream);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return super.shouldInterceptRequest(view, request);
         }
     }
 

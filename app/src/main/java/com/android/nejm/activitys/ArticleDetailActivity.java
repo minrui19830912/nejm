@@ -170,7 +170,9 @@ public class ArticleDetailActivity extends BaseActivity {
                         filePathList.add(filePath);
 
                         LoadingDialog.showDialogForLoading(mContext);
-                        MyDownloadManager.download(mContext, urlList, filePathList, new MyDownloadManager.DownloadCompleteListener() {
+                        MyDownloadManager.download(mContext, urlList, filePathList, new ArrayList<>(),
+                                new ArrayList<>(),
+                                new MyDownloadManager.DownloadCompleteListener() {
                             @Override
                             public void downloadComplete() {
                                 Log.e("TAG", "downloadComplete");

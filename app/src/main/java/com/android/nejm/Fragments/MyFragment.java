@@ -377,14 +377,27 @@ public class MyFragment extends BaseFragment {
 
                     List<RelatedArticle> articles = new Gson().fromJson(json.optJSONArray("items").toString(),
                             new TypeToken<List<RelatedArticle>>(){}.getType());
+
+                    List<String> imgUrlList = new ArrayList<>();
+                    List<String> imgFilePathList = new ArrayList<>();
+
                     for(RelatedArticle article : articles) {
+                        int lastIndex = article.thumb.lastIndexOf('/');
+                        if(lastIndex >= 0) {
+                            String fileName = article.thumb.substring(lastIndex);
+                            String filePath = String.format(Locale.CHINA, "/html/%s", fileName);
+                            imgFilePathList.add(filePath);
+                            imgUrlList.add(article.thumb);
+                        }
+
                         DownloadRecord downloadRecord = new DownloadRecord(article);
                         File file = new File(mContext.getExternalFilesDir(null), String.format(Locale.CHINA, "/html/%s.html", article.id));
                         downloadRecord.filePath = file.getAbsolutePath();
                         DownloadRecordManager.insert(downloadRecord);
                     }
 
-                    MyDownloadManager.download(mContext, urlList, filePathList, new MyDownloadManager.DownloadCompleteListener() {
+                    MyDownloadManager.download(mContext, urlList, filePathList, imgUrlList, imgFilePathList,
+                            new MyDownloadManager.DownloadCompleteListener() {
                         @Override
                         public void downloadComplete() {
                             Log.e("TAG", "downloadComplete");
