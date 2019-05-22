@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
+import com.android.nejm.data.RelatedArticle;
 import com.android.nejm.data.SpecialFieldArticleInfo;
 import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -21,16 +22,16 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFieldArticleAdapter.ViewHolder> {
+public class RelatedArticleAdapter extends RecyclerView.Adapter<RelatedArticleAdapter.ViewHolder> {
     private Context context;
-    private List<SpecialFieldArticleInfo.ArtitleItem> artitleItemList;
+    private List<RelatedArticle> relatedArticles;
 
-    public SpeicalFieldArticleAdapter(Context context) {
+    public RelatedArticleAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<SpecialFieldArticleInfo.ArtitleItem> artitleItemList) {
-        this.artitleItemList = artitleItemList;
+    public void setData(List<RelatedArticle> relatedArticles) {
+        this.relatedArticles = relatedArticles;
     }
 
     @NonNull
@@ -42,30 +43,29 @@ public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFiel
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        SpecialFieldArticleInfo.ArtitleItem artitleItem = artitleItemList.get(i);
+        RelatedArticle relatedArticle = relatedArticles.get(i);
 //        Log.e("article", i + ": " + artitleItem.thumb + ", size = " + artitleItemList.size());
 //        for(SpecialFieldArticleInfo.ArtitleItem item : artitleItemList) {
 //            Log.e("test", "thumb = " + item.thumb);
 //        }
-        viewHolder.draweeViewCover.setImageURI(artitleItem.thumb);
-        viewHolder.textViewType.setText(String.format(Locale.CHINA, "%s：%s", artitleItem.sourcename, artitleItem.typename));
-        viewHolder.textViewAuthor.setText(artitleItem.author);
-        viewHolder.textViewDate.setText(artitleItem.postdate);
-        if(artitleItem.specialties != null && artitleItem.specialties.size() > 0) {
-            viewHolder.textViewField.setText(artitleItem.specialties.get(0).classname);
+        viewHolder.draweeViewCover.setImageURI(relatedArticle.thumb);
+        viewHolder.textViewType.setText(String.format(Locale.CHINA, "%s：%s", relatedArticle.sourcename, relatedArticle.typename));
+        viewHolder.textViewAuthor.setText(relatedArticle.author);
+        viewHolder.textViewDate.setText(relatedArticle.postdate);
+        if(relatedArticle.specialties != null && relatedArticle.specialties.size() > 0) {
+            viewHolder.textViewField.setText(relatedArticle.specialties.get(0).classname);
         } else {
             viewHolder.textViewField.setText("");
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                ArticleDetailActivity.launchActivity(context, relatedArticle.id, HttpUtils.ARTICLE_DETAIL_URL+relatedArticle.id,relatedArticle.show_wantsay,relatedArticle.thumb,relatedArticle.title);
             }
         });
 
-        viewHolder.textViewArticleTitle.setText(artitleItem.title);
-
-        if(TextUtils.equals(artitleItem.show_wantsay, "1")) {
+        viewHolder.textViewArticleTitle.setText(relatedArticle.title);
+        if(TextUtils.equals(relatedArticle.show_wantsay, "1")) {
             viewHolder.textViewComment.setVisibility(View.VISIBLE);
         } else {
             viewHolder.textViewComment.setVisibility(View.INVISIBLE);
@@ -74,7 +74,7 @@ public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFiel
 
     @Override
     public int getItemCount() {
-        return artitleItemList != null ? artitleItemList.size() : 0;
+        return relatedArticles != null ? relatedArticles.size() : 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

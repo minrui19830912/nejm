@@ -123,6 +123,15 @@ public class LoginUserManager {
         this.roleInfo = roleInfo;
     }
 
+    public String getLastzipid() {
+        return lastzipid;
+    }
+
+    public void setLastzipid(String lastzipid) {
+        this.lastzipid = lastzipid;
+        SPUtils.putStringPreference("lastzipid", lastzipid);
+    }
+
     public void login(LoginBean loginBean) {
         access_token = loginBean.access_token;
         client_id = loginBean.client_id;

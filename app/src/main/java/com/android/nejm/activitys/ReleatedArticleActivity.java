@@ -7,13 +7,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.nejm.R;
+import com.android.nejm.adapter.RelatedArticleAdapter;
 import com.android.nejm.adapter.SpeicalFieldArticleAdapter;
+import com.android.nejm.data.RelatedArticle;
 import com.android.nejm.data.SpecialFieldArticleInfo;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -34,9 +37,9 @@ public class ReleatedArticleActivity extends BaseActivity {
 
     private String id;
     private int page = 1;
-    SpeicalFieldArticleAdapter articleAdapter;
-    private SpecialFieldArticleInfo articleInfo;
-    public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
+
+    RelatedArticleAdapter articleAdapter;
+    List<RelatedArticle> relatedArticleList = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,7 @@ public class ReleatedArticleActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
-        articleAdapter = new SpeicalFieldArticleAdapter(this);
+        articleAdapter = new RelatedArticleAdapter(this);
         recyclerView.setAdapter(articleAdapter);
 
         getData(true, true);
@@ -79,16 +82,16 @@ public class ReleatedArticleActivity extends BaseActivity {
                 refreshLayout.finishRefresh(100);
                 refreshLayout.finishLoadMore(100);
 
-                articleInfo = new Gson().fromJson(json.toString(), SpecialFieldArticleInfo.class);
+                List<RelatedArticle> list = new Gson().fromJson(json.optJSONArray("relation").toString(), new TypeToken<List<RelatedArticle>>(){}.getType());
                 if(clearList) {
-                    artitleItems.clear();
+                    relatedArticleList.clear();
                 }
 
-                if(articleInfo.items != null) {
-                    artitleItems.addAll(articleInfo.items);
+                if(list != null) {
+                    relatedArticleList.addAll(list);
                 }
 
-                articleAdapter.setData(artitleItems);
+                articleAdapter.setData(relatedArticleList);
                 articleAdapter.notifyDataSetChanged();
             }
         });

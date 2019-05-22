@@ -298,6 +298,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/view15" />
 
             <TextView
+                android:id="@+id/textViewDownloadComplete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="下载本周文章（已下载）"
+                android:textColor="@color/color_5c"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/textViewDownload"
+                app:layout_constraintEnd_toEndOf="@+id/textViewDownload"
+                app:layout_constraintTop_toTopOf="@+id/textViewDownload"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewDownload"/>
+
+            <TextView
                 android:id="@+id/view16"
                 android:layout_width="0dp"
                 android:layout_height="17dp"

@@ -43,6 +43,7 @@ import com.android.nejm.data.AccountInfo;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.MyDownloadManager;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -55,7 +56,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +79,10 @@ public class MyFragment extends BaseFragment {
     TextView textViewVersion;
     @BindView(R.id.imageViewHead)
     SimpleDraweeView imageViewHead;
+    @BindView(R.id.textViewDownload)
+    TextView textViewDownload;
+    @BindView(R.id.textViewDownloadComplete)
+    TextView textViewDownloadComplete;
 
     //相册请求码
     private static final int ALBUM_REQUEST_CODE = 1;
@@ -112,6 +119,11 @@ public class MyFragment extends BaseFragment {
         if (accountInfo != null && !TextUtils.isEmpty(accountInfo.avatar)) {
             imageViewHead.setImageURI(accountInfo.avatar);
         }
+
+        textViewDownloadComplete.setVisibility(View.INVISIBLE);
+        textViewDownload.setVisibility(View.VISIBLE);
+
+        Log.e("TAG", "MyFragment, onResume");
     }
 
     private void getData() {
@@ -309,13 +321,36 @@ public class MyFragment extends BaseFragment {
         HttpUtils.getThisWeekArticle(mContext, lastzipid, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
-                LoadingDialog.cancelDialogForLoading();
-                LoginUserManager.getInstance().lastzipid = json.optString("lastzipid");
+                String zipId = json.optString("lastzipid");
+                LoginUserManager.getInstance().setLastzipid(zipId);
                 List<String> ids = new Gson().fromJson(json.optJSONArray("ids").toString(),
-                        new TypeToken<List<String>>() {
-                        }.getType());
+                        new TypeToken<List<String>>(){}.getType());
+                List<String> urlList = new ArrayList<>();
+                if(ids != null) {
+                    List<String> filePathList = new ArrayList<>();
+                    for(String id : ids) {
+                        urlList.add(HttpUtils.ARTICLE_DETAIL_URL + id);
+                        String filePath = String.format(Locale.CHINA, "/html/%s.html", id);
+                        filePathList.add(filePath);
+                    }
+
+                    MyDownloadManager.download(mContext, urlList, filePathList, new MyDownloadManager.DownloadCompleteListener() {
+                        @Override
+                        public void downloadComplete() {
+                            Log.e("TAG", "downloadComplete");
+                            LoadingDialog.cancelDialogForLoading();
+                            textViewDownloadComplete.setVisibility(View.VISIBLE);
+                            textViewDownload.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
             }
         });
+    }
+
+    @OnClick(R.id.textViewDownloadComplete)
+    public void onClickDownloadComplete() {
+
     }
 
     /**
