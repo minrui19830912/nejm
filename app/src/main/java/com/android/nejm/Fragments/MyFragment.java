@@ -370,7 +370,7 @@ public class MyFragment extends BaseFragment {
                 if(ids != null) {
                     List<String> filePathList = new ArrayList<>();
                     for(String id : ids) {
-                        urlList.add(HttpUtils.ARTICLE_DETAIL_URL + id);
+                        urlList.add(HttpUtils.ARTICLE_DETAIL_URL + id + "&uid=" + LoginUserManager.getInstance().uid);
                         String filePath = String.format(Locale.CHINA, "/html/%s.html", id);
                         filePathList.add(filePath);
                     }
