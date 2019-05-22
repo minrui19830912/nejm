@@ -1,10 +1,13 @@
 package com.android.nejm.manage;
 
+import android.text.TextUtils;
+
 import com.android.nejm.MyApplication;
 import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.LoginBean;
 import com.android.nejm.data.RoleBean;
 import com.android.nejm.data.RoleInfo;
+import com.android.nejm.db.DBManager;
 import com.android.nejm.utils.SPUtils;
 
 public class LoginUserManager {
@@ -35,6 +38,15 @@ public class LoginUserManager {
         roleInfo = new RoleInfo();
         roleBean = new RoleBean();
         accountInfo = new AccountInfo();
+
+        if(!TextUtils.isEmpty(uid)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    DBManager.init(MyApplication.getApplication(), uid);
+                }
+            }).start();
+        }
     }
 
     public static LoginUserManager getInstance() {
@@ -147,6 +159,13 @@ public class LoginUserManager {
         SPUtils.putStringPreference("client_id", loginBean.client_id);
         SPUtils.putStringPreference("uid", loginBean.uid);
         SPUtils.putStringPreference("roleid", loginBean.roleid);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DBManager.init(MyApplication.getApplication(), uid);
+            }
+        }).start();
     }
 
     public void register(LoginBean loginBean) {

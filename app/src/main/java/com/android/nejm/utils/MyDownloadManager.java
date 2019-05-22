@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import com.android.nejm.bean.DownloadRecord;
+import com.android.nejm.db.DBManager;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,6 +40,8 @@ public class MyDownloadManager {
                     null,
                     filePath);
             downloadManager.enqueue(request);
+
+            //DownloadRecord record = new DownloadRecord();
         }
     }
 

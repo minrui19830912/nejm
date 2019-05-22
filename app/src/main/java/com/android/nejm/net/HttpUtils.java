@@ -237,14 +237,30 @@ String client_id =LoginUserManager.getInstance().client_id;
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-
-
                 paraJson(context,s,listener);
             }
-
-
         });
+    }
 
+    public static void getArticleDetail(final Context context, String id,final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+        String access_token =LoginUserManager.getInstance().access_token;
+        String client_id =LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+        StringBuilder url = new StringBuilder(RELEATED_ARTICLE_URL);
+        if(!TextUtils.isEmpty(id)){
+            url.append("&id=").append(id);
+        }
+
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
     }
 
 

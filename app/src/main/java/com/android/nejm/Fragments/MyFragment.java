@@ -35,14 +35,22 @@ import com.android.nejm.R;
 import com.android.nejm.activitys.EditPersonalInfoActivity;
 import com.android.nejm.activitys.FavoriteActivity;
 import com.android.nejm.activitys.FeedbackActivity;
+import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.activitys.NotificationActivity;
+import com.android.nejm.activitys.OfflineArticleDetailActivity;
+import com.android.nejm.activitys.OfflineArticleListActivity;
 import com.android.nejm.activitys.ReadHistoryActivity;
 import com.android.nejm.activitys.SettingActivity;
 import com.android.nejm.activitys.WebViewActivity;
+import com.android.nejm.bean.DownloadRecord;
 import com.android.nejm.data.AccountInfo;
+import com.android.nejm.data.RelatedArticle;
+import com.android.nejm.db.DBManager;
+import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.MyDownloadManager;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
@@ -63,6 +71,12 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MyFragment extends BaseFragment {
     @BindView(R.id.textViewUserName)
@@ -112,6 +126,31 @@ public class MyFragment extends BaseFragment {
         getData();
     }
 
+    private void updateDownloadCount() {
+        Observable.create(new ObservableOnSubscribe<Long>() {
+            @Override
+            public void subscribe(ObservableEmitter<Long> emitter) throws Exception {
+                long count = DownloadRecordManager.getRecordCount();
+                Log.e("dpp", "subscribe, count = " + count);
+                emitter.onNext(count);
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long count) throws Exception {
+                        Log.e("dpp", "accept, count = " + count);
+                        textViewDownloadCount.setText(String.valueOf(count));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                    }
+                });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -122,6 +161,8 @@ public class MyFragment extends BaseFragment {
 
         textViewDownloadComplete.setVisibility(View.INVISIBLE);
         textViewDownload.setVisibility(View.VISIBLE);
+
+        updateDownloadCount();
 
         Log.e("TAG", "MyFragment, onResume");
     }
@@ -159,9 +200,9 @@ public class MyFragment extends BaseFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    getPicFromAlbm();
+                    ((MainActivity)mContext).getPicFromAlbm();
                 } else {
-                    openCamera();
+                    ((MainActivity)mContext).openCamera();
                 }
             }
         });
@@ -306,7 +347,7 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.downloadLayout)
     public void onClickDownloadLayout() {
-
+        OfflineArticleListActivity.launchActivity(mContext);
     }
 
     @OnClick(R.id.notifyLayout)
@@ -334,6 +375,15 @@ public class MyFragment extends BaseFragment {
                         filePathList.add(filePath);
                     }
 
+                    List<RelatedArticle> articles = new Gson().fromJson(json.optJSONArray("items").toString(),
+                            new TypeToken<List<RelatedArticle>>(){}.getType());
+                    for(RelatedArticle article : articles) {
+                        DownloadRecord downloadRecord = new DownloadRecord(article);
+                        File file = new File(mContext.getExternalFilesDir(null), String.format(Locale.CHINA, "/html/%s.html", article.id));
+                        downloadRecord.filePath = file.getAbsolutePath();
+                        DownloadRecordManager.insert(downloadRecord);
+                    }
+
                     MyDownloadManager.download(mContext, urlList, filePathList, new MyDownloadManager.DownloadCompleteListener() {
                         @Override
                         public void downloadComplete() {
@@ -341,6 +391,7 @@ public class MyFragment extends BaseFragment {
                             LoadingDialog.cancelDialogForLoading();
                             textViewDownloadComplete.setVisibility(View.VISIBLE);
                             textViewDownload.setVisibility(View.INVISIBLE);
+                            updateDownloadCount();
                         }
                     });
                 }
@@ -463,7 +514,7 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-    private void uploadImage(Bitmap image) {
+    public void uploadImage(Bitmap image) {
         Log.e("minrui", "image=" + image);
         String path = saveImage("crop", image);
         HttpUtils.uploadImg(mContext, new File(path), new OnNetResponseListener() {

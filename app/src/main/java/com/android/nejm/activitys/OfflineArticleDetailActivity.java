@@ -1,11 +1,13 @@
 package com.android.nejm.activitys;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -17,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,34 +28,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.bean.DownloadRecord;
-import com.android.nejm.data.ArticleDetail;
 import com.android.nejm.data.ArticleShareContent;
-import com.android.nejm.data.RelatedArticle;
-import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.AppUtil;
-import com.android.nejm.utils.MyDownloadManager;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 
-public class ArticleDetailActivity extends BaseActivity {
+public class OfflineArticleDetailActivity extends BaseActivity {
     private WebView mWebView;
-    private TextView textViewDownload;
 
     private static final String EXTRA_ID = "id";
     private static final String EXTRA_URL = "url";
@@ -69,7 +64,7 @@ public class ArticleDetailActivity extends BaseActivity {
     ArticleShareContent shareContent;
 
     public static void launchActivity(Context context,String id, String url,String content,String cover,String title) {
-        Intent intent = new Intent(context, ArticleDetailActivity.class);
+        Intent intent = new Intent(context, OfflineArticleDetailActivity.class);
         intent.putExtra(EXTRA_URL, url);
         intent.putExtra(EXTRA_ID, id);
         intent.putExtra(EXTRA_CONTENT, content);
@@ -139,50 +134,6 @@ public class ArticleDetailActivity extends BaseActivity {
         } else {
             loadShareContent();
         }
-
-        textViewDownload = findViewById(R.id.download);
-        textViewDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoadingDialog.showDialogForLoading(mContext);
-                HttpUtils.getArticleDetail(mContext, mId, new OnNetResponseListener() {
-                    @Override
-                    public void onNetDataResponse(JSONObject json) {
-                        /*ArticleDetail detail = new Gson().fromJson(json.optJSONObject("item").toString(),
-                                ArticleDetail.class);
-                        DownloadRecord downloadRecord = new DownloadRecord();
-                        downloadRecord.thumb = detail.thumb;
-                        downloadRecord.postdate = detail.postdate;
-                        downloadRecord.show_wantsay = detail.show_wantsay;
-                        downloadRecord.author = detail.author;*/
-
-                        DownloadRecord downloadRecord = new DownloadRecord();
-
-                        File file = new File(mContext.getExternalFilesDir(null), String.format(Locale.CHINA, "/html/%s.html", mId));
-                        downloadRecord.filePath = file.getAbsolutePath();
-                        DownloadRecordManager.insert(downloadRecord);
-
-                        List<String> urlList = new ArrayList<>();
-                        urlList.add(url);
-
-                        String filePath = String.format(Locale.CHINA, "/html/%s.html", mId);
-                        List<String> filePathList = new ArrayList<>();
-                        filePathList.add(filePath);
-
-                        LoadingDialog.showDialogForLoading(mContext);
-                        MyDownloadManager.download(mContext, urlList, filePathList, new MyDownloadManager.DownloadCompleteListener() {
-                            @Override
-                            public void downloadComplete() {
-                                Log.e("TAG", "downloadComplete");
-                                LoadingDialog.cancelDialogForLoading();
-                                textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
-                                textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
-                            }
-                        });
-                    }
-                });
-            }
-        });
     }
 
     private void loadShareContent() {
@@ -201,32 +152,36 @@ public class ArticleDetailActivity extends BaseActivity {
         //https://dev.nejmqianyan.com/?c=article&m=app&id=163&uid=341
         //String url = HttpUtils.ARTICLE_DETAIL_URL+id;
         //if login url+="&uid=341"
-        if(LoginUserManager.getInstance().isLogin()){
-            appendUrl+="&uid=";
-            appendUrl+=LoginUserManager.getInstance().uid;
+        /*if(LoginUserManager.getInstance().isLogin()){
+            *//*appendUrl+="&uid=";
+            appendUrl+=LoginUserManager.getInstance().uid;*//*
             findViewById(R.id.operate_layout).setVisibility(View.VISIBLE);
             //findViewById(R.id.unlogin_text).setVisibility(View.GONE);
 
         } else {
             findViewById(R.id.operate_layout).setVisibility(View.GONE);
             //findViewById(R.id.unlogin_text).setVisibility(View.VISIBLE);
-        }
+        }*/
+        findViewById(R.id.operate_layout).setVisibility(View.GONE);
         mWebView.loadUrl(appendUrl);
     }
 
     private void initWebView() {
         mWebView = (WebView) findViewById(R.id.webview);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setSupportZoom(true);
-        mWebView.getSettings().setBuiltInZoomControls(true);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
         mWebView.setWebViewClient(new MyWebViewClient());
-        mWebView.getSettings()
-                .setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        mWebView.getSettings().setUseWideViewPort(true);
-        mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.getSettings().setDomStorageEnabled(true);
-        mWebView.getSettings()
-                .setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
     }
 
 
@@ -249,7 +204,6 @@ public class ArticleDetailActivity extends BaseActivity {
             super.onPageFinished(view, url);
 
         }
-
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -402,9 +356,9 @@ public class ArticleDetailActivity extends BaseActivity {
         email.setData(Uri.parse("mailto:"));
         email.putExtra(Intent.EXTRA_EMAIL, emailUrl);
         //邮件主题
-        email.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
+        email.putExtra(Intent.EXTRA_SUBJECT, title);
         //邮件内容
-        email.putExtra(android.content.Intent.EXTRA_TEXT, content);
+        email.putExtra(Intent.EXTRA_TEXT, content);
 
         try {
             Intent intent = Intent.createChooser(email,  "请选择邮件发送内容" );
