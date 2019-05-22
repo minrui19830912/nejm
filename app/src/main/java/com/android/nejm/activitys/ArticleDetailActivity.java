@@ -25,9 +25,7 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.bean.DownloadRecord;
-import com.android.nejm.data.ArticleDetail;
 import com.android.nejm.data.ArticleShareContent;
-import com.android.nejm.data.RelatedArticle;
 import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
@@ -145,6 +143,12 @@ public class ArticleDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 LoadingDialog.showDialogForLoading(mContext);
+                HttpUtils.getArticleInfo(mContext, mId, new OnNetResponseListener() {
+                    @Override
+                    public void onNetDataResponse(JSONObject json) {
+
+                    }
+                });
                 HttpUtils.getArticleDetail(mContext, mId, new OnNetResponseListener() {
                     @Override
                     public void onNetDataResponse(JSONObject json) {

@@ -45,6 +45,7 @@ public class HttpUtils {
     public static final String NEW_KNOWLEDGE_DETAIL_URL=BASE_URL+"?c=activity&m=app&id=";//新知详情
     public static final String ARTICLE_SAVE_URL=BASE_URL+"/?c=app&m=deal_fav";//收藏文章
     public static final String RELEATED_ARTICLE_URL=BASE_URL+"/?c=app&m=article_info";//相关文章
+    public static final String DOWNLOAD_ARTICLE_INFO_URL=BASE_URL+"/?c=app&m=get_article&id=";//获取文章相关参数（图片，标题。。。）
     public static final String UPLOAD_IAMGE_URL=BASE_URL+"/?c=app&m=upload_avatar";//上传头像
 
     public static final String PERIOD_ARTICLE_DETAIL_URL=BASE_URL+"/?c=app&m=week";//期刊详情
@@ -931,6 +932,21 @@ String client_id =LoginUserManager.getInstance().client_id;
         });
     }
 
+    public static void getArticleInfo(final Context context, String articleId,final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+        String url = DOWNLOAD_ARTICLE_INFO_URL+articleId;
+        OkGo.get(url).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
 
     //瀑布流
     public static void getWaterFallData(final Context context, int page, final OnNetResponseListener listener){
