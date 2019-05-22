@@ -229,7 +229,7 @@ public class OfflineArticleDetailActivity extends BaseActivity {
         @TargetApi(21)
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-            String uri = request.getUrl().toString();
+            /*String uri = request.getUrl().toString();
             Log.e("dpp", "shouldInterceptRequest, request, uri = " + uri.toString());
             Log.e("dpp", "shouldInterceptRequest, request, mime = " + getMimeType(uri));
             Map<String, String> params = request.getRequestHeaders();
@@ -252,7 +252,7 @@ public class OfflineArticleDetailActivity extends BaseActivity {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
 
             return super.shouldInterceptRequest(view, request);
         }
