@@ -147,14 +147,19 @@ public class ArticleDetailActivity extends BaseActivity {
                     @Override
                     public void onNetDataResponse(JSONObject json) {
 
-                    }
-                });
+                        JSONObject item = json.optJSONObject("item");
 
                         DownloadRecord downloadRecord = new DownloadRecord();
-
+                        downloadRecord.thumb = item.optString("thumb");
+                        downloadRecord.postdate = item.optString("postdate");
+                        downloadRecord.show_wantsay = item.optString("show_wantsay");
+                        downloadRecord.author = item.optString("author");
                         File file = new File(mContext.getExternalFilesDir(null), String.format(Locale.CHINA, "/html/%s.html", mId));
                         downloadRecord.filePath = file.getAbsolutePath();
                         DownloadRecordManager.insert(downloadRecord);
+                    }
+                });
+
 
                         List<String> urlList = new ArrayList<>();
                         String loginUrl = url;
@@ -171,6 +176,7 @@ public class ArticleDetailActivity extends BaseActivity {
                             @Override
                             public void downloadComplete() {
                                 Log.e("TAG", "downloadComplete");
+                                ToastUtil.showShort(mContext,"下载成功");
                                 LoadingDialog.cancelDialogForLoading();
                                 textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
                                 textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
