@@ -935,10 +935,12 @@ String client_id =LoginUserManager.getInstance().client_id;
     public static void getArticleInfo(final Context context, String articleId,final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
-        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append("").append("^").append(timeStamp).append("^").append("");
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
         String url = DOWNLOAD_ARTICLE_INFO_URL+articleId;
         OkGo.get(url).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override

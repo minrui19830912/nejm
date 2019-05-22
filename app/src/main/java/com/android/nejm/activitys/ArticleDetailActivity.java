@@ -149,16 +149,6 @@ public class ArticleDetailActivity extends BaseActivity {
 
                     }
                 });
-                HttpUtils.getArticleDetail(mContext, mId, new OnNetResponseListener() {
-                    @Override
-                    public void onNetDataResponse(JSONObject json) {
-                        /*ArticleDetail detail = new Gson().fromJson(json.optJSONObject("item").toString(),
-                                ArticleDetail.class);
-                        DownloadRecord downloadRecord = new DownloadRecord();
-                        downloadRecord.thumb = detail.thumb;
-                        downloadRecord.postdate = detail.postdate;
-                        downloadRecord.show_wantsay = detail.show_wantsay;
-                        downloadRecord.author = detail.author;*/
 
                         DownloadRecord downloadRecord = new DownloadRecord();
 
@@ -167,7 +157,10 @@ public class ArticleDetailActivity extends BaseActivity {
                         DownloadRecordManager.insert(downloadRecord);
 
                         List<String> urlList = new ArrayList<>();
-                        urlList.add(url);
+                        String loginUrl = url;
+                        loginUrl+="&uid=";
+                        loginUrl+=LoginUserManager.getInstance().uid;
+                        urlList.add(loginUrl);
 
                         String filePath = String.format(Locale.CHINA, "/html/%s.html", mId);
                         List<String> filePathList = new ArrayList<>();
@@ -183,8 +176,7 @@ public class ArticleDetailActivity extends BaseActivity {
                                 textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
                             }
                         });
-                    }
-                });
+
             }
         });
     }
