@@ -62,10 +62,10 @@ public class OtherArticleGridAdapter extends BaseAdapter {
         textView.setText(info.title);
 
         if(TextUtils.equals(focusId, info.id)) {
-            textView.setBackgroundResource(R.drawable.login_round_rectangle);
+            textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_selected);
             textView.setTextColor(context.getResources().getColor(R.color.white));
         } else {
-            textView.setBackgroundResource(R.drawable.login_round_rectangle_unselected);
+            textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_unselected);
             textView.setTextColor(context.getResources().getColor(R.color.nejm_text_unselect));
         }
 

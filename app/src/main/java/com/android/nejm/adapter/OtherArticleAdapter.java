@@ -3,6 +3,7 @@ package com.android.nejm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.data.OtherArticleInfo;
+import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -56,6 +59,18 @@ public class OtherArticleAdapter extends RecyclerView.Adapter<OtherArticleAdapte
         }
 
         viewHolder.textViewArticleTitle.setText(artitleItem.title);
+        if(TextUtils.equals(artitleItem.show_wantsay, "1")) {
+            viewHolder.textViewComment.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.textViewComment.setVisibility(View.INVISIBLE);
+        }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+            }
+        });
     }
 
     @Override
@@ -66,6 +81,8 @@ public class OtherArticleAdapter extends RecyclerView.Adapter<OtherArticleAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textViewType)
         TextView textViewType;
+        @BindView(R.id.textViewComment)
+        TextView textViewComment;
         @BindView(R.id.draweeViewCover)
         SimpleDraweeView draweeViewCover;
         @BindView(R.id.textViewArticleTitle)
