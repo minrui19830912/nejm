@@ -91,7 +91,7 @@
                     android:id="@+id/latest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="最近期刊"
+                    android:text="最新期刊"
                     android:textSize="10sp"
                     android:textColor="@color/tab_single_textcolor"
                     android:paddingTop="4dp"

@@ -185,6 +185,8 @@ public class PeriodArticleDetailActivity extends BaseActivity {
 
     @OnClick(R.id.videoLayout)
     public void onClickVideoLayout() {
-        VideoDetailActivity.launchActivity(this, articleDeatailInfo.video.id);
+        if(articleDeatailInfo.video != null) {
+            VideoDetailActivity.launchActivity(this, articleDeatailInfo.video.id);
+        }
     }
 }
