@@ -40,7 +40,7 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.new_knowledge_fragment,container,false);
+        View view = inflater.inflate(R.layout.video_list_fragment,container,false);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
         radioGroup.check(R.id.all);

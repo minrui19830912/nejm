@@ -183,6 +183,7 @@
                         android:id="@+id/draweeViewVideo"
                         android:layout_width="110dp"
                         android:layout_height="83dp"
+                        app:roundedCornerRadius="3dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
                     <TextView
