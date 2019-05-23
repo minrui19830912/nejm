@@ -52,6 +52,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/draweeViewCover"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="30dp"
+                    android:textStyle="bold"
                     android:text="NEJM目录"
                     android:textColor="@color/color_4a"
                     android:textSize="15sp"/>
@@ -82,6 +83,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
                     app:layout_constraintTop_toBottomOf="@+id/viewDirDivider"
                     android:layout_marginTop="21dp"
+                    android:textStyle="bold"
                     android:text="NEJM"
                     android:textColor="@color/color_4a"
                     android:textSize="15sp"/>
@@ -112,6 +114,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
                     app:layout_constraintTop_toBottomOf="@+id/viewNEJMDivider"
                     android:layout_marginTop="26dp"
+                    android:textStyle="bold"
                     android:text="NEJM期刊荟萃"
                     android:textColor="@color/color_4a"
                     android:textSize="15sp"/>
@@ -142,6 +145,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textViewDirTips"
                     app:layout_constraintTop_toBottomOf="@+id/viewNEJM2Divider"
                     android:layout_marginTop="25dp"
+                    android:textStyle="bold"
                     android:text="专家述评"
                     android:textColor="@color/color_4a"
                     android:textSize="15sp"/>
