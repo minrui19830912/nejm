@@ -2,14 +2,18 @@ package com.android.nejm.activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
+import com.android.nejm.MyApplication;
 import com.android.nejm.R;
 import com.android.nejm.data.LoginBean;
+import com.android.nejm.db.AnnouceRecordManager;
+import com.android.nejm.db.DBManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
@@ -78,15 +82,27 @@ public class LoginActivity extends BaseActivity {
         HttpUtils.loginSystem(this, name, pwd, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
-                LoadingDialog.cancelDialogForLoading();
                 LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
                 LoginUserManager.getInstance().login(loginBean);
-                if(justFinish ){
-                    finish();
-                } else {
-                startActivity(new Intent(mContext,MainActivity.class));
-                finish();
-                }
+                new AsyncTask<Void,Void,Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        DBManager.init(MyApplication.getApplication(), LoginUserManager.getInstance().uid);
+                        AnnouceRecordManager.getInstance().query();
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        LoadingDialog.cancelDialogForLoading();
+                        if(justFinish ){
+                            finish();
+                        } else {
+                            startActivity(new Intent(mContext,MainActivity.class));
+                            finish();
+                        }
+                    }
+                }.execute();
             }
 
             @Override

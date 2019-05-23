@@ -7,6 +7,7 @@ import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.LoginBean;
 import com.android.nejm.data.RoleBean;
 import com.android.nejm.data.RoleInfo;
+import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.db.DBManager;
 import com.android.nejm.utils.SPUtils;
 
@@ -44,6 +45,7 @@ public class LoginUserManager {
                 @Override
                 public void run() {
                     DBManager.init(MyApplication.getApplication(), uid);
+                    AnnouceRecordManager.getInstance().query();
                 }
             }).start();
         }
@@ -160,12 +162,12 @@ public class LoginUserManager {
         SPUtils.putStringPreference("uid", loginBean.uid);
         SPUtils.putStringPreference("roleid", loginBean.roleid);
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 DBManager.init(MyApplication.getApplication(), uid);
             }
-        }).start();
+        }).start();*/
     }
 
     public void register(LoginBean loginBean) {

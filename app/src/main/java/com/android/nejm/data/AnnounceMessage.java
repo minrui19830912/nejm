@@ -9,5 +9,6 @@ public class AnnounceMessage {
         public String id;
         public String title;
         public String postdate;
+        public boolean read;
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.android.nejm.MyApplication;
 import com.android.nejm.R;
+import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
@@ -124,14 +125,6 @@ public class AdvertActivity extends BaseActivity {
                 }
             }
         });
-
-        copyAssetsFiles();
-    }
-
-    private void copyAssetsFiles() {
-        File filePath = new File(getExternalFilesDir(""), "/html");
-        Log.e("dpp", "filePath.getAbsolutePath() = " + filePath.getAbsolutePath());
-        FileUtils1.getInstance(this).copyAssetsToSD("", filePath.getAbsolutePath());
     }
 
     @Override

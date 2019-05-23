@@ -13,14 +13,12 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@mipmap/logo_negm"/>
-        <CheckBox android:id="@+id/notification"
+        <ImageView android:id="@+id/notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/icon_navi_notification_bk"
+            android:src="@mipmap/icon_nav_msg_selected"
             android:layout_centerVertical="true"
-            android:checked="true"
-            android:layout_alignParentRight="true"
-            android:clickable="false"/>
+            android:layout_alignParentRight="true"/>
         <EditText
             android:id="@+id/search"
             android:layout_toRightOf="@id/logo_negm"

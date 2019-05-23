@@ -1,5 +1,6 @@
 package com.android.nejm.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.adapter.NewKnowledgeAdapter;
 import com.android.nejm.data.NewKnowledgeInfo;
 import com.android.nejm.data.Paper;
+import com.android.nejm.db.AnnouceRecordManager;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
@@ -37,6 +42,7 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
     private NewKnowledgeInfo newKnowledgeInfo;
     private int pageIndex = 1;
     private String id = "";
+    private ImageView notification;
 
     private List<NewKnowledgeInfo.NewKnowledgeitem> knowledgeitems = new ArrayList<>();
 
@@ -71,7 +77,49 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
                 DividerItemDecoration.VERTICAL_LIST));
         mRecylerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         mRecylerView.setAdapter(mNewKnowledgeAdapter);
+        notification = view.findViewById(R.id.notification);
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, NotificationActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(AnnouceRecordManager.getInstance().hasUnread()) {
+            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+        } else {
+            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+        }
+
+        if(LoginUserManager.getInstance().isLogin) {
+            notification.setVisibility(View.VISIBLE);
+        } else {
+            notification.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden) {
+            if(AnnouceRecordManager.getInstance().hasUnread()) {
+                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+            } else {
+                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+            }
+
+            if(LoginUserManager.getInstance().isLogin) {
+                notification.setVisibility(View.VISIBLE);
+            } else {
+                notification.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     private void getData(boolean showLoadingDialog, final boolean clearList) {

@@ -39,7 +39,7 @@ public class DBManager {
         } else {
             Observable.just(t).observeOn(Schedulers.io()).subscribe(new Consumer<T>() {
                 public void accept(T t) throws Exception {
-                    DBManager.daoSession.insert(t);
+                    daoSession.insert(t);
                 }
             }, new Consumer<Throwable>() {
                 public void accept(Throwable th) throws Exception {
@@ -54,7 +54,7 @@ public class DBManager {
         } else {
             Observable.just(t).observeOn(Schedulers.io()).subscribe(new Consumer<T>() {
                 public void accept(T t) throws Exception {
-                    DBManager.daoSession.update(t);
+                    daoSession.update(t);
                 }
             }, new Consumer<Throwable>() {
                 public void accept(Throwable th) throws Exception {

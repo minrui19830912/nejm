@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,11 +20,15 @@ import android.widget.TextView;
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.activitys.MainActivity;
+import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.activitys.OtherArticleListActivity;
 import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.activitys.SpecialFieldListActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.HomeBean;
+import com.android.nejm.db.AnnouceRecordManager;
+import com.android.nejm.event.AnnouceRecordUpdatedEvent;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
@@ -38,6 +43,9 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +57,7 @@ public class HomeFragment extends BaseFragment {
     Banner banner;
     RadioGroup radioGroup1;
     RadioGroup radioGroupField;
+    ImageView notification;
 
     private ArrayList<String> mBannerUrlList = new ArrayList<String>();
     private NoScrollGridView mGridView;
@@ -180,7 +189,50 @@ public class HomeFragment extends BaseFragment {
                 ((MainActivity) mContext).showTab(3);
             }
         });
+
+        notification = view.findViewById(R.id.notification);
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, NotificationActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(AnnouceRecordManager.getInstance().hasUnread()) {
+            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+        } else {
+            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+        }
+
+        if(LoginUserManager.getInstance().isLogin) {
+            notification.setVisibility(View.VISIBLE);
+        } else {
+            notification.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden) {
+            if(AnnouceRecordManager.getInstance().hasUnread()) {
+                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+            } else {
+                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+            }
+
+            if(LoginUserManager.getInstance().isLogin) {
+                notification.setVisibility(View.VISIBLE);
+            } else {
+                notification.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     private void getData() {

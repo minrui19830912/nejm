@@ -53,15 +53,13 @@
                 android:textSize="10sp" />
         </RadioGroup>
 
-        <CheckBox
+        <ImageView
             android:id="@+id/notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:button="@drawable/icon_navi_notification_bk"
-            android:checked="true"
-            android:clickable="false" />
+            android:src="@mipmap/icon_nav_msg_selected"/>
     </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

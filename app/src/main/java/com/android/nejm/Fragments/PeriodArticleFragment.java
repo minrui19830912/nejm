@@ -9,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.nejm.R;
+import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.adapter.PeriodArticleAdapter;
 import com.android.nejm.adapter.PeriodArticleItem;
 import com.android.nejm.data.Paper;
+import com.android.nejm.db.AnnouceRecordManager;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.LoadingDialog;
@@ -36,6 +40,7 @@ public class PeriodArticleFragment extends BaseFragment {
     private PeriodArticleAdapter mPeriodArticleAdapter;
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private List<PeriodArticleItem> periodArticleItemList;
+    private ImageView notification;
 
     private int year = Calendar.getInstance().get(Calendar.YEAR);
     private String id = "";
@@ -79,8 +84,51 @@ public class PeriodArticleFragment extends BaseFragment {
             }
         });
 
+        notification = view.findViewById(R.id.notification);
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, NotificationActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
+
         getData(true);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(AnnouceRecordManager.getInstance().hasUnread()) {
+            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+        } else {
+            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+        }
+
+        if(LoginUserManager.getInstance().isLogin) {
+            notification.setVisibility(View.VISIBLE);
+        } else {
+            notification.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden) {
+            if(AnnouceRecordManager.getInstance().hasUnread()) {
+                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+            } else {
+                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+            }
+
+            if(LoginUserManager.getInstance().isLogin) {
+                notification.setVisibility(View.VISIBLE);
+            } else {
+                notification.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     private void getData(boolean showLoadingDialog) {

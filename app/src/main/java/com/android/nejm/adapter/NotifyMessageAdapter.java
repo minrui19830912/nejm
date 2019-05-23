@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.NotifyDetailActivity;
+import com.android.nejm.bean.AnnounceRecord;
 import com.android.nejm.data.AnnounceMessage;
+import com.android.nejm.db.AnnouceRecordManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,10 +24,12 @@ public class NotifyMessageAdapter extends RecyclerView.Adapter<NotifyMessageAdap
     private Context context;
     private LayoutInflater inflater;
     private List<AnnounceMessage.MessageItem> messageItemList;
+    OnItemClickListener onItemClickListener;
 
-    public NotifyMessageAdapter(Context context) {
+    public NotifyMessageAdapter(Context context, OnItemClickListener listener) {
        this.context = context;
        inflater = LayoutInflater.from(context);
+       this.onItemClickListener = listener;
     }
 
     public void setData(List<AnnounceMessage.MessageItem> itemList) {
@@ -42,13 +46,15 @@ public class NotifyMessageAdapter extends RecyclerView.Adapter<NotifyMessageAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         AnnounceMessage.MessageItem messageItem = messageItemList.get(i);
-        viewHolder.textViewUnread.setVisibility(View.GONE);
+        viewHolder.textViewUnread.setVisibility(messageItem.read ? View.GONE : View.VISIBLE);
         viewHolder.textViewTitle.setText(messageItem.title);
         viewHolder.textViewPostDate.setText(String.format(Locale.CHINA, "系统通知 %s", messageItem.postdate));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NotifyDetailActivity.launchActivity(context, messageItem.id);
+                if(onItemClickListener != null) {
+                    onItemClickListener.onItemClicked(i);
+                }
             }
         });
     }
@@ -70,5 +76,9 @@ public class NotifyMessageAdapter extends RecyclerView.Adapter<NotifyMessageAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(int index);
     }
 }

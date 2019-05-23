@@ -7,7 +7,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.db.DBManager;
+import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.SPUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lzy.okgo.OkGo;
@@ -23,6 +25,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 
+import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -137,8 +140,14 @@ public class MyApplication extends Application {
             }
         }
 
+        copyAssetsFiles();
     }
 
+    private void copyAssetsFiles() {
+        File filePath = new File(getExternalFilesDir(""), "/html");
+        Log.e("dpp", "filePath.getAbsolutePath() = " + filePath.getAbsolutePath());
+        FileUtils1.getInstance(this).copyAssetsToSD("", filePath.getAbsolutePath());
+    }
 
     public static String getProcessName(Context cxt, int pid) {
         ActivityManager am = (ActivityManager) cxt.getSystemService(Context.ACTIVITY_SERVICE);
