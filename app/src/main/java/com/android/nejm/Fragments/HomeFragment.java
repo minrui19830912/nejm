@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,14 +26,13 @@ import com.android.nejm.activitys.SpecialFieldListActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
 import com.android.nejm.data.HomeBean;
 import com.android.nejm.db.AnnouceRecordManager;
-import com.android.nejm.event.AnnouceRecordUpdatedEvent;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
+import com.android.nejm.widgets.HorizontalDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 import com.android.nejm.widgets.NoScrollGridView;
-import com.android.nejm.widgets.SpacesItemDecoration;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -43,9 +41,6 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -255,7 +250,7 @@ public class HomeFragment extends BaseFragment {
                 }
                 //mHorizontalPaperListAdapter.setData(mPaperList);*/
                 mHorizontalPaperListAdapter.setData(homeBean.weekly);
-                mRecyclerView.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 4)));
+                mRecyclerView.addItemDecoration(new HorizontalDecoration(DisplayUtil.dip2px(mContext, 7)));
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                 mRecyclerView.setAdapter(mHorizontalPaperListAdapter);
                 mHorizontalPaperListAdapter.notifyDataSetChanged();

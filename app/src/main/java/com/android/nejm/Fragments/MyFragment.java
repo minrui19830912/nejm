@@ -37,7 +37,6 @@ import com.android.nejm.activitys.FavoriteActivity;
 import com.android.nejm.activitys.FeedbackActivity;
 import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.activitys.NotificationActivity;
-import com.android.nejm.activitys.OfflineArticleDetailActivity;
 import com.android.nejm.activitys.OfflineArticleListActivity;
 import com.android.nejm.activitys.ReadHistoryActivity;
 import com.android.nejm.activitys.SettingActivity;
@@ -45,12 +44,10 @@ import com.android.nejm.activitys.WebViewActivity;
 import com.android.nejm.bean.DownloadRecord;
 import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.RelatedArticle;
-import com.android.nejm.db.DBManager;
 import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
-import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.MyDownloadManager;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
@@ -123,7 +120,7 @@ public class MyFragment extends BaseFragment {
 
     private void initView() {
         textViewVersion.setText("V" + BuildConfig.VERSION_NAME);
-        getData();
+
     }
 
     private void updateDownloadCount() {
@@ -154,6 +151,7 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        getData();
         AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
         if (accountInfo != null && !TextUtils.isEmpty(accountInfo.avatar)) {
             imageViewHead.setImageURI(accountInfo.avatar);
@@ -187,6 +185,9 @@ public class MyFragment extends BaseFragment {
                     textViewFavoriteCount.setText("99+");
                 } else {
                     textViewFavoriteCount.setText(String.valueOf(accountInfo.fav_count));
+                }
+                if(accountInfo.ids!=null){
+                    textViewNotifyCount.setText(""+accountInfo.ids.size());
                 }
             }
         });
