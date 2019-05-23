@@ -652,10 +652,13 @@ String client_id =LoginUserManager.getInstance().client_id;
     public static void getVideoDetails(final Context context,String id, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
-        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append("").append("^").append(timeStamp).append("^").append("");
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
         StringBuilder url = new StringBuilder(VIDEO_DETAIL_URL);
         if(!TextUtils.isEmpty(id)){
             url.append("&id=").append(id);
