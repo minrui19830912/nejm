@@ -78,6 +78,21 @@ public class DBManager {
         }
     }
 
+    public static <T> void deleteAll(Class<T> tClass) {
+        if (Thread.currentThread() != Looper.getMainLooper().getThread()) {
+            daoSession.deleteAll(tClass);
+        } else {
+            Observable.just(tClass).observeOn(Schedulers.io()).subscribe(new Consumer<Class<T>>() {
+                public void accept(Class<T> t) throws Exception {
+                    DBManager.daoSession.delete(tClass);
+                }
+            }, new Consumer<Throwable>() {
+                public void accept(Throwable th) throws Exception {
+                }
+            });
+        }
+    }
+
     public static <T> List<T> queryAll(Class<T> cls) {
         return daoSession.queryBuilder(cls).list();
     }

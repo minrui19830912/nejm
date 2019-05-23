@@ -1,11 +1,21 @@
 package com.android.nejm.activitys;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.android.nejm.R;
+import com.android.nejm.adapter.DownloadArticleAdapter;
+import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.utils.FileUtils1;
+import com.android.nejm.widgets.LoadingDialog;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,7 +57,36 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewClean)
     public void onClickClean() {
+        LoadingDialog.showDialogForLoading(this);
+        new AsyncTask<Void,Void,Void>() {
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                LoadingDialog.cancelDialogForLoading();
+            }
 
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    File file = new File(getExternalFilesDir(null), "/html");
+                    FileUtils.deleteDirectory(file);
+                } catch (Exception e) {
+
+                }
+
+                DownloadRecordManager.deleteAll();
+                LoginUserManager.getInstance().setLastzipid("0");
+
+                copyAssetsFiles();
+
+                return null;
+            }
+        }.execute();
+    }
+
+    private void copyAssetsFiles() {
+        File filePath = new File(getExternalFilesDir(""), "/html");
+        Log.e("dpp", "filePath.getAbsolutePath() = " + filePath.getAbsolutePath());
+        FileUtils1.getInstance(this).copyAssetsToSD("", filePath.getAbsolutePath());
     }
 
     @OnClick(R.id.textViewPush)

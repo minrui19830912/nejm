@@ -12,6 +12,10 @@ public class DownloadRecordManager {
         return queryBuilder.list();
     }
 
+    public static void deleteAll() {
+        DBManager.deleteAll(DownloadRecord.class);
+    }
+
     public static long getRecordCount() {
         QueryBuilder<DownloadRecord> queryBuilder = DBManager.getDaoSession().queryBuilder(DownloadRecord.class);
         return queryBuilder.count();
