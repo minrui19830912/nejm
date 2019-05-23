@@ -173,7 +173,7 @@
                     android:id="@+id/videoLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/color_67"
                     android:padding="10dp"
                     android:layout_marginTop="25dp"
                     app:layout_constraintStart_toStartOf="@+id/viewSpecialistDivider"

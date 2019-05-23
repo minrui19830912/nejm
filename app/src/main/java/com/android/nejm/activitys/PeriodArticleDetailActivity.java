@@ -14,7 +14,9 @@ import com.android.nejm.adapter.ArticleDetailDirAdapter;
 import com.android.nejm.data.PeriodArticleDeatailInfo;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.DisplayUtil;
 import com.android.nejm.widgets.LoadingDialog;
+import com.android.nejm.widgets.SpacesItemDecoration;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
@@ -67,6 +69,7 @@ public class PeriodArticleDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         recyclerViewDir.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewDir.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 9)));
         dirAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int index) {
@@ -76,6 +79,7 @@ public class PeriodArticleDetailActivity extends BaseActivity {
         recyclerViewDir.setAdapter(dirAdapter);
 
         recyclerViewNEJM.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewNEJM.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 9)));
         nejmAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int index) {
@@ -92,6 +96,7 @@ public class PeriodArticleDetailActivity extends BaseActivity {
         recyclerViewNEJM.setAdapter(nejmAdapter);
 
         recyclerViewNEJM2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewNEJM2.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 9)));
         nejm2Adapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int index) {
@@ -108,6 +113,7 @@ public class PeriodArticleDetailActivity extends BaseActivity {
         recyclerViewNEJM2.setAdapter(nejm2Adapter);
 
         recyclerViewSpecialist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewSpecialist.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 9)));
         specialistAdapter = new ArticleDetailDirAdapter(this, new ArticleDetailDirAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int index) {
