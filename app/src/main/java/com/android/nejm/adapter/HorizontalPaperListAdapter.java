@@ -13,10 +13,8 @@ import com.android.nejm.R;
 import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.activitys.PeriodArticleDetailActivity;
 import com.android.nejm.data.HomeBean;
-import com.android.nejm.data.Paper;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalPaperListAdapter.ViewHolder> {
@@ -40,7 +38,7 @@ public class HorizontalPaperListAdapter extends RecyclerView.Adapter<HorizontalP
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.paper_item,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.paper_item,viewGroup,false);
         return new ViewHolder(view);
     }
 
