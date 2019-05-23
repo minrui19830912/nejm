@@ -2,24 +2,16 @@ package com.android.nejm.activitys;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.DownloadArticleAdapter;
-import com.android.nejm.adapter.RelatedArticleAdapter;
 import com.android.nejm.bean.DownloadRecord;
-import com.android.nejm.data.RelatedArticle;
 import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +26,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class OfflineArticleListActivity extends BaseActivity {
-    @BindView(R.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -56,9 +46,6 @@ public class OfflineArticleListActivity extends BaseActivity {
         setContentView(R.layout.activity_offline_article_list);
         ButterKnife.bind(this);
         setCommonTitle("下载文章列表",true);
-
-        refreshLayout.setEnableRefresh(false);
-        refreshLayout.setEnableLoadMore(false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
