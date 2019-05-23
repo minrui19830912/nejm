@@ -349,7 +349,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     if (bundle != null) {
                         //在这里获得了剪裁后的Bitmap对象，可以用于上传
                         Bitmap image = bundle.getParcelable("data");
-                        ToastUtil.showShort(mContext,"dfs");
+                        //ToastUtil.showShort(mContext,"dfs");
                         //设置到ImageView上
 //                    imageViewHead.setImageBitmap(image);
                         //也可以进行一些保存、压缩等操作后上传
@@ -360,7 +360,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     } else {
                         try {
                             Bitmap bitmap = BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(uritempFile));
-                            ToastUtil.showShort(mContext,"dfs123");
+                            //ToastUtil.showShort(mContext,"dfs123");
                             if(mMyFragment!=null&&mMyFragment instanceof MyFragment){
                                 ((MyFragment)mMyFragment).uploadImage(bitmap);
                             }
