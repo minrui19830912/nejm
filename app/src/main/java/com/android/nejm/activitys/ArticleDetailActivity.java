@@ -134,7 +134,7 @@ public class ArticleDetailActivity extends BaseActivity {
         });
 
         if(url != null && url.startsWith(HttpUtils.NEW_KNOWLEDGE_DETAIL_URL)) {
-            findViewById(R.id.shareLayout).setVisibility(View.GONE);
+            findViewById(R.id.operate_layout).setVisibility(View.GONE);
         } else {
             loadShareContent();
         }
@@ -250,6 +250,7 @@ public class ArticleDetailActivity extends BaseActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Log.e("NEJM", "shouldOverrideUrlLoading, url = " + url);
             if(TextUtils.equals(url, "http://www.nejm.login/")) {
                 Intent intent = new Intent(mContext,LoginActivity.class);
                 intent.putExtra("just_finish",true);
