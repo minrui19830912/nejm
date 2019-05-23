@@ -19,6 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -85,6 +86,8 @@ public class VideoDetailActivity extends BaseActivity {
     ConstraintLayout bottomLayout;
     @BindView(R.id.textViewFavorite)
     TextView textViewFavorite;
+    @BindView(R.id.imageViewPause)
+    ImageView imageViewPause;
 
     private String id;
     private VideoDetail videoDetail;
@@ -103,6 +106,22 @@ public class VideoDetailActivity extends BaseActivity {
         showBack();
         setCommonTitle("NEJM医学前沿");
         ButterKnife.bind(this);
+
+        videoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(videoView.isPlaying()) {
+                    videoView.pause();
+                    imageViewPause.setVisibility(View.VISIBLE);
+                } else {
+                    imageViewPause.setVisibility(View.GONE);
+                    videoView.start();
+                }
+                return false;
+            }
+        });
+
+        imageViewPause.setVisibility(View.GONE);
 
         id = getIntent().getStringExtra("id");
         getData();

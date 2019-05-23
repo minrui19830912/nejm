@@ -142,6 +142,16 @@
                     app:layout_constraintEnd_toEndOf="@+id/videoView"
                     app:layout_constraintTop_toTopOf="@+id/videoView"
                     app:layout_constraintBottom_toBottomOf="@+id/videoView"/>
+                <ImageView
+                    android:id="@+id/imageViewPause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/play_icon"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/videoView"
+                    app:layout_constraintEnd_toEndOf="@+id/videoView"
+                    app:layout_constraintTop_toTopOf="@+id/videoView"
+                    app:layout_constraintBottom_toBottomOf="@+id/videoView" />
                 <TextView
                     android:id="@+id/textViewContent"
                     android:layout_width="0dp"
