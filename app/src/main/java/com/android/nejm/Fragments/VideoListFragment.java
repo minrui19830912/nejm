@@ -2,6 +2,7 @@ package com.android.nejm.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,9 @@ import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONObject;
 
@@ -31,10 +35,14 @@ import java.util.List;
 public class VideoListFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup radioGroup;
     private RecyclerView mRecylerView;
+    private SmartRefreshLayout refreshLayout;
     private VideoListAdapter mVideoListAdapter;
     private List<VideoInfo.Videoitem> videoitems = new ArrayList<>();
     private VideoInfo videoInfo;
     ImageView notification;
+
+    private int page;
+    private String id;
 
     @Nullable
     @Override
@@ -44,6 +52,21 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
         radioGroup = view.findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
         radioGroup.check(R.id.all);
+
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                getData(false, false);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page = 1;
+                getData(false, true);
+            }
+        });
 
         mRecylerView = view.findViewById(R.id.new_knowledge_recyclerview);
         mVideoListAdapter = new VideoListAdapter(mContext);
@@ -97,14 +120,26 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
         }
     }
 
-    private void getData(String id) {
-        LoadingDialog.showDialogForLoading(mContext);
-        HttpUtils.getVideoList(mContext,id,1, new OnNetResponseListener() {
+    private void getData(boolean showLoadingDialog, final boolean clearList) {
+        if(showLoadingDialog) {
+            LoadingDialog.showDialogForLoading(mContext);
+        }
+
+        HttpUtils.getVideoList(mContext,id,page, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                refreshLayout.finishRefresh(100);
+                refreshLayout.finishLoadMore(100);
+
                 videoInfo = new Gson().fromJson(json.toString(), VideoInfo.class);
-                mVideoListAdapter.setData(videoInfo.items);
+                if(clearList) {
+                    videoitems.clear();
+                }
+
+                videoitems.addAll(videoInfo.items);
+
+                mVideoListAdapter.setData(videoitems);
                 mVideoListAdapter.notifyDataSetChanged();
             }
         });
@@ -114,16 +149,18 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.all:
-                getData("");
+                id = "";
                 break;
             case R.id.nejm_anim:
                 if(videoInfo != null && videoInfo.types != null && videoInfo.types.size() > 0) {
-                    getData(videoInfo.types.get(0).id);
+                    id = videoInfo.types.get(0).id;
                 } else {
-                    getData("");
+                    id = "";
                 }
                 break;
         }
+
+        getData(true, true);
     }
 }
 

@@ -3,69 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        app:layout_constraintTop_toTopOf="parent"
+    <RelativeLayout
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="3dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
         android:background="@color/colorPrimary"
         >
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@mipmap/ic_back"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center_vertical"
+        <TextView android:id="@+id/common_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="标题"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
 
-            >
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_back"
-                android:visibility="invisible"
-                android:layout_centerVertical="true"
-                />
+        <!--<EditText-->
 
-            <TextView android:id="@+id/common_tile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="标题"
-                android:textSize="18sp"
-                android:layout_centerHorizontal="true"
-                />
-
-            <!--<EditText-->
-
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="50dp"-->
-                <!--android:layout_marginRight="50dp"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:background="@drawable/main_search_bk"-->
-                <!--android:drawableLeft="@mipmap/icon_search"-->
-                <!--android:padding="5dp"-->
-                <!--android:textColorHint="#fff"-->
-                <!--android:hint="请输入搜索内容"-->
-                <!--android:gravity="center"-->
-                <!--android:cursorVisible="false"-->
-                <!--/>-->
-            <ImageView android:id="@+id/home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:visibility="gone"
-                android:src="@mipmap/icon_tabbar_home_normal"/>
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:layout_marginRight="50dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@drawable/main_search_bk"-->
+        <!--android:drawableLeft="@mipmap/icon_search"-->
+        <!--android:padding="5dp"-->
+        <!--android:textColorHint="#fff"-->
+        <!--android:hint="请输入搜索内容"-->
+        <!--android:gravity="center"-->
+        <!--android:cursorVisible="false"-->
+        <!--/>-->
+        <ImageView android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:src="@mipmap/icon_tabbar_home_normal"/>
+    </RelativeLayout>
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/nejm_red"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/topLayout"/>
 </android.support.constraint.ConstraintLayout>

@@ -140,8 +140,8 @@ public class PeriodArticleFragment extends BaseFragment {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(2000);
-                refreshLayout.finishLoadMore(2000);
+                refreshLayout.finishRefresh(100);
+                refreshLayout.finishLoadMore(100);
 
                 periodArticleItemList = new ArrayList<>();
 
