@@ -304,7 +304,6 @@
                 android:paddingStart="16dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
-                android:background="?android:attr/selectableItemBackground"
                 android:text="下载本周文章（已下载）"
                 android:textColor="@color/color_5c"
                 android:textSize="15sp"
