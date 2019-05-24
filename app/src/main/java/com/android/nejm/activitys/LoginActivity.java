@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.nejm.MyApplication;
 import com.android.nejm.R;
@@ -30,7 +31,8 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.editTextName)
     EditText editTextName;
-
+    @BindView(R.id.textViewShowPwd)
+    TextView textViewShowPwd;
     @BindView(R.id.editTextPassword)
     EditText editTextPassword;
     private boolean justFinish = false;
@@ -63,7 +65,14 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.textViewShowPwd)
     public void onClickShowPwd() {
-        editTextPassword.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+        if(editTextPassword.getInputType() == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            editTextPassword.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD | EditorInfo.TYPE_CLASS_TEXT);
+            textViewShowPwd.setText("显示密码");
+        } else {
+            editTextPassword.setInputType(EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            textViewShowPwd.setText("隐藏密码");
+        }
+
         editTextPassword.setText(editTextPassword.getText());
         editTextPassword.setSelection(editTextPassword.getText().length());
     }
