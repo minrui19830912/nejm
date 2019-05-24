@@ -23,6 +23,7 @@ public class SpecialFieldArticleInfo {
         public String postdate;
         public String show_wantsay;
         public String thumb;
+        public String intro;
         public List<Specialties> specialties;
     }
 
