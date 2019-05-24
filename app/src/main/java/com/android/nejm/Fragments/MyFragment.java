@@ -62,6 +62,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -120,7 +121,6 @@ public class MyFragment extends BaseFragment {
 
     private void initView() {
         textViewVersion.setText("V" + BuildConfig.VERSION_NAME);
-
     }
 
     private void updateDownloadCount() {
@@ -157,8 +157,28 @@ public class MyFragment extends BaseFragment {
             imageViewHead.setImageURI(accountInfo.avatar);
         }
 
-        textViewDownloadComplete.setVisibility(View.INVISIBLE);
-        textViewDownload.setVisibility(View.VISIBLE);
+        long lastDownloadTime = LoginUserManager.getInstance().lastDownloadtime;
+        if(lastDownloadTime != 0) {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTimeInMillis(lastDownloadTime);
+            int year2 = calendar1.get(Calendar.YEAR);
+            int weekOfYear2 = calendar1.get(Calendar.WEEK_OF_YEAR);
+
+            if(year == year2 && weekOfYear == weekOfYear2) {
+                textViewDownloadComplete.setVisibility(View.VISIBLE);
+                textViewDownload.setVisibility(View.INVISIBLE);
+            } else {
+                textViewDownloadComplete.setVisibility(View.INVISIBLE);
+                textViewDownload.setVisibility(View.VISIBLE);
+            }
+        } else {
+            textViewDownloadComplete.setVisibility(View.INVISIBLE);
+            textViewDownload.setVisibility(View.VISIBLE);
+        }
 
         updateDownloadCount();
 
@@ -405,6 +425,7 @@ public class MyFragment extends BaseFragment {
                             LoadingDialog.cancelDialogForLoading();
                             textViewDownloadComplete.setVisibility(View.VISIBLE);
                             textViewDownload.setVisibility(View.INVISIBLE);
+                            LoginUserManager.getInstance().setLastDownloadtime(Calendar.getInstance().getTimeInMillis());
                             updateDownloadCount();
                         }
                     });

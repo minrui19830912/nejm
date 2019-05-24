@@ -22,6 +22,8 @@ public class LoginUserManager {
     public RoleBean roleBean;
     public RoleInfo roleInfo;
 
+    public long lastDownloadtime;
+
     public boolean isLogin = false;
 
     private static LoginUserManager userManager;
@@ -32,6 +34,7 @@ public class LoginUserManager {
         uid = SPUtils.getStringPreference("uid", "");
         roleid = SPUtils.getStringPreference("roleid", "");
         lastzipid = SPUtils.getStringPreference("lastzipid", "0");
+        lastDownloadtime = SPUtils.getLongPreference("last_download_time", 0);
         MyApplication.mToken = access_token;
         MyApplication.client_id = client_id;
         MyApplication.uid = uid;
@@ -145,6 +148,14 @@ public class LoginUserManager {
     public void setLastzipid(String lastzipid) {
         this.lastzipid = lastzipid;
         SPUtils.putStringPreference("lastzipid", lastzipid);
+    }
+
+    public long getLastDownloadtime() {
+        return lastDownloadtime;
+    }
+
+    public void setLastDownloadtime(long lastDownloadtime) {
+        this.lastDownloadtime = lastDownloadtime;
     }
 
     public void login(LoginBean loginBean) {

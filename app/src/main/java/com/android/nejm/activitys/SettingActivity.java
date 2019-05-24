@@ -75,6 +75,7 @@ public class SettingActivity extends BaseActivity {
 
                 DownloadRecordManager.deleteAll();
                 LoginUserManager.getInstance().setLastzipid("0");
+                LoginUserManager.getInstance().setLastDownloadtime(0);
 
                 copyAssetsFiles();
 

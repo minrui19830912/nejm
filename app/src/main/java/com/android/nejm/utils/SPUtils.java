@@ -92,6 +92,16 @@ public class SPUtils {
         return preferences.getString(key, defaultValue);
     }
 
+    public static void putLongPreference(String key, long value) {
+        SharedPreferences preferences = getSharedPreference();
+        preferences.edit().putLong(key, value).apply();
+    }
+
+    public static long getLongPreference(String key, long defaultValue) {
+        SharedPreferences preferences = getSharedPreference();
+        return preferences.getLong(key, defaultValue);
+    }
+
     public static void setSharedIntData(Context context, String key, int value) {
         if (sp == null) {
             init(context);
