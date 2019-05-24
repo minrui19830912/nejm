@@ -29,6 +29,17 @@
         android:textSize="15sp"
         android:gravity="center_vertical"/>
 
+    <ImageView
+        android:id="@+id/imageViewClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:src="@drawable/close_btn"
+        app:layout_constraintTop_toTopOf="@+id/search_box"
+        app:layout_constraintBottom_toBottomOf="@+id/search_box"
+        app:layout_constraintEnd_toEndOf="@+id/search_box"/>
+
     <LinearLayout android:visibility="invisible"
         android:id="@+id/search_content"
         app:layout_constraintTop_toBottomOf="@id/search_box"

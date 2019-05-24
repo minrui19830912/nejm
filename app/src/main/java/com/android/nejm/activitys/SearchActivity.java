@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.nejm.R;
@@ -40,6 +43,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnEditorAction;
 
 public class SearchActivity extends BaseActivity {
@@ -53,6 +57,8 @@ public class SearchActivity extends BaseActivity {
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.grdiview)
     GridView grdiview;
+    @BindView(R.id.imageViewClear)
+    ImageView imageViewClear;
 
 
     private ArrayList<Paper> mPaperList = new ArrayList<>();
@@ -99,6 +105,27 @@ public class SearchActivity extends BaseActivity {
             }
         });
         grdiview.setAdapter(mClassesGridAdapter);
+
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length() > 0) {
+                    imageViewClear.setVisibility(View.VISIBLE);
+                } else {
+                    imageViewClear.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @OnEditorAction(R.id.search_box)
@@ -109,6 +136,12 @@ public class SearchActivity extends BaseActivity {
         }
 
         return false;
+    }
+
+    @OnClick(R.id.imageViewClear)
+    public void onClickClear() {
+        editTextSearch.setText("");
+        imageViewClear.setVisibility(View.GONE);
     }
 
     private void search(boolean showLoading, final boolean loadMore) {
