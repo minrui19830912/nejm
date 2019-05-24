@@ -25,6 +25,7 @@ public class OtherArticleInfo {
         public String show_wantsay;
         public String thumb;
         public List<Specialties> specialties;
+        public int article_type;
     }
 
     public static class Specialties {

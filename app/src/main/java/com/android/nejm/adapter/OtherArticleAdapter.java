@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
+import com.android.nejm.activitys.DirectoryDetailActivity;
+import com.android.nejm.activitys.VideoDetailActivity;
 import com.android.nejm.data.OtherArticleInfo;
 import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -68,7 +70,13 @@ public class OtherArticleAdapter extends RecyclerView.Adapter<OtherArticleAdapte
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                if(artitleItem.article_type == 2) {//video
+                    VideoDetailActivity.launchActivity(context, artitleItem.id);
+                } else if(artitleItem.article_type == 3) {//directory
+                    DirectoryDetailActivity.launchActivity(context, artitleItem.id);
+                } else {
+                    ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                }
             }
         });
     }
