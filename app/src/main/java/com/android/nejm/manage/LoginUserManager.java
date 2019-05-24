@@ -41,6 +41,7 @@ public class LoginUserManager {
         accountInfo = new AccountInfo();
 
         if(!TextUtils.isEmpty(uid)) {
+            isLogin = true;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
