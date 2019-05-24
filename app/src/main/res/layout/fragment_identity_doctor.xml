@@ -39,11 +39,12 @@
         app:layout_constraintTop_toBottomOf="@+id/viewDivider"
         app:layout_constraintBottom_toBottomOf="parent">
     </FrameLayout>
-    <!--<android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewProfession"
         android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewDivider"
@@ -52,17 +53,20 @@
         android:id="@+id/viewDivider2"
         android:layout_width="1dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
         android:background="@color/register_divider"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewProfession"
+        app:layout_constraintTop_toBottomOf="@+id/viewDivider"
         app:layout_constraintStart_toEndOf="@id/recyclerViewProfession"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerViewProfession"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewOffice"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="33dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintStart_toEndOf="@+id/viewDivider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/recyclerViewProfession"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewProfession"/>-->
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewProfession"/>
 </android.support.constraint.ConstraintLayout>

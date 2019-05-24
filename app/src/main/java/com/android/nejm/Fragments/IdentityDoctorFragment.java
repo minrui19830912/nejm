@@ -14,15 +14,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.nejm.R;
+import com.android.nejm.adapter.DoctorSpecailAdapter;
+import com.android.nejm.adapter.DoctorSpecailSubAdapter;
+import com.android.nejm.adapter.OnItemClickListener;
 import com.android.nejm.data.RoleBean;
 import com.android.nejm.data.RoleInfo;
 import com.android.nejm.event.DoctorIdentitySelectedEvent;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
+import com.android.nejm.utils.DisplayUtil;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
+import com.android.nejm.widgets.SpacesItemDecoration;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
@@ -41,19 +46,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IdentityDoctorFragment extends BaseFragment {
-    /*@BindView(R.id.recyclerViewProfession)
+    @BindView(R.id.recyclerViewProfession)
     RecyclerView recyclerViewProfession;
     @BindView(R.id.recyclerViewOffice)
-    RecyclerView recyclerViewOffice;*/
+    RecyclerView recyclerViewOffice;
     @BindView(R.id.layoutContainer)
     FrameLayout layoutContainer;
 
     RoleBean roleBean;
 
-    OptionsPickerView pvOptions;
-
-    List<OptionItem> options1Items = new ArrayList<>();
-    private List<List<String>> options2Items = new ArrayList<>();
+    DoctorSpecailAdapter doctorSpecailAdapter;
+    DoctorSpecailSubAdapter doctorSpecailSubAdapter;
 
 
     @Nullable
@@ -62,97 +65,51 @@ public class IdentityDoctorFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_identity_doctor, container, false);
         ButterKnife.bind(this, root);
-        //initView();
-        initOptionPicker();
+        initView();
         loadData();
         return root;
     }
 
-    /*private void initView() {
-        recyclerViewProfession.addItemDecoration(new DividerItemDecoration(mContext,
-                DividerItemDecoration.VERTICAL_LIST));
+    private void initView() {
         recyclerViewProfession.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        recyclerViewProfession.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 18)));
 
-        recyclerViewOffice.addItemDecoration(new DividerItemDecoration(mContext,
-                DividerItemDecoration.VERTICAL_LIST));
         recyclerViewOffice.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-    }*/
+        recyclerViewOffice.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(mContext, 6)));
+
+        doctorSpecailAdapter = new DoctorSpecailAdapter(mContext, new OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                doctorSpecailSubAdapter.setList(roleBean.dpts.get(index).sublist);
+                doctorSpecailSubAdapter.notifyDataSetChanged();
+            }
+        });
+        doctorSpecailSubAdapter = new DoctorSpecailSubAdapter(mContext, new OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                int dptsIndex = doctorSpecailAdapter.getSelectionIndex();
+                RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
+                roleInfo.divisionId = roleBean.dpts.get(dptsIndex).sublist.get(index).id;
+                roleInfo.divisionName = roleBean.dpts.get(dptsIndex).sublist.get(index).title;
+
+                EventBus.getDefault().post(new DoctorIdentitySelectedEvent(dptsIndex, index));
+            }
+        });
+
+        recyclerViewProfession.setAdapter(doctorSpecailAdapter);
+        recyclerViewOffice.setAdapter(doctorSpecailSubAdapter);
+    }
 
     private void loadData() {
         roleBean = LoginUserManager.getInstance().roleBean;
         if(roleBean.dpts != null) {
-            for(RoleBean.DPTS dpts : roleBean.dpts) {
-                OptionItem item = new OptionItem();
-                item.id = dpts.id;
-                item.title = dpts.title;
-                options1Items.add(item);
+            doctorSpecailAdapter.setList(roleBean.dpts);
+            doctorSpecailAdapter.notifyDataSetChanged();
 
-                List<String> list = new ArrayList<>();
-                options2Items.add(list);
-                if(dpts.sublist != null) {
-                    for(RoleBean.SubListItem subListItem : dpts.sublist) {
-                        list.add(subListItem.title);
-                    }
-                }
+            if(roleBean.dpts.size() > 0) {
+                doctorSpecailSubAdapter.setList(roleBean.dpts.get(0).sublist);
+                doctorSpecailSubAdapter.notifyDataSetChanged();
             }
-
-            pvOptions.setPicker(options1Items, options2Items);
-            pvOptions.show();
-        }
-    }
-
-    private void initOptionPicker() {//条件选择器初始化
-
-        /**
-         * 注意 ：如果是三级联动的数据(省市区等)，请参照 JsonDataActivity 类里面的写法。
-         */
-
-        pvOptions = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                RoleInfo roleInfo = LoginUserManager.getInstance().roleInfo;
-                roleInfo.divisionId = roleBean.dpts.get(options1).sublist.get(options2).id;
-                roleInfo.divisionName = roleBean.dpts.get(options1).sublist.get(options2).title;
-
-                EventBus.getDefault().post(new DoctorIdentitySelectedEvent(options1, options2));
-            }
-        })
-                .setBackgroundId(0x00000000) //设置外部遮罩颜色
-                .isDialog(false)
-                .setDecorView(layoutContainer)
-                .setOutSideCancelable(false)
-                .setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
-                    @Override
-                    public void customLayout(View v) {
-                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        tvSubmit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                pvOptions.returnData();
-                                //pvCustomOptions.dismiss();
-                                //EventBus.getDefault().post(new DoctorIdentitySelectedEvent(options1, options2));
-                            }
-                        });
-                    }
-                })
-                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
-                    @Override
-                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
-                        String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
-                        //ToastUtil.showShort(mContext, str);
-                    }
-                })
-                .build();
-        pvOptions.setKeyBackCancelable(false);
-    }
-
-    static class OptionItem implements IPickerViewData {
-        public String id;
-        public String title;
-
-        @Override
-        public String getPickerViewText() {
-            return title;
         }
     }
 }
