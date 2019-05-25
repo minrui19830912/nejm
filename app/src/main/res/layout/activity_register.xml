@@ -191,6 +191,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewShowPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="25dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="显示密码"
+            android:textColor="#C92700"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserName"  />
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="0dp"
@@ -198,14 +210,26 @@
             android:layout_marginTop="25dp"
             android:drawablePadding="17dp"
             android:drawableBottom="@drawable/horizontal_line_register"
+            app:layout_constraintEnd_toStartOf="@+id/textViewShowPwd"
             android:background="@color/transparent"
             android:hint="设置密码（最少6位）"
             android:textSize="14sp"
             android:textColor="#4A4A4A"
             android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/editTextUserName"
             app:layout_constraintStart_toStartOf="@+id/editTextUserName"
             app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+        <TextView
+            android:id="@+id/textViewShowPwdAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="25dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="显示密码"
+            android:textColor="#C92700"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPassword"   />
         <EditText
             android:id="@+id/editTextPasswordAgain"
             android:layout_width="0dp"
@@ -218,7 +242,7 @@
             android:textSize="14sp"
             android:textColor="#4A4A4A"
             android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+            app:layout_constraintEnd_toStartOf="@+id/textViewShowPwdAgain"
             app:layout_constraintStart_toStartOf="@+id/editTextPassword"
             app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
         <CheckBox
