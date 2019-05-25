@@ -64,6 +64,7 @@ public class ArticleDetailActivity extends BaseActivity {
     private String cover;
     private String url;
     private String mId;
+    private TextView storage;
 
     ArticleShareContent shareContent;
 
@@ -108,7 +109,7 @@ public class ArticleDetailActivity extends BaseActivity {
                 showShareDialog();
             }
         });
-        TextView storage =findViewById(R.id.storage);
+        storage =findViewById(R.id.storage);
         storage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,6 +214,11 @@ public class ArticleDetailActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                String isFav = json.optString("isfav");
+                if(isFav.equals("1")){
+                    Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
+                    storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                }
                 shareContent = new Gson().fromJson(json.optJSONObject("item").toString(), ArticleShareContent.class);
             }
         });
