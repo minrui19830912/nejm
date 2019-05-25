@@ -2,6 +2,8 @@ package com.android.nejm.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.manage.LoginUserManager;
@@ -34,6 +37,8 @@ public class FindPwdByPhoneFragment extends BaseFragment {
     EditText editTextPwd;
     @BindView(R.id.editTextPwdAgain)
     EditText editTextPwdAgain;
+    @BindView(R.id.textViewSendVerifyCode)
+    TextView textViewSendVerifyCode;
 
     @Nullable
     @Override
@@ -52,13 +57,35 @@ public class FindPwdByPhoneFragment extends BaseFragment {
             editTextPhone.requestFocus();
             return;
         }
-        HttpUtils.sendMobileVerifyCode(mContext, mobile, new OnNetResponseListener() {
-            @Override
-            public void onNetDataResponse(JSONObject json) {
-                ToastUtil.showShort(mContext, "发送手机验证码成功");
-            }
-        });
+        if (count == 0) {
+            count = 60;
+            textViewSendVerifyCode.setText("60");
+            mHandler.sendEmptyMessageDelayed(0, 1000);
+            HttpUtils.sendMobileVerifyCode(mContext, mobile, new OnNetResponseListener() {
+                @Override
+                public void onNetDataResponse(JSONObject json) {
+                    ToastUtil.showShort(mContext, "发送手机验证码成功");
+                }
+            });
+        }
     }
+
+    private int count;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0) {
+                if (count > 0) {
+                    count--;
+                    textViewSendVerifyCode.setText("" + count);
+                    mHandler.sendEmptyMessageDelayed(0, 1000);
+                } else {
+                    textViewSendVerifyCode.setText("发送验证码");
+                }
+            }
+        }
+    };
 
     @OnClick(R.id.textViewShowPwd)
     public void onClickShowPwd() {
