@@ -110,10 +110,6 @@ public class NotificationActivity extends BaseActivity {
                             @Override
                             protected void onPostExecute(Void aVoid) {
                                 LoadingDialog.cancelDialogForLoading();
-                                for(AnnounceMessage.MessageItem item : announceMessage.items) {
-                                    Log.e("dpp", "item.read = " + item.read);
-                                }
-
                                 messageAdapter.setData(announceMessage.items);
                                 messageAdapter.notifyDataSetChanged();
                             }

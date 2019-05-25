@@ -223,7 +223,7 @@ public class OfflineArticleDetailActivity extends BaseActivity {
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-            Log.e("dpp", "shouldInterceptRequest, uri = " + url);
+            Log.e("nejm", "shouldInterceptRequest, uri = " + url);
             if(url.startsWith("file:///") && url.endsWith(".css")) {
                 try {
                     String filePath = url.replaceFirst("file:///files/", "");

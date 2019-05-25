@@ -110,7 +110,6 @@ public class SettingActivity extends BaseActivity {
 
     private void copyAssetsFiles() {
         File filePath = new File(getExternalFilesDir(""), "/html");
-        Log.e("dpp", "filePath.getAbsolutePath() = " + filePath.getAbsolutePath());
         FileUtils1.getInstance(this).copyAssetsToSD("", filePath.getAbsolutePath());
     }
 

@@ -84,7 +84,6 @@ public class PeriodArticleDetailActivity extends BaseActivity {
             @Override
             public void onItemClicked(int index) {
                 String url = HttpUtils.ARTICLE_DETAIL_URL+ articleDeatailInfo.items_5.get(index).id;
-                Log.e("dpp", "url = " + url);
                 String cover = "";
                 if(articleDeatailInfo.video != null && articleDeatailInfo.video.thumb != null) {
                     cover = articleDeatailInfo.video.thumb;
@@ -105,7 +104,6 @@ public class PeriodArticleDetailActivity extends BaseActivity {
                 if(articleDeatailInfo.video != null && articleDeatailInfo.video.thumb != null) {
                     cover = articleDeatailInfo.video.thumb;
                 }
-                Log.e("dpp", "url = " + url);
                 ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.items_6.get(index).id,
                         url,articleDeatailInfo.items_6.get(index).title,cover,articleDeatailInfo.items_6.get(index).title);
             }
@@ -122,7 +120,6 @@ public class PeriodArticleDetailActivity extends BaseActivity {
                 if(articleDeatailInfo.video != null && articleDeatailInfo.video.thumb != null) {
                     cover = articleDeatailInfo.video.thumb;
                 }
-                Log.e("dpp", "url = " + url);
                 ArticleDetailActivity.launchActivity(mContext,articleDeatailInfo.wantsay.get(index).id,
                         url,articleDeatailInfo.wantsay.get(index).title,cover,articleDeatailInfo.wantsay.get(index).title);
             }

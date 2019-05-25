@@ -160,7 +160,6 @@ public class RegisterActivity extends BaseActivity {
         HttpUtils.register(this, params, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
-                Log.e("dpp", "json = " + json.toString());
                 LoadingDialog.cancelDialogForLoading();
                 LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
                 LoginUserManager.getInstance().register(loginBean);
