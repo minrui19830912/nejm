@@ -2,7 +2,6 @@ package com.android.nejm.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.GridView;
 
 public class NoScrollGridView extends GridView {
@@ -23,8 +22,6 @@ public class NoScrollGridView extends GridView {
         int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
                 MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);
-        int height = getMeasuredHeight();
-        Log.e("TAG", "NoScrollGridView, onMeasure, height = " + height);
     }
 
 }
