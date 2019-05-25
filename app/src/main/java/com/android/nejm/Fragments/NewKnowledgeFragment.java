@@ -9,8 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.NotificationActivity;
@@ -34,8 +38,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
-    private RadioGroup radioGroup;
+public class NewKnowledgeFragment extends BaseFragment {
+    private GridView gridView;
     private RecyclerView mRecylerView;
     private SmartRefreshLayout refreshLayout;
     private NewKnowledgeAdapter mNewKnowledgeAdapter;
@@ -44,6 +48,8 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
     private String id = "";
     private ImageView notification;
 
+    GridAdapter gridAdapter;
+
     private List<NewKnowledgeInfo.NewKnowledgeitem> knowledgeitems = new ArrayList<>();
 
     @Nullable
@@ -51,9 +57,25 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.new_knowledge_fragment,container,false);
-        radioGroup = view.findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(this);
-        radioGroup.check(R.id.all);
+
+        gridView = view.findViewById(R.id.gridView);
+        gridAdapter = new GridAdapter();
+        gridView.setAdapter(gridAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0) {
+                    NewKnowledgeFragment.this.id = "";
+                } else {
+                    NewKnowledgeFragment.this.id = newKnowledgeInfo.types.get(position - 1).id;
+                }
+
+                getData(true, true);
+
+                gridAdapter.setSelectIndex(position);
+                gridAdapter.notifyDataSetChanged();
+            }
+        });
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -85,6 +107,8 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
                 mContext.startActivity(intent);
             }
         });
+
+        getData(true, true);
         return view;
     }
 
@@ -131,38 +155,74 @@ public class NewKnowledgeFragment extends BaseFragment implements RadioGroup.OnC
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
+                refreshLayout.finishRefresh(100);
+                refreshLayout.finishLoadMore(100);
+
                 newKnowledgeInfo = new Gson().fromJson(json.toString(), NewKnowledgeInfo.class);
                 if(clearList) {
                     knowledgeitems.clear();
                 }
 
                 knowledgeitems.addAll(newKnowledgeInfo.items);
+                gridAdapter.notifyDataSetChanged();
 
                 mNewKnowledgeAdapter.setData(knowledgeitems);
                 mNewKnowledgeAdapter.notifyDataSetChanged();
-
-                refreshLayout.finishRefresh(2000);
-                refreshLayout.finishLoadMore(2000);
             }
         });
 
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.all:
-                this.id = "";
-                break;
-            case R.id.nejm_anim:
-                if(newKnowledgeInfo != null && newKnowledgeInfo.types != null && newKnowledgeInfo.types.size() > 0) {
-                    this.id = newKnowledgeInfo.types.get(0).id;
-                } else {
-                    this. id = "";
-                }
-                break;
+    class GridAdapter extends BaseAdapter {
+        LayoutInflater inflater;
+        int selectIndex = 0;
+
+        GridAdapter() {
+           inflater = LayoutInflater.from(mContext);
         }
 
-        getData(true, true);
+        void setSelectIndex(int index) {
+            selectIndex = index;
+        }
+
+        @Override
+        public int getCount() {
+            return (newKnowledgeInfo != null && newKnowledgeInfo.types != null) ? newKnowledgeInfo.types.size() + 1 : 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null) {
+                convertView = inflater.inflate(R.layout.new_knowledge_grid_item, parent, false);
+            }
+
+            TextView textView = (TextView)convertView;
+            if(position == 0) {
+                textView.setText("全部");
+            } else {
+                NewKnowledgeInfo.TypeItem typeItem = newKnowledgeInfo.types.get(position - 1);
+                textView.setText(typeItem.typename);
+            }
+
+            if(selectIndex == position) {
+                textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_selected);
+                textView.setTextColor(mContext.getResources().getColor(R.color.white));
+            } else {
+                textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_unselected);
+                textView.setTextColor(mContext.getResources().getColor(R.color.color_c92700));
+            }
+
+            return convertView;
+        }
     }
 }

@@ -5,71 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout android:id="@+id/group_layout"
+    <com.android.nejm.widgets.NoScrollGridView
+        android:id="@+id/gridView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingRight="12dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/notification"
+        app:layout_constraintTop_toTopOf="parent"
+        android:numColumns="3"
+        android:horizontalSpacing="6dp"
+        android:verticalSpacing="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="20dp"/>
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_radio_bg"
-                android:button="@null"
-                android:paddingLeft="22dp"
-                android:paddingTop="4dp"
-                android:paddingRight="22dp"
-                android:paddingBottom="4dp"
-                android:text="全部"
-                android:textColor="@color/tab_single_textcolor"
-                android:textSize="10sp" />
-
-            <RadioButton
-                android:id="@+id/nejm_anim"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:background="@drawable/home_radio_bg"
-                android:button="@null"
-                android:paddingLeft="12dp"
-                android:paddingTop="4dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="4dp"
-                android:text="学术活动"
-                android:textColor="@color/tab_single_textcolor"
-                android:textSize="10sp" />
-        </RadioGroup>
-
-        <ImageView
-            android:id="@+id/notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/icon_nav_msg_selected"/>
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gridView"
+        android:src="@mipmap/icon_nav_msg_selected"/>
     
     <View
         android:id="@+id/viewDivider"
         android:layout_width="0dp"
         android:layout_height="15dp"
+        android:layout_marginTop="12dp"
         android:background="@color/color_67"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/group_layout"/>
+        app:layout_constraintTop_toBottomOf="@+id/gridView"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
