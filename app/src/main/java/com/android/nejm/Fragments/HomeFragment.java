@@ -301,7 +301,7 @@ public class HomeFragment extends BaseFragment {
             HomeBean.Classes classes = homeBean.classes.get(position);
             holder.simpleDraweeView.setBackgroundResource(R.drawable.home_classes_bg);
             holder.simpleDraweeView.setImageURI(classes.icon);
-            Log.e("grid", "icon = " + classes.icon);
+            //Log.e("grid", "icon = " + classes.icon);
             holder.textView.setText(classes.classname);
 
             return convertView;
