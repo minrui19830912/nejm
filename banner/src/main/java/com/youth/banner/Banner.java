@@ -2,7 +2,6 @@ package com.youth.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -21,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.youth.banner.listener.OnBannerClickListener;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoaderInterface;
@@ -340,14 +340,15 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         bannerDefaultImage.setVisibility(GONE);
         initImages();
         for (int i = 0; i <= count + 1; i++) {
-            View imageView = null;
-            if (imageLoader != null) {
-                imageView = imageLoader.createImageView(context);
-            }
-            if (imageView == null) {
-                imageView = new ImageView(context);
-            }
-            setScaleType(imageView);
+//            View imageView = null;
+//            if (imageLoader != null) {
+//                imageView = imageLoader.createImageView(context);
+//            }
+//            if (imageView == null) {
+//                imageView = new ImageView(context);
+//            }
+//            setScaleType(imageView);
+            SimpleDraweeView imageView = (SimpleDraweeView) LayoutInflater.from(context).inflate(R.layout.banner_item,null);
             Object url = null;
             if (i == 0) {
                 url = imagesUrl.get(count - 1);
@@ -356,11 +357,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             } else {
                 url = imagesUrl.get(i - 1);
             }
+
             imageViews.add(imageView);
-            if (imageLoader != null)
-                imageLoader.displayImage(context, url, imageView);
-            else
-                Log.e(tag, "Please set images loader.");
+//            if (imageLoader != null)
+//                imageLoader.displayImage(context, url, imageView);
+//            else
+//                Log.e(tag, "Please set images loader.");
+            imageView.setImageURI((String) url);
         }
     }
 

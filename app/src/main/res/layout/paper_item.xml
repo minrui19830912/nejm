@@ -8,6 +8,8 @@
 app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="124dp"
         android:layout_height="93dp"
+        app:roundedCornerRadius="3dp"
+        app:overlayImage="@drawable/gradient_mask"
         app:layout_constraintTop_toTopOf="parent"
         />
     <TextView android:id="@+id/paper_name"
