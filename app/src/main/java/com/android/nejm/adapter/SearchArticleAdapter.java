@@ -25,18 +25,18 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFieldArticleAdapter.ViewHolder> {
+public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdapter.ViewHolder> {
     private Context context;
     private boolean displayMark = false;
     private List<SpecialFieldArticleInfo.ArtitleItem> artitleItemList;
     private String keyWord;
 
 
-    public SpeicalFieldArticleAdapter(Context context) {
+    public SearchArticleAdapter(Context context) {
         this.context = context;
     }
 
-    public SpeicalFieldArticleAdapter(Context context,boolean displayMark) {
+    public SearchArticleAdapter(Context context, boolean displayMark) {
         this.context = context;
         this.displayMark = displayMark;
     }
@@ -51,7 +51,7 @@ public class SpeicalFieldArticleAdapter extends RecyclerView.Adapter<SpeicalFiel
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.speical_field_article_item, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.search_article_item, viewGroup, false);
         return new ViewHolder(view);
     }
 

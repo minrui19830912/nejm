@@ -37,6 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="36dp"
+        android:textStyle="bold"
         android:maxLines="2"
         android:ellipsize="end"
         android:textColor="@color/color_4a"
@@ -45,6 +46,20 @@
         app:layout_constraintEnd_toStartOf="@+id/draweeViewCover"
         app:layout_constraintTop_toTopOf="@+id/draweeViewCover"/>
     <TextView
+        android:id="@+id/textViewArticleIntro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/color_4a"
+        android:layout_marginTop="6dp"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/textViewArticleTitle"
+        app:layout_constraintStart_toStartOf="@+id/textViewType"
+        app:layout_constraintEnd_toStartOf="@+id/draweeViewCover"/>
+
+    <TextView
         android:id="@+id/textViewAuthor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -52,7 +67,7 @@
         android:textColor="@color/color_9b"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="@+id/textViewType"
-        app:layout_constraintTop_toBottomOf="@+id/textViewArticleTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArticleIntro"
         app:layout_constraintEnd_toEndOf="@+id/textViewArticleTitle"/>
     <TextView
         android:id="@+id/textViewField"
