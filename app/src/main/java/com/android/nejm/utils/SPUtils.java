@@ -31,7 +31,8 @@ public class SPUtils {
 
     private static void init(Context context) {
         if (sp == null) {
-            sp = PreferenceManager.getDefaultSharedPreferences(context);
+            //sp = PreferenceManager.getDefaultSharedPreferences(context);
+            sp = getSharedPreference();
         }
     }
 
