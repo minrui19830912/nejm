@@ -1030,7 +1030,7 @@ body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 1.42857143;
-	color: #333;
+	color: #4a4a4a;
 	background-color: #fff
 }
 button, input, select, textarea {
@@ -1415,6 +1415,7 @@ pre code {
 	overflow-y: scroll
 }
 .container {
+	
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;

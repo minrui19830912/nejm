@@ -374,12 +374,13 @@ body.on-side{
     position: fixed;
     overflow-y: auto;
     top: 0;
-    right: -280px;
-    width: 280px;
+    right: -290px;
+    width: 290px;
     padding: 25px 30px;
     height: 100%;
     display: block;
-    background-color: #222;
+    background-color: #f5f5f5;
+    opacity:0.92;
     -webkit-transition: all 0.1s ease-in-out;
 	-moz-transition: all 0.1s ease-in-out;
 	-o-transition: all 0.1s ease-in-out;
@@ -394,7 +395,7 @@ body.on-side{
 
 .side .close-side{
     float: right;
-    color: #fff;
+    color: #444;
     position: relative;
     z-index: 2;
     font-size: 16px;
@@ -407,8 +408,9 @@ body.on-side{
 }
 
 .side .widget .title{
-    color: #fff;
+    color: #C92700;
     margin-bottom: 15px;
+    font-weight: 500;
 }
 
 .side .widget ul.link{
