@@ -121,6 +121,32 @@ public class MyFragment extends BaseFragment {
 
     private void initView() {
         textViewVersion.setText("V" + BuildConfig.VERSION_NAME);
+
+        long lastDownloadTime = LoginUserManager.getInstance().lastDownloadtime;
+        //Log.e("TAG", "initView, lastDownloadTime = " + lastDownloadTime);
+        if(lastDownloadTime != 0) {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTimeInMillis(lastDownloadTime);
+            int year2 = calendar1.get(Calendar.YEAR);
+            int weekOfYear2 = calendar1.get(Calendar.WEEK_OF_YEAR);
+
+            if(year == year2 && weekOfYear == weekOfYear2) {
+                textViewDownloadComplete.setVisibility(View.VISIBLE);
+                textViewDownload.setVisibility(View.INVISIBLE);
+                Log.e("TAG", "onResume, textViewDownloadComplete");
+            } else {
+                textViewDownloadComplete.setVisibility(View.INVISIBLE);
+                textViewDownload.setVisibility(View.VISIBLE);
+                Log.e("TAG", "onResume, textViewDownload");
+            }
+        } else {
+            textViewDownloadComplete.setVisibility(View.INVISIBLE);
+            textViewDownload.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateDownloadCount() {
@@ -155,29 +181,6 @@ public class MyFragment extends BaseFragment {
         AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
         if (accountInfo != null && !TextUtils.isEmpty(accountInfo.avatar)) {
             imageViewHead.setImageURI(accountInfo.avatar);
-        }
-
-        long lastDownloadTime = LoginUserManager.getInstance().lastDownloadtime;
-        if(lastDownloadTime != 0) {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-
-            Calendar calendar1 = Calendar.getInstance();
-            calendar1.setTimeInMillis(lastDownloadTime);
-            int year2 = calendar1.get(Calendar.YEAR);
-            int weekOfYear2 = calendar1.get(Calendar.WEEK_OF_YEAR);
-
-            if(year == year2 && weekOfYear == weekOfYear2) {
-                textViewDownloadComplete.setVisibility(View.VISIBLE);
-                textViewDownload.setVisibility(View.INVISIBLE);
-            } else {
-                textViewDownloadComplete.setVisibility(View.INVISIBLE);
-                textViewDownload.setVisibility(View.VISIBLE);
-            }
-        } else {
-            textViewDownloadComplete.setVisibility(View.INVISIBLE);
-            textViewDownload.setVisibility(View.VISIBLE);
         }
 
         updateDownloadCount();

@@ -160,7 +160,7 @@ public class LoginUserManager {
 
     public void setLastDownloadtime(long lastDownloadtime) {
         this.lastDownloadtime = lastDownloadtime;
-        SPUtils.getLongPreference("last_download_time", lastDownloadtime);
+        SPUtils.putLongPreference("last_download_time", lastDownloadtime);
     }
 
     public boolean isEnablePush() {
