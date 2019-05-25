@@ -6,16 +6,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.adapter.VideoListAdapter;
-import com.android.nejm.data.Paper;
 import com.android.nejm.data.VideoInfo;
 import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.manage.LoginUserManager;
@@ -32,14 +36,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
-    private RadioGroup radioGroup;
+public class VideoListFragment extends BaseFragment {
+    private GridView gridView;
     private RecyclerView mRecylerView;
     private SmartRefreshLayout refreshLayout;
     private VideoListAdapter mVideoListAdapter;
     private List<VideoInfo.Videoitem> videoitems = new ArrayList<>();
     private VideoInfo videoInfo;
     ImageView notification;
+
+    GridAdapter gridAdapter;
 
     private int page;
     private String id;
@@ -49,9 +55,25 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.video_list_fragment,container,false);
-        radioGroup = view.findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(this);
-        radioGroup.check(R.id.all);
+
+        gridView = view.findViewById(R.id.gridView);
+        gridAdapter = new GridAdapter();
+        gridView.setAdapter(gridAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0) {
+                    VideoListFragment.this.id = "";
+                } else {
+                    VideoListFragment.this.id = videoInfo.types.get(position - 1).id;
+                }
+
+                getData(true, true);
+
+                gridAdapter.setSelectIndex(position);
+                gridAdapter.notifyDataSetChanged();
+            }
+        });
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -83,6 +105,8 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
                 mContext.startActivity(intent);
             }
         });
+
+        getData(true, true);
         return view;
     }
 
@@ -141,26 +165,67 @@ public class VideoListFragment extends BaseFragment implements RadioGroup.OnChec
 
                 mVideoListAdapter.setData(videoitems);
                 mVideoListAdapter.notifyDataSetChanged();
+
+                if(page == 1) {
+                    gridAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.all:
-                id = "";
-                break;
-            case R.id.nejm_anim:
-                if(videoInfo != null && videoInfo.types != null && videoInfo.types.size() > 0) {
-                    id = videoInfo.types.get(0).id;
-                } else {
-                    id = "";
-                }
-                break;
+    class GridAdapter extends BaseAdapter {
+        LayoutInflater inflater;
+        int selectIndex = 0;
+
+        GridAdapter() {
+            inflater = LayoutInflater.from(mContext);
         }
 
-        getData(true, true);
+        void setSelectIndex(int index) {
+            selectIndex = index;
+        }
+
+        @Override
+        public int getCount() {
+            int count = (videoInfo != null && videoInfo.types != null) ? videoInfo.types.size() + 1 : 1;
+            Log.e("dpp", "GridAdapter, count = " + count);
+            return count;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null) {
+                convertView = inflater.inflate(R.layout.new_knowledge_grid_item, parent, false);
+            }
+
+            TextView textView = (TextView)convertView;
+            if(position == 0) {
+                textView.setText("全部");
+            } else {
+                VideoInfo.TypeItem typeItem = videoInfo.types.get(position - 1);
+                textView.setText(typeItem.typename);
+            }
+
+            if(selectIndex == position) {
+                textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_selected);
+                textView.setTextColor(mContext.getResources().getColor(R.color.white));
+            } else {
+                textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_unselected);
+                textView.setTextColor(mContext.getResources().getColor(R.color.color_c92700));
+            }
+
+            return convertView;
+        }
     }
 }
 

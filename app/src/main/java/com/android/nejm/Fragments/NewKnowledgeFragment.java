@@ -164,10 +164,13 @@ public class NewKnowledgeFragment extends BaseFragment {
                 }
 
                 knowledgeitems.addAll(newKnowledgeInfo.items);
-                gridAdapter.notifyDataSetChanged();
 
                 mNewKnowledgeAdapter.setData(knowledgeitems);
                 mNewKnowledgeAdapter.notifyDataSetChanged();
+
+                if(pageIndex == 1) {
+                    gridAdapter.notifyDataSetChanged();
+                }
             }
         });
 
