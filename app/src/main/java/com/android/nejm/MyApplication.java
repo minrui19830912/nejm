@@ -112,12 +112,11 @@ public class MyApplication extends Application {
                 Fresco.initialize(getApplicationContext());
                 ShareSDK.initSDK(this);
 
-                PushManager.getInstance().init();
-
                 //JPushInterface.resumePush(getApplicationContext());
                 MyApplication.mToken = SPUtils.getSharedStringData(getApplicationContext(), "access_token");
                 MyApplication.client_id = SPUtils.getSharedStringData(getApplicationContext(), "client_id");
                 MyApplication.mStoreId = SPUtils.getSharedStringData(getApplicationContext(), "store_id");
+                PushManager.getInstance().init();
                 initOkGo();
 
                // JPushInterface.setDebugMode(true);
