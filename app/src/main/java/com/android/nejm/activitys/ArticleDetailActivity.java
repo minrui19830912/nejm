@@ -274,6 +274,14 @@ public class ArticleDetailActivity extends BaseActivity {
                     VideoDetailActivity.launchActivity(mContext, videoId);
                     return true;
                 }
+            } else if (url.startsWith("http://www.nejm.com/?classid=")) {
+                int length = "http://www.nejm.com/?classid=".length();
+                int index = url.indexOf('&');
+                if(url.length() > length && index > length) {
+                    String id = url.substring(length, index);
+                    ArticleDetailActivity.launchActivity(mContext, id, HttpUtils.ARTICLE_DETAIL_URL+id, "", "", "");
+                    return true;
+                }
             }
 
             return false;
