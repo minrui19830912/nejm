@@ -28,4 +28,15 @@ public class DownloadRecordManager {
     public static void update(DownloadRecord record) {
         DBManager.update(record);
     }
+
+    public static boolean hasDownLoad(String articleId){
+        QueryBuilder<DownloadRecord> queryBuilder = DBManager.getDaoSession().queryBuilder(DownloadRecord.class);
+        List<DownloadRecord> list = queryBuilder.list();
+        for(DownloadRecord record:list){
+            if(record.articleId.equals(articleId)){
+                return true;
+            }
+        }
+        return false ;
+    }
 }

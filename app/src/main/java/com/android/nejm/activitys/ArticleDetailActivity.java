@@ -200,6 +200,11 @@ public class ArticleDetailActivity extends BaseActivity {
 
             }
         });
+        if(LoginUserManager.getInstance().isLogin()&&DownloadRecordManager.hasDownLoad(mId)){
+            textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
+            textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
+            textViewDownload.setClickable(false);
+        }
     }
 
     private void loadShareContent() {
