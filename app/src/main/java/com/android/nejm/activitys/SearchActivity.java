@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.adapter.SearchArticleAdapter;
 import com.android.nejm.adapter.SpeicalFieldArticleAdapter;
 import com.android.nejm.data.Paper;
 import com.android.nejm.data.Source;
@@ -63,7 +64,7 @@ public class SearchActivity extends BaseActivity {
 
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private int page = 1;
-    private SpeicalFieldArticleAdapter articleAdapter;
+    private SearchArticleAdapter articleAdapter;
     private SpecialFieldArticleInfo articleInfo;
     public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
     private ArrayList<Source> mSourceList = new ArrayList<>();
@@ -79,7 +80,7 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.search_activity);
         setCommonTitle("搜索", true);
         ButterKnife.bind(this);
-        articleAdapter = new SpeicalFieldArticleAdapter(this);
+        articleAdapter = new SearchArticleAdapter(this);
 //        SearchKnowledgeAdapter adapter = new SearchKnowledgeAdapter(mContext);
 //        for (int i = 0; i < 6; i++) {
 //            Paper paper = new Paper();
