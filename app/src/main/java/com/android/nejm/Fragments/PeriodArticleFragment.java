@@ -39,7 +39,7 @@ public class PeriodArticleFragment extends BaseFragment {
     private SmartRefreshLayout refreshLayout;
     private PeriodArticleAdapter mPeriodArticleAdapter;
     private ArrayList<Paper> mPaperList = new ArrayList<>();
-    private List<PeriodArticleItem> periodArticleItemList;
+    private List<PeriodArticleItem> periodArticleItemList = new ArrayList<>();
     private ImageView notification;
 
     private int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -66,13 +66,13 @@ public class PeriodArticleFragment extends BaseFragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 year--;
-                getData(false);
+                getData(false, false);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 year = Calendar.getInstance().get(Calendar.YEAR);
-                getData(false);
+                getData(false, true);
             }
         });
 
@@ -93,7 +93,7 @@ public class PeriodArticleFragment extends BaseFragment {
             }
         });
 
-        getData(true);
+        getData(true, true);
         return view;
     }
 
@@ -131,7 +131,7 @@ public class PeriodArticleFragment extends BaseFragment {
         }
     }
 
-    private void getData(boolean showLoadingDialog) {
+    private void getData(boolean showLoadingDialog, boolean clearList) {
         if(showLoadingDialog) {
             LoadingDialog.showDialogForLoading(mContext);
         }
@@ -143,7 +143,7 @@ public class PeriodArticleFragment extends BaseFragment {
                 refreshLayout.finishRefresh(100);
                 refreshLayout.finishLoadMore(100);
 
-                periodArticleItemList = new ArrayList<>();
+                List<PeriodArticleItem> list = new ArrayList<>();
 
                 JSONObject jsonObject = json.optJSONObject("items");
                 for(int i = 12; i > 0; i--) {
@@ -163,11 +163,16 @@ public class PeriodArticleFragment extends BaseFragment {
                         }
 
                         periodArticleItem.month = key;
-                        periodArticleItem.year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-                        periodArticleItemList.add(periodArticleItem);
+                        periodArticleItem.year = String.valueOf(year);
+                        list.add(periodArticleItem);
                     }
                 }
 
+                if(clearList) {
+                    periodArticleItemList.clear();
+                }
+
+                periodArticleItemList.addAll(list);
                 mPeriodArticleAdapter.setData(periodArticleItemList);
                 mPeriodArticleAdapter.notifyDataSetChanged();
             }

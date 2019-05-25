@@ -300,7 +300,7 @@ String client_id =LoginUserManager.getInstance().client_id;
         build.append("").append("^").append(timeStamp).append("^").append("");
         StringBuilder url = new StringBuilder(YEAR_ARTICLE_URL);
         if(!TextUtils.isEmpty(year)){
-            url.append("&id=").append(year);
+            url.append("&year=").append(year);
         }
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
