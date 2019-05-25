@@ -267,6 +267,13 @@ public class ArticleDetailActivity extends BaseActivity {
                 intent.putExtra("just_finish",true);
                 startActivityForResult(intent,1001);
                 return true;
+            } else if (url.startsWith("http://www.nejm.com/?videoId=")) {
+                int length = "http://www.nejm.com/?videoId=".length();
+                if(url.length() > length) {
+                    String videoId = url.substring(length);
+                    VideoDetailActivity.launchActivity(mContext, videoId);
+                    return true;
+                }
             }
 
             return false;
