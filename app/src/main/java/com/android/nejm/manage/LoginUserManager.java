@@ -28,6 +28,8 @@ public class LoginUserManager {
 
     private static LoginUserManager userManager;
 
+    private boolean enablePush = true;
+
     private LoginUserManager() {
         access_token = SPUtils.getStringPreference("access_token", "");
         client_id = SPUtils.getStringPreference("client_id", "");
@@ -35,6 +37,8 @@ public class LoginUserManager {
         roleid = SPUtils.getStringPreference("roleid", "");
         lastzipid = SPUtils.getStringPreference("lastzipid", "0");
         lastDownloadtime = SPUtils.getLongPreference("last_download_time", 0);
+        enablePush = SPUtils.getBooleanPreference("enable_push", true);
+
         MyApplication.mToken = access_token;
         MyApplication.client_id = client_id;
         MyApplication.uid = uid;
@@ -156,6 +160,16 @@ public class LoginUserManager {
 
     public void setLastDownloadtime(long lastDownloadtime) {
         this.lastDownloadtime = lastDownloadtime;
+        SPUtils.getLongPreference("last_download_time", lastDownloadtime);
+    }
+
+    public boolean isEnablePush() {
+        return enablePush;
+    }
+
+    public void setEnablePush(boolean enablePush) {
+        this.enablePush = enablePush;
+        SPUtils.putBooleanPreference("enable_push", enablePush);
     }
 
     public void login(LoginBean loginBean) {

@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
+import android.widget.CompoundButton;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.DownloadArticleAdapter;
 import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.manage.PushManager;
 import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.widgets.LoadingDialog;
 
@@ -17,10 +20,14 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
+    @BindView(R.id.switchButton)
+    SwitchCompat switchButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +35,23 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
         showBack();
         setCommonTitle("设置");
+
+        if(LoginUserManager.getInstance().isEnablePush()) {
+            switchButton.setChecked(true);
+        } else {
+            switchButton.setChecked(false);
+        }
+
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    PushManager.getInstance().openPush();
+                } else {
+                    PushManager.getInstance().closePush();
+                }
+            }
+        });
     }
 
     @OnClick(R.id.textViewAbout)

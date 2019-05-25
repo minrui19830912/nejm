@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.db.DBManager;
+import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.manage.PushManager;
 import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.SPUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -109,9 +111,8 @@ public class MyApplication extends Application {
                 }
                 Fresco.initialize(getApplicationContext());
                 ShareSDK.initSDK(this);
-                JPushInterface.setDebugMode(true);
-                JPushInterface.init(getApplicationContext());
-                String rid = JPushInterface.getRegistrationID(getApplicationContext());
+
+                PushManager.getInstance().init();
 
                 //JPushInterface.resumePush(getApplicationContext());
                 MyApplication.mToken = SPUtils.getSharedStringData(getApplicationContext(), "access_token");

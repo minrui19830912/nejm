@@ -102,6 +102,16 @@ public class SPUtils {
         return preferences.getLong(key, defaultValue);
     }
 
+    public static void putBooleanPreference(String key, boolean value) {
+        SharedPreferences preferences = getSharedPreference();
+        preferences.edit().putBoolean(key, value).apply();
+    }
+
+    public static boolean getBooleanPreference(String key, boolean defaultValue) {
+        SharedPreferences preferences = getSharedPreference();
+        return preferences.getBoolean(key, defaultValue);
+    }
+
     public static void setSharedIntData(Context context, String key, int value) {
         if (sp == null) {
             init(context);
