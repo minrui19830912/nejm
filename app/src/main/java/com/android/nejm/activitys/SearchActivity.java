@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.adapter.SearchArticleAdapter;
 import com.android.nejm.adapter.SpeicalFieldArticleAdapter;
 import com.android.nejm.data.Paper;
 import com.android.nejm.data.Source;
@@ -64,7 +63,7 @@ public class SearchActivity extends BaseActivity {
 
     private ArrayList<Paper> mPaperList = new ArrayList<>();
     private int page = 1;
-    private SearchArticleAdapter articleAdapter;
+    private SpeicalFieldArticleAdapter articleAdapter;
     private SpecialFieldArticleInfo articleInfo;
     public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
     private ArrayList<Source> mSourceList = new ArrayList<>();
@@ -80,7 +79,7 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.search_activity);
         setCommonTitle("搜索", true);
         ButterKnife.bind(this);
-        articleAdapter = new SearchArticleAdapter(this);
+        articleAdapter = new SpeicalFieldArticleAdapter(this,true);
 //        SearchKnowledgeAdapter adapter = new SearchKnowledgeAdapter(mContext);
 //        for (int i = 0; i < 6; i++) {
 //            Paper paper = new Paper();
@@ -150,7 +149,7 @@ public class SearchActivity extends BaseActivity {
             LoadingDialog.showDialogForLoading(this);
         }
 
-        String keyword = editTextSearch.getText().toString();
+        final String keyword = editTextSearch.getText().toString();
         HttpUtils.search(this, keyword, id, page, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
@@ -177,7 +176,7 @@ public class SearchActivity extends BaseActivity {
 
                 artitleItems.addAll(articleInfo.items);
 
-                articleAdapter.setData(artitleItems);
+                articleAdapter.setData(artitleItems,keyword);
                 articleAdapter.notifyDataSetChanged();
                 mClassesGridAdapter.notifyDataSetChanged();
                 mSearchContent.setVisibility(View.VISIBLE);

@@ -17,7 +17,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="17dp"
-        android:background="@drawable/main_search_bk"
+        android:background="@drawable/search_activity_edit_bk"
         android:drawableStart="@mipmap/icon_search"
         android:drawablePadding="11dp"
         android:padding="10dp"
