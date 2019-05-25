@@ -11,6 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="186dp"
         android:background="@color/color_67"
+        app:roundedCornerRadius="3dp"
+        app:overlayImage="@drawable/gradient_mask"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
