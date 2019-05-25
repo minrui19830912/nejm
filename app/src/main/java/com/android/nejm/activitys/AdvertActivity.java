@@ -17,18 +17,22 @@ import android.widget.TextView;
 
 import com.android.nejm.MyApplication;
 import com.android.nejm.R;
+import com.android.nejm.bean.AnnounceRecord;
+import com.android.nejm.data.AnnounceMessage;
 import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
-import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.SPUtils;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdvertActivity extends BaseActivity {
@@ -44,7 +48,45 @@ public class AdvertActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //        sdvSplash = (SimpleDraweeView) findViewById(R.id.sdvSplash);
-       LoginUserManager.getInstance();
+       if(LoginUserManager.getInstance().isLogin()){
+           List<AnnounceRecord> recordList = AnnouceRecordManager.getInstance().getRecordList();
+           HttpUtils.getMessageList(mContext, new OnNetResponseListener() {
+               @Override
+               public void onNetDataResponse(JSONObject json) {
+                   AnnounceMessage announceMessage = new Gson().fromJson(json.toString(), AnnounceMessage.class);
+
+                   new AsyncTask<Void,Void,Void>() {
+
+                       @Override
+                       protected Void doInBackground(Void... voids) {
+                           List<AnnounceRecord> list = new ArrayList<>();
+                           for(AnnounceMessage.MessageItem item : announceMessage.items) {
+                               boolean exist = false;
+                               for(AnnounceRecord record : recordList) {
+                                   if(TextUtils.equals(item.id, record.msgId)) {
+                                       item.read = record.read;
+                                       exist = true;
+                                       break;
+                                   }
+                               }
+
+                               if(!exist) {
+                                   list.add(new AnnounceRecord(null, false, item.id));
+                               }
+                           }
+                           AnnouceRecordManager.getInstance().insert(list);
+                           return null;
+                       }
+
+                       @Override
+                       protected void onPostExecute(Void aVoid) {
+
+                       }
+                   }.execute();
+               }
+           });
+       }
+
         ivSplash = (ImageView) findViewById(R.id.ivSplash);
         tvNum = (TextView) findViewById(R.id.tvNum);
         rlNum = (LinearLayout) findViewById(R.id.rlNum);
@@ -125,6 +167,7 @@ public class AdvertActivity extends BaseActivity {
                 }
             }
         });
+
     }
 
     @Override

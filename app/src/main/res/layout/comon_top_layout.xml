@@ -17,7 +17,7 @@
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="13dp"
             android:src="@mipmap/ic_back"
             android:visibility="invisible"
             android:layout_centerVertical="true"
@@ -27,8 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:layout_centerVertical="true"
             android:text="标题"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:layout_centerInParent="true"
             />
 

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.android.nejm.MyApplication;
 import com.android.nejm.R;
+import com.android.nejm.bean.AnnounceRecord;
+import com.android.nejm.data.AnnounceMessage;
 import com.android.nejm.data.LoginBean;
 import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.db.DBManager;
@@ -23,6 +25,9 @@ import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +98,7 @@ public class LoginActivity extends BaseActivity {
             public void onNetDataResponse(JSONObject json) {
                 LoginBean loginBean = new Gson().fromJson(json.toString(), LoginBean.class);
                 LoginUserManager.getInstance().login(loginBean);
+                updateAnnouceRecord();
                 new AsyncTask<Void,Void,Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
@@ -119,6 +125,45 @@ public class LoginActivity extends BaseActivity {
                // super.onNetFailResponse(context, msg, msgCode);
                 LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext,msg);
+            }
+        });
+    }
+
+    private void updateAnnouceRecord() {
+        List<AnnounceRecord> recordList = AnnouceRecordManager.getInstance().getRecordList();
+        HttpUtils.getMessageList(mContext, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+                AnnounceMessage announceMessage = new Gson().fromJson(json.toString(), AnnounceMessage.class);
+
+                new AsyncTask<Void,Void,Void>() {
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        List<AnnounceRecord> list = new ArrayList<>();
+                        for(AnnounceMessage.MessageItem item : announceMessage.items) {
+                            boolean exist = false;
+                            for(AnnounceRecord record : recordList) {
+                                if(TextUtils.equals(item.id, record.msgId)) {
+                                    item.read = record.read;
+                                    exist = true;
+                                    break;
+                                }
+                            }
+
+                            if(!exist) {
+                                list.add(new AnnounceRecord(null, false, item.id));
+                            }
+                        }
+                        AnnouceRecordManager.getInstance().insert(list);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+
+                    }
+                }.execute();
             }
         });
     }
