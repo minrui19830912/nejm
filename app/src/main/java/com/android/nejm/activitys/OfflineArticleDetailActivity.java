@@ -44,6 +44,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -229,30 +230,25 @@ public class OfflineArticleDetailActivity extends BaseActivity {
         @TargetApi(21)
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-            /*String uri = request.getUrl().toString();
-            Log.e("dpp", "shouldInterceptRequest, request, uri = " + uri.toString());
-            Log.e("dpp", "shouldInterceptRequest, request, mime = " + getMimeType(uri));
-            Map<String, String> params = request.getRequestHeaders();
-            for(Map.Entry<String,String> entry : params.entrySet()) {
-                Log.e("dpp", "key = " + entry.getKey() + ", value = " + entry.getValue());
-            }
-
-            String mimeType = null;
-            if(uri.endsWith(".png")
-                || uri.endsWith(".jpg")
-                || uri.endsWith(".jpeg")) {
-                //return new WebResourceResponse();
-                mimeType = getMimeType(uri);
-                String fileName = request.getUrl().getLastPathSegment();
-                Log.e("TAG", "fileName = " + fileName);
-                InputStream inputStream = null;
+            String uri = request.getUrl().toString();
+            Log.e("TAG", "shouldInterceptRequest, request, uri = " + uri);
+            if(uri.startsWith("file:///") && uri.endsWith(".css")) {
                 try {
-                    inputStream = new FileInputStream(new File(getExternalFilesDir(null), "/html/" + fileName));
-                    return new WebResourceResponse(mimeType, "utf-8", inputStream);
-                } catch (FileNotFoundException e) {
+                    String filePath = uri.replaceFirst("file:///files/", "");
+                    InputStream localCopy = getAssets().open(filePath);
+                    return new WebResourceResponse("text/css", "UTF-8", localCopy);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }*/
+            } else if(uri.startsWith("file:///") && uri.endsWith(".js")) {
+                try {
+                    String filePath = uri.replaceFirst("file:///files/", "");
+                    InputStream localCopy = getAssets().open(filePath);
+                    return new WebResourceResponse("application/x-javascript", "UTF-8", localCopy);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
             return super.shouldInterceptRequest(view, request);
         }
