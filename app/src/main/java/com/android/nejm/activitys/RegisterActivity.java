@@ -66,7 +66,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        findViewById(R.id.iv_back).setVisibility(View.GONE);
+        findViewById(R.id.iv_back).setVisibility(View.INVISIBLE);
         //showBack();
         layoutPageOne.setVisibility(View.VISIBLE);
         layoutPageTwo.setVisibility(View.GONE);
