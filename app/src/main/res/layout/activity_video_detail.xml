@@ -172,7 +172,7 @@
         android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@color/white"
+        android:background="@drawable/bottom_tab"
         android:gravity="center"
         android:text="登录后，可观看视频"
         android:textColor="#C92700"
@@ -186,7 +186,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingTop="15dp"
-        android:background="@color/white"
+        android:background="@drawable/bottom_tab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
