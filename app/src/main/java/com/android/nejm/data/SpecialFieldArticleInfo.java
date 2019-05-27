@@ -25,6 +25,7 @@ public class SpecialFieldArticleInfo {
         public String thumb;
         public String intro;
         public List<Specialties> specialties;
+        public boolean is_video;
     }
 
     public static class Specialties {

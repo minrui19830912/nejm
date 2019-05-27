@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
+import com.android.nejm.activitys.VideoDetailActivity;
 import com.android.nejm.data.SpecialFieldArticleInfo;
 import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -74,7 +75,11 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                if(artitleItem.is_video) {
+                    VideoDetailActivity.launchActivity(context, artitleItem.id);
+                } else {
+                    ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                }
             }
         });
 
