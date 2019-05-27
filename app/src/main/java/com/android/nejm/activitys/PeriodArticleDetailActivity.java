@@ -143,7 +143,8 @@ public class PeriodArticleDetailActivity extends BaseActivity {
 
                 List<String> dirList = new ArrayList<>();
                 for(PeriodArticleDeatailInfo.Items0 item : articleDeatailInfo.items_0) {
-                    dirList.add(item.title);
+                    String dir = item.title.replaceAll("<br>", " ");
+                    dirList.add(dir);
                 }
 
                 dirAdapter.setData(dirList);

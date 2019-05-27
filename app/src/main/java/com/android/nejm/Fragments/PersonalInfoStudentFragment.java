@@ -18,6 +18,7 @@ import com.android.nejm.activitys.SearchSchoolActivity;
 import com.android.nejm.activitys.TeacherTitleActivity;
 import com.android.nejm.activitys.TitleActivity;
 import com.android.nejm.adapter.TeacherTitleAdapter;
+import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.RoleInfo;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
@@ -100,6 +101,15 @@ public class PersonalInfoStudentFragment extends BaseFragment {
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext, "编辑身份成功");
+
+                AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
+                accountInfo.roleid = roleInfo.roleid;
+                accountInfo.role_name = roleInfo.roleName;
+                accountInfo.truename = roleInfo.name;
+                accountInfo.hospital = roleInfo.hospitalName;
+                accountInfo.identity = roleInfo.identityName;
+                accountInfo.jobname = roleInfo.jobnameName;
+
                 if(mContext != null && mContext instanceof Activity) {
                     ((Activity)mContext).finish();
                 }

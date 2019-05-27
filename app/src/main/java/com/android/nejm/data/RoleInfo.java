@@ -2,6 +2,7 @@ package com.android.nejm.data;
 
 public class RoleInfo {
     public String roleid;
+    public String roleName;
     public String name;
     public String divisionId;
     public String divisionName;

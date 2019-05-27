@@ -1,6 +1,7 @@
 package com.android.nejm.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class TeacherIdentityAdapter extends RecyclerView.Adapter<TeacherIdentity
     private LayoutInflater inflater;
     private List<RoleBean.IdentityInfo> roleArray;
     private OnItemClickListener itemClickListener;
+    int selectionIndex = -1;
 
     public TeacherIdentityAdapter(Context context) {
         this.context = context;
@@ -55,11 +57,26 @@ public class TeacherIdentityAdapter extends RecyclerView.Adapter<TeacherIdentity
         viewHolder.textViewCareer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(selectionIndex >= 0) {
+                    notifyItemChanged(selectionIndex);
+                }
+
+                selectionIndex = i;
+                notifyItemChanged(i);
+
                 if(itemClickListener != null) {
                     itemClickListener.onItemClicked(i);
                 }
             }
         });
+
+        if(selectionIndex == i) {
+            viewHolder.textViewCareer.setTextColor(Color.WHITE);
+            viewHolder.textViewCareer.setBackgroundResource(R.drawable.login_bg_shape);
+        } else {
+            viewHolder.textViewCareer.setTextColor(context.getResources().getColor(R.color.color_c92700));
+            viewHolder.textViewCareer.setBackgroundResource(R.drawable.radio_bg_nor);
+        }
     }
 
     @Override

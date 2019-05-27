@@ -18,6 +18,7 @@ public class DoctorSpecailSubAdapter extends RecyclerView.Adapter<DoctorSpecailS
     private LayoutInflater inflater;
     private List<RoleBean.SubListItem> sublist;
     private OnItemClickListener itemClickListener;
+    int selectionIndex = -1;
 
     public DoctorSpecailSubAdapter(Context context, OnItemClickListener listener) {
        this.context = context;
@@ -47,8 +48,21 @@ public class DoctorSpecailSubAdapter extends RecyclerView.Adapter<DoctorSpecailS
                 if(itemClickListener != null) {
                     itemClickListener.onItemClicked(i);
                 }
+
+                if(selectionIndex >= 0) {
+                    notifyItemChanged(selectionIndex);
+                }
+
+                selectionIndex = i;
+                notifyItemChanged(i);
             }
         });
+
+        if(selectionIndex == i) {
+            textView.setTextColor(context.getResources().getColor(R.color.color_c92700));
+        } else {
+            textView.setTextColor(context.getResources().getColor(R.color.color_5c));
+        }
     }
 
     @Override

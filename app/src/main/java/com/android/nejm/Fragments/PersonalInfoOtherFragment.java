@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.android.nejm.R;
+import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.RoleInfo;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
@@ -74,6 +75,14 @@ public class PersonalInfoOtherFragment extends BaseFragment {
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext, "编辑身份成功");
+                AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
+                accountInfo.roleid = roleInfo.roleid;
+                accountInfo.role_name = roleInfo.roleName;
+                accountInfo.truename = roleInfo.name;
+                accountInfo.identity = roleInfo.identityName;
+                accountInfo.jobname = roleInfo.jobnameName;
+                accountInfo.company = roleInfo.company;
+
                 if(mContext != null && mContext instanceof Activity) {
                     ((Activity)mContext).finish();
                 }

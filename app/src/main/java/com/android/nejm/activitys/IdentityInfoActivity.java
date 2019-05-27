@@ -2,8 +2,12 @@ package com.android.nejm.activitys;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -37,6 +41,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class IdentityInfoActivity extends BaseActivity {
     @BindView(R.id.radioButtonIdentity)
@@ -46,20 +51,60 @@ public class IdentityInfoActivity extends BaseActivity {
     @BindView(R.id.radioButtonPersonalInfo)
     RadioButton radioButtonPersonalInfo;
 
+    List<Fragment> fragmentList = new ArrayList<>();
+    int curFragmentIndex = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identity_info);
-        ButterKnife.bind(this);
         showBack();
+        ButterKnife.bind(this);
+
+        fragmentList.add(new IdentityFragment());
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.content, new IdentityFragment());
+        transaction.add(R.id.content, fragmentList.get(0));
         transaction.commitAllowingStateLoss();
+
+        curFragmentIndex = 0;
 
         radioButtonIdentity.setChecked(true);
         radioButtonProfession.setChecked(false);
         radioButtonPersonalInfo.setChecked(false);
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onClickBack() {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager  fragmentManager = getSupportFragmentManager();
+        Log.e("TAG", "onBackPressed, fragments.size = " + fragmentList.size());
+
+        if(curFragmentIndex > 0) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            for(int i = fragmentList.size() - 1; i >= curFragmentIndex; i--) {
+                transaction.remove(fragmentList.get(i));
+                fragmentList.remove(i);
+            }
+
+            curFragmentIndex--;
+            transaction.show(fragmentList.get(curFragmentIndex));
+            transaction.commitAllowingStateLoss();
+
+            radioButtonIdentity.setBackgroundResource(R.drawable.step_one);
+            radioButtonProfession.setBackgroundResource(R.drawable.step_two);
+            radioButtonPersonalInfo.setBackgroundResource(R.drawable.step_three);
+
+            radioButtonIdentity.setChecked(curFragmentIndex == 0);
+            radioButtonProfession.setChecked(curFragmentIndex == 1);
+            radioButtonPersonalInfo.setChecked(curFragmentIndex == 2);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -77,35 +122,29 @@ public class IdentityInfoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onIdentitySelectedEvent(IdentitySelectedEvent event) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        /*switch (event.id) {
-            case R.id.radioButtonDoctor:
-            case R.id.radioButtonResident:
-            case R.id.radioButtonOtherDoctor:
-                transaction.replace(R.id.content, new IdentityDoctorFragment());
-                radioButtonProfession.setText("专业");
-                break;
-            case R.id.radioButtonStudent:
-                transaction.replace(R.id.content, new IdentityStudentFragment());
-                radioButtonProfession.setText("身份");
-                break;
-            case R.id.radioButtonOther:
-                transaction.replace(R.id.content, new IdentiyOtherFragment());
-                radioButtonProfession.setText("身份");
-                break;
-        }*/
+        Fragment fragment = null;
         if(TextUtils.equals(event.id, "1")
             || TextUtils.equals(event.id, "2")
             || TextUtils.equals(event.id, "4")) {
-            transaction.replace(R.id.content, new IdentityDoctorFragment());
+            fragment = new IdentityDoctorFragment();
             radioButtonProfession.setText("专业");
         } else if(TextUtils.equals(event.id, "5")) {
-            transaction.replace(R.id.content, new IdentityStudentFragment());
+            fragment = new IdentityStudentFragment();
             radioButtonProfession.setText("身份");
         } else {
-            transaction.replace(R.id.content, new IdentiyOtherFragment());
+            fragment = new IdentiyOtherFragment();
             radioButtonProfession.setText("身份");
         }
 
+        for(Fragment fragment1 : fragmentList) {
+            transaction.hide(fragment1);
+        }
+
+        fragmentList.add(fragment);
+        curFragmentIndex = 1;
+
+        transaction.add(R.id.content, fragment);
+        transaction.show(fragment);
         transaction.commitAllowingStateLoss();
         radioButtonProfession.setChecked(true);
         radioButtonIdentity.setBackgroundResource(R.drawable.step_one_after_checked);
@@ -114,7 +153,15 @@ public class IdentityInfoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDoctorIdentitySelectedEvent(DoctorIdentitySelectedEvent event) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new PersonalInfoDoctorFragment());
+        for(Fragment fragment1 : fragmentList) {
+            transaction.hide(fragment1);
+        }
+
+        Fragment fragment = new PersonalInfoDoctorFragment();
+        fragmentList.add(fragment);
+        curFragmentIndex = 2;
+
+        transaction.add(R.id.content, fragment);
         transaction.commitAllowingStateLoss();
 
         radioButtonPersonalInfo.setChecked(true);
@@ -124,7 +171,15 @@ public class IdentityInfoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStudentIdentitySelectedEvent(StudentIdentitySelectedEvent event) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new PersonalInfoStudentFragment());
+        for(Fragment fragment1 : fragmentList) {
+            transaction.hide(fragment1);
+        }
+
+        Fragment fragment = new PersonalInfoStudentFragment();
+        fragmentList.add(fragment);
+        curFragmentIndex = 2;
+
+        transaction.add(R.id.content, fragment);
         transaction.commitAllowingStateLoss();
 
         radioButtonPersonalInfo.setChecked(true);
@@ -134,7 +189,15 @@ public class IdentityInfoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onOtherIdentitySelectedEvent(OtherIdentitySelectedEvent event) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new PersonalInfoOtherFragment());
+        for(Fragment fragment1 : fragmentList) {
+            transaction.hide(fragment1);
+        }
+
+        Fragment fragment = new PersonalInfoOtherFragment();
+        fragmentList.add(fragment);
+        curFragmentIndex = 2;
+
+        transaction.add(R.id.content, fragment);
         transaction.commitAllowingStateLoss();
 
         radioButtonPersonalInfo.setChecked(true);
