@@ -202,10 +202,10 @@ public class RegisterActivity extends BaseActivity {
             if (msg.what == 0) {
                 if (count > 0) {
                     count--;
-                    textViewEmailVerifyCode.setText("" + count);
+                    textViewVerifyCode.setText("" + count);
                     mHandler.sendEmptyMessageDelayed(0, 1000);
                 } else {
-                    textViewEmailVerifyCode.setText("手机验证码");
+                    textViewVerifyCode.setText("手机验证码");
                 }
             } else if (msg.what == 1) {
                 if (emailCount > 0) {
