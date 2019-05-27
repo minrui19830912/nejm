@@ -12,11 +12,15 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.data.AccountInfo;
+import com.android.nejm.event.FinishModifyPhoneStep1Event;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -47,7 +51,16 @@ public class ModifyPhoneStep1Activity extends BaseActivity {
         AccountInfo accountInfo = LoginUserManager.getInstance().getAccountInfo();
         if(accountInfo != null && !TextUtils.isEmpty(accountInfo.mobile)) {
             editTextOldPhone.setText(accountInfo.mobile);
+            editTextOldPhone.setEnabled(false);
         }
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @OnClick(R.id.textViewSendVerifyCode)
@@ -97,5 +110,10 @@ public class ModifyPhoneStep1Activity extends BaseActivity {
         }*/
 
         ModifyPhoneStep2Activity.launchActivity(this, mobile, verifyCode);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFinishModifyPhoneStep1Event(FinishModifyPhoneStep1Event event) {
+        finish();
     }
 }

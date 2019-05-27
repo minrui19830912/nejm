@@ -7,16 +7,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.EventLog;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.event.FinishModifyPhoneStep1Event;
 import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -114,6 +117,7 @@ public class ModifyPhoneStep2Activity extends BaseActivity {
                 LoadingDialog.cancelDialogForLoading();
                 ToastUtil.showShort(mContext, "修改手机号码成功");
                 LoginUserManager.getInstance().accountInfo.mobile = mobile;
+                EventBus.getDefault().post(new FinishModifyPhoneStep1Event());
                 finish();
             }
         });
