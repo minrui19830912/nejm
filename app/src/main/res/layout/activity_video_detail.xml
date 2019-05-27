@@ -67,6 +67,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
+                    android:textColor="@color/color_9b"
+                    android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="@+id/textViewTitle"
                     app:layout_constraintTop_toBottomOf="@+id/viewDivider"/>
                 <TextView
@@ -78,14 +80,18 @@
                     app:layout_constraintTop_toTopOf="@id/textViewAuthor"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewAuthor"
                     android:drawableStart="@drawable/dot_3dp"
-                    android:drawablePadding="5dp"/>
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/color_9b"
+                    android:textSize="10sp"/>
                 <TextView
                     android:id="@+id/textViewField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toStartOf="@+id/textViewDate"
                     app:layout_constraintTop_toTopOf="@+id/textViewAuthor"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewAuthor"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewAuthor"
+                    android:textColor="@color/color_9b"
+                    android:textSize="10sp"/>
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/layoutRelatedArticle"
                     android:layout_width="0dp"
