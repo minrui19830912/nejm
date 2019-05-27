@@ -3,7 +3,7 @@ package com.android.nejm.data;
 public class VideoDetail {
     public Item item;
     public String logo;
-    //public RelatedArticle equivalent;
+    public RelatedArticle equivalent;
     public String isfav;
 
     public static class Item {

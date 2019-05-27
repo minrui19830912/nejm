@@ -347,8 +347,21 @@ public class VideoDetailActivity extends BaseActivity {
                     textViewFavorite.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_collect_normal,0,0,0);
                     textViewFavorite.setTextColor(getResources().getColor(R.color.color_444));
                 }
+
+                if(videoDetail.equivalent != null && !TextUtils.isEmpty(videoDetail.equivalent.title)) {
+                    textViewRelatedArticleTitle.setText(videoDetail.equivalent.title);
+                    layoutRelatedArticle.setVisibility(View.VISIBLE);
+                } else {
+                    layoutRelatedArticle.setVisibility(View.GONE);
+                }
             }
         });
+    }
+
+    @OnClick(R.id.textViewRelatedArticleTitle)
+    public void onClickRelatedArticleTitle() {
+        ArticleDetailActivity.launchActivity(this, videoDetail.equivalent.id,
+                HttpUtils.ARTICLE_DETAIL_URL+videoDetail.equivalent.id, "", "", "");
     }
 
     public static void setControllerListener(final SimpleDraweeView simpleDraweeView, String imagePath) {

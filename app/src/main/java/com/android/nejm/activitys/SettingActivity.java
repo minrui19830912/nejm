@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.widget.CompoundButton;
+import com.android.nejm.net.HttpUtils;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.DownloadArticleAdapter;
@@ -56,27 +57,27 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.textViewAbout)
     public void onClickAbout() {
-        WebViewActivity.launchActivity(this, "关于我们", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=aboutus");
+        WebViewActivity.launchActivity(this, "关于我们", HttpUtils.BASE_URL+"/?c=app&m=aboutus");
     }
 
     @OnClick(R.id.textViewUsage)
     public void onClickUsage() {
-        WebViewActivity.launchActivity(this, "使用说明", "https://dev.nejmqianyan.com/index.php?c=singlepage&m=instructions");
+        WebViewActivity.launchActivity(this, "使用说明", HttpUtils.BASE_URL+"/?c=app&m=instructions");
     }
 
     @OnClick(R.id.textViewService)
     public void onClickService() {
-        WebViewActivity.launchActivity(this, "服务条款", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=terms");
+        WebViewActivity.launchActivity(this, "服务条款", HttpUtils.BASE_URL+"/?c=app&m=terms");
     }
 
     @OnClick(R.id.textViewPrivacy)
     public void onClickPrivacy() {
-        WebViewActivity.launchActivity(this, "隐私政策", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
+        WebViewActivity.launchActivity(this, "隐私政策", HttpUtils.BASE_URL+"/?c=app&m=privacy");
     }
 
     @OnClick(R.id.textViewVersion)
     public void onClickVersion() {
-        WebViewActivity.launchActivity(this, "版权说明", "https://dev.nejmqianyan.com/index.php?c=singlepage&m=copyright");
+        WebViewActivity.launchActivity(this, "版权说明", HttpUtils.BASE_URL+"/?c=app&m=copyright");
     }
 
     @OnClick(R.id.textViewClean)
