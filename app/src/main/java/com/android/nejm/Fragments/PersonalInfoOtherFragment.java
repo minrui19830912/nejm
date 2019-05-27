@@ -65,8 +65,7 @@ public class PersonalInfoOtherFragment extends BaseFragment {
         Map<String, String> params = new HashMap<>();
         params.put("roleid", roleInfo.roleid);
         params.put("name", roleInfo.name);
-        params.put("hospital", roleInfo.hospitalId);
-        params.put("identity", roleInfo.identityId);
+        params.put("identity", roleInfo.identityName);
         params.put("jobname", roleInfo.jobnameName);
         params.put("company", roleInfo.company);
 

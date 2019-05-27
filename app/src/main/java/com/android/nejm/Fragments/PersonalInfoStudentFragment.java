@@ -91,9 +91,9 @@ public class PersonalInfoStudentFragment extends BaseFragment {
         Map<String, String> params = new HashMap<>();
         params.put("roleid", roleInfo.roleid);
         params.put("name", roleInfo.name);
-        params.put("hospital", roleInfo.hospitalId);
-        params.put("identity", roleInfo.identityId);
-        params.put("jobname", roleInfo.jobnameId);
+        params.put("hospital", roleInfo.hospitalName);
+        params.put("identity", roleInfo.identityName);
+        params.put("jobname", roleInfo.jobnameName);
 
         HttpUtils.editRole(mContext, params, new OnNetResponseListener() {
             @Override
