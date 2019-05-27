@@ -9,7 +9,6 @@
                 android:right="0dp"
                 android:top="2dp" />
             <solid android:color="#0DCCCCCC" />
-            />
         </shape>
     </item>
     <item>
@@ -20,42 +19,38 @@
                 android:right="0dp"
                 android:top="2dp" />
             <solid android:color="#10CCCCCC" />
-           />
         </shape>
     </item>
-    <!--<item>-->
-        <!--<shape android:shape="rectangle">-->
-            <!--<padding-->
-                <!--android:bottom="0dp"-->
-                <!--android:left="0dp"-->
-                <!--android:right="0dp"-->
-                <!--android:top="2dp" />-->
-            <!--<solid android:color="#15CCCCCC" />-->
-           <!--/>-->
-        <!--</shape>-->
-    <!--</item>-->
-    <!--<item>-->
-        <!--<shape android:shape="rectangle">-->
-            <!--<padding-->
-                <!--android:bottom="0dp"-->
-                <!--android:left="0dp"-->
-                <!--android:right="0dp"-->
-                <!--android:top="2dp" />-->
-            <!--<solid android:color="#20CCCCCC" />-->
-           <!--/>-->
-        <!--</shape>-->
-    <!--</item>-->
-    <!--<item>-->
-        <!--<shape android:shape="rectangle">-->
-            <!--<padding-->
-                <!--android:bottom="0dp"-->
-                <!--android:left="0dp"-->
-                <!--android:right="0dp"-->
-                <!--android:top="2dp" />-->
-            <!--<solid android:color="#25CCCCCC" />-->
-             <!--/>-->
-        <!--</shape>-->
-    <!--</item>-->
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="2dp" />
+            <solid android:color="#15CCCCCC" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="2dp" />
+            <solid android:color="#20CCCCCC" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="2dp" />
+            <solid android:color="#25CCCCCC" />
+        </shape>
+    </item>
     <item>
         <shape>
             <solid android:color="#FFFFFF" />
