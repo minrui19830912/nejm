@@ -3,8 +3,11 @@ package com.android.nejm.activitys;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.manage.LoginUserManager;
@@ -24,6 +27,8 @@ public class EditEmailActivity extends BaseActivity {
     EditText editTextEmail;
     @BindView(R.id.editTextVerifyCode)
     EditText editTextVerifyCode;
+    @BindView(R.id.textViewSendVerifyCode)
+    TextView textViewSendVerifyCode;
 
 
     public static void launchActivity(Context context) {
@@ -48,13 +53,35 @@ public class EditEmailActivity extends BaseActivity {
             return;
         }
 
-        HttpUtils.sendEmailVerifyCode(this, email, new OnNetResponseListener() {
-            @Override
-            public void onNetDataResponse(JSONObject json) {
-                ToastUtil.showShort(mContext, "发送邮件验证码成功");
-            }
-        });
+        if (count == 0) {
+            count = 60;
+            textViewSendVerifyCode.setText("60");
+            mHandler.sendEmptyMessageDelayed(0, 1000);
+            HttpUtils.sendEmailVerifyCode(this, email, new OnNetResponseListener() {
+                @Override
+                public void onNetDataResponse(JSONObject json) {
+                    ToastUtil.showShort(mContext, "发送邮件验证码成功");
+                }
+            });
+        }
     }
+
+    private int count;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0) {
+                if (count > 0) {
+                    count--;
+                    textViewSendVerifyCode.setText("" + count);
+                    mHandler.sendEmptyMessageDelayed(0, 1000);
+                } else {
+                    textViewSendVerifyCode.setText("发送验证码");
+                }
+            }
+        }
+    };
 
     @OnClick(R.id.buttonConfirm)
     public void onClickConfirm() {

@@ -99,8 +99,24 @@ public class EditPersonalInfoActivity extends BaseActivity {
         if(accountInfo != null) {
             draweeViewHead.setImageURI(accountInfo.avatar);
             textViewName.setText(accountInfo.truename);
-            textViewPhone.setText(accountInfo.mobile);
-            textViewEmail.setText(accountInfo.email);
+            if(accountInfo.mobile != null && accountInfo.mobile.length() > 8) {
+                int start = accountInfo.mobile.length() - 8;
+                int end = start + 4;
+                String mobile = accountInfo.mobile.replace(accountInfo.mobile.substring(start, end), "****");
+                textViewPhone.setText(mobile);
+            } else {
+                textViewPhone.setText(accountInfo.mobile);
+            }
+
+            if(accountInfo.email != null && accountInfo.email.contains("@")) {
+                int end = accountInfo.email.lastIndexOf('@');
+                int start = Math.max(end - 3, 0);
+                String email = accountInfo.email.replace(accountInfo.email.substring(start, end), "***");
+                textViewEmail.setText(email);
+            } else {
+                textViewEmail.setText(accountInfo.email);
+            }
+
             if(TextUtils.isEmpty(accountInfo.roleid)
                 || TextUtils.equals(accountInfo.roleid, "0")) {
                 textViewIdentityOne.setText("");
