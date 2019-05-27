@@ -55,6 +55,8 @@ public class RegisterActivity extends BaseActivity {
     CheckBox checkBox;
     @BindView(R.id.textViewVerifyCode)
     TextView textViewVerifyCode;
+    @BindView(R.id.textViewEmailVerifyCode)
+    TextView textViewEmailVerifyCode;
     @BindView(R.id.textViewShowPwd)
     TextView textViewShowPwd;
     @BindView(R.id.textViewShowPwdAgain)
@@ -192,6 +194,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private int count;
+    private int emailCount;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -199,10 +202,18 @@ public class RegisterActivity extends BaseActivity {
             if (msg.what == 0) {
                 if (count > 0) {
                     count--;
-                    textViewVerifyCode.setText("" + count);
+                    textViewEmailVerifyCode.setText("" + count);
                     mHandler.sendEmptyMessageDelayed(0, 1000);
                 } else {
-                    textViewVerifyCode.setText("手机验证码");
+                    textViewEmailVerifyCode.setText("手机验证码");
+                }
+            } else if (msg.what == 1) {
+                if (emailCount > 0) {
+                    emailCount--;
+                    textViewEmailVerifyCode.setText("" + emailCount);
+                    mHandler.sendEmptyMessageDelayed(1, 1000);
+                } else {
+                    textViewEmailVerifyCode.setText("邮件验证码");
                 }
             }
         }
@@ -216,12 +227,27 @@ public class RegisterActivity extends BaseActivity {
             editTextEmail.requestFocus();
             return;
         }
-        HttpUtils.sendEmailVerifyCode(this, email, new OnNetResponseListener() {
-            @Override
-            public void onNetDataResponse(JSONObject json) {
-                ToastUtil.showShort(RegisterActivity.this, "发送邮件验证码成功");
-            }
-        });
+        if (emailCount == 0) {
+            emailCount = 60;
+            textViewEmailVerifyCode.setText("60");
+            mHandler.sendEmptyMessageDelayed(1, 1000);
+            HttpUtils.sendEmailVerifyCode(this, email, new OnNetResponseListener() {
+                @Override
+                public void onNetDataResponse(JSONObject json) {
+                    ToastUtil.showShort(RegisterActivity.this, "发送邮件验证码成功");
+                }
+            });
+        }
+    }
+
+    @OnClick(R.id.textViewService)
+    public void onClickService() {
+        WebViewActivity.launchActivity(this, "服务条款", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=terms");
+    }
+
+    @OnClick(R.id.textViewPrivacy)
+    public void onClickPrivacy() {
+        WebViewActivity.launchActivity(this, "隐私政策", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
     }
 
     @Override
