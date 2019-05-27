@@ -207,4 +207,8 @@ public class LoginUserManager {
         MyApplication.client_id = loginBean.client_id;
         MyApplication.uid = loginBean.uid;
     }
+
+    public boolean hasIdentity() {
+        return !TextUtils.equals(roleid, "0");
+    }
 }

@@ -117,10 +117,10 @@ public class PersonalInfoStudentFragment extends BaseFragment {
         });
     }
 
-    @OnClick(R.id.textViewSkip)
+    /*@OnClick(R.id.textViewSkip)
     public void onClickSkip() {
         if(mContext != null) {
             ((Activity)mContext).finish();
         }
-    }
+    }*/
 }

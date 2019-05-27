@@ -1,5 +1,7 @@
 package com.android.nejm.activitys;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -54,12 +56,22 @@ public class IdentityInfoActivity extends BaseActivity {
     List<Fragment> fragmentList = new ArrayList<>();
     int curFragmentIndex = 0;
 
+    boolean fromLogin = false;
+
+    public static void launchActivity(Context context, boolean fromLogin) {
+        Intent intent = new Intent(context, IdentityInfoActivity.class);
+        intent.putExtra("fromLogin", fromLogin);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identity_info);
         showBack();
         ButterKnife.bind(this);
+
+        fromLogin = getIntent().getBooleanExtra("fromLogin", false);
 
         fragmentList.add(new IdentityFragment());
 
@@ -105,6 +117,15 @@ public class IdentityInfoActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void finish() {
+        if(fromLogin) {
+
+        }
+
+        super.finish();
     }
 
     @Override
