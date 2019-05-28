@@ -329,6 +329,7 @@ String client_id =LoginUserManager.getInstance().client_id;
             url.append("&id=").append(id);
         }
         url.append("&page=").append(page);
+        Log.e("minrui","url="+url.toString());
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {

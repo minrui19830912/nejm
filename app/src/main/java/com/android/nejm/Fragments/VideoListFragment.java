@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
@@ -47,7 +46,7 @@ public class VideoListFragment extends BaseFragment {
 
     GridAdapter gridAdapter;
 
-    private int page;
+    private int page = 1;
     private String id;
 
     @Nullable
