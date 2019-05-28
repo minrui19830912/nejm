@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <CheckBox   xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView   xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/all"
     android:layout_width="110dp"
     android:layout_height="22dp"
     android:text="NEJM"
     android:gravity="center"
     android:textSize="10sp"
-
     android:textColor="@color/tab_single_textcolor"
     android:button="@null"
     android:background="@drawable/home_radio_bg" />

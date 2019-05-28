@@ -7,15 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -69,7 +66,6 @@ public class SearchActivity extends BaseActivity {
     public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
     private ArrayList<Source> mSourceList = new ArrayList<>();
     private int totalCount;
-    private CheckBox mCurrentCheckBox;
     private int mCheckIndex = 0;
     private String id;
     private ClassesGridAdapter mClassesGridAdapter = new ClassesGridAdapter();
@@ -93,7 +89,6 @@ public class SearchActivity extends BaseActivity {
 
         mRecylerView.setAdapter(articleAdapter);
 
-        refreshLayout.autoLoadMore();
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -213,38 +208,30 @@ public class SearchActivity extends BaseActivity {
 
             Source source = mSourceList.get(position);
             final int pos = position;
-            CheckBox checkBox = (CheckBox) convertView;
+            TextView textView = (TextView) convertView;
             if (mCheckIndex == pos) {
-                mCurrentCheckBox = checkBox;
-                mCurrentCheckBox.setChecked(true);
-
+                textView.setTextColor(getResources().getColor(R.color.white));
+                textView.setBackgroundResource(R.drawable.home_radio_checked);
             } else {
-                checkBox.setChecked(false);
+                textView.setTextColor(getResources().getColor(R.color.nejm_text_unselect));
+                textView.setBackgroundResource(R.drawable.home_radio_nor);
             }
+
             if (source != null) {
-                checkBox.setText(source.sourcename);
+                textView.setText(source.sourcename);
             }
-            CompoundButton.OnCheckedChangeListener mCheckListener=new CompoundButton.OnCheckedChangeListener() {
+            textView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Log.e("tag", "position = " + position + ", isChecked = " + isChecked);
-                    if (isChecked) {
-                        if (mCurrentCheckBox != null) {
-                            mCurrentCheckBox.setChecked(false);
-                        }
-                        mCurrentCheckBox = (CheckBox) buttonView;
-                        mCheckIndex = pos;
-                        id = source.id;
-                        page = 1;
-                        refreshLayout.resetNoMoreData();
-                        search(true, false);
-                    }
+                public void onClick(View v) {
+                    mCheckIndex = pos;
+                    id = source.id;
+                    page = 1;
+                    refreshLayout.resetNoMoreData();
+                    notifyDataSetChanged();
+                    search(true, false);
                 }
-            };
-            checkBox.setOnCheckedChangeListener(mCheckListener);
+            });
             return convertView;
         }
     }
-
-
 }
