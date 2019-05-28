@@ -56,11 +56,8 @@ public class IdentityInfoActivity extends BaseActivity {
     List<Fragment> fragmentList = new ArrayList<>();
     int curFragmentIndex = 0;
 
-    boolean fromLogin = false;
-
-    public static void launchActivity(Context context, boolean fromLogin) {
+    public static void launchActivity(Context context) {
         Intent intent = new Intent(context, IdentityInfoActivity.class);
-        intent.putExtra("fromLogin", fromLogin);
         context.startActivity(intent);
     }
 
@@ -70,8 +67,6 @@ public class IdentityInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_identity_info);
         showBack();
         ButterKnife.bind(this);
-
-        fromLogin = getIntent().getBooleanExtra("fromLogin", false);
 
         fragmentList.add(new IdentityFragment());
 
@@ -117,15 +112,6 @@ public class IdentityInfoActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void finish() {
-        if(fromLogin) {
-
-        }
-
-        super.finish();
     }
 
     @Override

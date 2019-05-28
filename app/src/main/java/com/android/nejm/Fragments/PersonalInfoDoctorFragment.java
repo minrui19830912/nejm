@@ -100,6 +100,8 @@ public class PersonalInfoDoctorFragment extends BaseFragment {
                 accountInfo.hospital = roleInfo.hospitalName;
                 accountInfo.jobname = roleInfo.jobnameName;
 
+                LoginUserManager.getInstance().setRoleid(roleInfo.roleid);
+
                 if(mContext != null && mContext instanceof Activity) {
                     ((Activity)mContext).finish();
                 }

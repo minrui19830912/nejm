@@ -1,6 +1,7 @@
 package com.android.nejm.manage;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.nejm.MyApplication;
 import com.android.nejm.data.AccountInfo;
@@ -119,6 +120,7 @@ public class LoginUserManager {
 
     public void setRoleid(String roleid) {
         this.roleid = roleid;
+        SPUtils.putStringPreference("roleid", roleid);
     }
 
     public AccountInfo getAccountInfo() {
@@ -209,6 +211,7 @@ public class LoginUserManager {
     }
 
     public boolean hasIdentity() {
+        Log.e("dpp", "hasIdentity, roleid = " + roleid);
         return !TextUtils.equals(roleid, "0");
     }
 }

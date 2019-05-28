@@ -110,6 +110,8 @@ public class PersonalInfoStudentFragment extends BaseFragment {
                 accountInfo.identity = roleInfo.identityName;
                 accountInfo.jobname = roleInfo.jobnameName;
 
+                LoginUserManager.getInstance().setRoleid(roleInfo.roleid);
+
                 if(mContext != null && mContext instanceof Activity) {
                     ((Activity)mContext).finish();
                 }

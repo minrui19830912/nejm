@@ -113,11 +113,6 @@ public class LoginActivity extends BaseActivity {
                         if(justFinish ){
                             finish();
                         } else {
-                            /*if(LoginUserManager.getInstance().hasIdentity()) {
-                                startActivity(new Intent(mContext,MainActivity.class));
-                            } else {
-                                IdentityInfoActivity.launchActivity(mContext, true);
-                            }*/
                             startActivity(new Intent(mContext,MainActivity.class));
                             finish();
                         }

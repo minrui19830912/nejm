@@ -57,6 +57,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(mTabArray[0]).performClick();
 
         UploadManager.getInstance().checkUpdate(this);
+
+        if(!LoginUserManager.getInstance().hasIdentity()) {
+            IdentityInfoActivity.launchActivity(mContext);
+        }
     }
 
     @Override

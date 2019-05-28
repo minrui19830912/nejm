@@ -83,6 +83,8 @@ public class PersonalInfoOtherFragment extends BaseFragment {
                 accountInfo.jobname = roleInfo.jobnameName;
                 accountInfo.company = roleInfo.company;
 
+                LoginUserManager.getInstance().setRoleid(roleInfo.roleid);
+
                 if(mContext != null && mContext instanceof Activity) {
                     ((Activity)mContext).finish();
                 }
