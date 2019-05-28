@@ -141,30 +141,36 @@ public class PeriodArticleFragment extends BaseFragment {
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 refreshLayout.finishRefresh();
-                refreshLayout.finishLoadMore();
 
                 List<PeriodArticleItem> list = new ArrayList<>();
 
-                JSONObject jsonObject = json.optJSONObject("items");
-                for(int i = 12; i > 0; i--) {
-                    String key = String.format(Locale.CHINA, "%02d", i);
-                    JSONArray jsonArray = jsonObject.optJSONArray(key);
-                    if(jsonArray != null) {
-                        PeriodArticleItem periodArticleItem = new PeriodArticleItem();
-                        periodArticleItem.articleItems = new ArrayList<>();
-                        for(int j = 0; j < jsonArray.length(); j++) {
-                            JSONObject item = jsonArray.optJSONObject(j);
-                            PeriodArticleItem.ArticleItem articleItem = new PeriodArticleItem.ArticleItem();
-                            articleItem.cover = item.optString("cover");
-                            articleItem.id = item.optString("id");
-                            articleItem.thedate = item.optString("thedate");
-                            articleItem.title = item.optString("title");
-                            periodArticleItem.articleItems.add(articleItem);
-                        }
+                int count = json.optInt("count");
+                if(count == 0) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
 
-                        periodArticleItem.month = key;
-                        periodArticleItem.year = String.valueOf(year);
-                        list.add(periodArticleItem);
+                    JSONObject jsonObject = json.optJSONObject("items");
+                    for(int i = 12; i > 0; i--) {
+                        String key = String.format(Locale.CHINA, "%02d", i);
+                        JSONArray jsonArray = jsonObject.optJSONArray(key);
+                        if(jsonArray != null) {
+                            PeriodArticleItem periodArticleItem = new PeriodArticleItem();
+                            periodArticleItem.articleItems = new ArrayList<>();
+                            for(int j = 0; j < jsonArray.length(); j++) {
+                                JSONObject item = jsonArray.optJSONObject(j);
+                                PeriodArticleItem.ArticleItem articleItem = new PeriodArticleItem.ArticleItem();
+                                articleItem.cover = item.optString("cover");
+                                articleItem.id = item.optString("id");
+                                articleItem.thedate = item.optString("thedate");
+                                articleItem.title = item.optString("title");
+                                periodArticleItem.articleItems.add(articleItem);
+                            }
+
+                            periodArticleItem.month = key;
+                            periodArticleItem.year = String.valueOf(year);
+                            list.add(periodArticleItem);
+                        }
                     }
                 }
 
