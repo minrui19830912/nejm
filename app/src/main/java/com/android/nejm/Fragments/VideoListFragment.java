@@ -107,6 +107,7 @@ public class VideoListFragment extends BaseFragment {
             }
         });
 
+        page = 1;
         getData(true, true);
         return view;
     }
