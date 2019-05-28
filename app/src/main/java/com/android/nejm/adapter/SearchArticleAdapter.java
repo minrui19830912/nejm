@@ -64,6 +64,13 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
 //            Log.e("test", "thumb = " + item.thumb);
 //        }
         viewHolder.draweeViewCover.setImageURI(artitleItem.thumb);
+        if(artitleItem.sourcename == null) {
+            artitleItem.sourcename = "";
+        }
+        if(artitleItem.typename == null) {
+            artitleItem.typename = "";
+        }
+
         viewHolder.textViewType.setText(String.format(Locale.CHINA, "%s：%s", artitleItem.sourcename, artitleItem.typename));
         viewHolder.textViewAuthor.setText(artitleItem.author);
         viewHolder.textViewDate.setText(artitleItem.postdate);
