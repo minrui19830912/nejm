@@ -79,8 +79,8 @@ public class ReleatedArticleActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(100);
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore();
 
                 List<RelatedArticle> list = new Gson().fromJson(json.optJSONArray("relation").toString(), new TypeToken<List<RelatedArticle>>(){}.getType());
                 if(clearList) {

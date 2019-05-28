@@ -69,6 +69,7 @@ public class VideoListFragment extends BaseFragment {
                 }
 
                 page = 1;
+                refreshLayout.resetNoMoreData();
                 getData(true, true);
 
                 gridAdapter.setSelectIndex(position);
@@ -155,8 +156,7 @@ public class VideoListFragment extends BaseFragment {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(100);
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishRefresh();
 
                 videoInfo = new Gson().fromJson(json.toString(), VideoInfo.class);
                 if(clearList) {
@@ -164,6 +164,11 @@ public class VideoListFragment extends BaseFragment {
                 }
 
                 videoitems.addAll(videoInfo.items);
+                if(videoitems.size() >= videoInfo.total_count) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
+                }
 
                 mVideoListAdapter.setData(videoitems);
                 mVideoListAdapter.notifyDataSetChanged();

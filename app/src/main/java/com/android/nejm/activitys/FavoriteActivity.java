@@ -78,8 +78,7 @@ public class FavoriteActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(100);
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishRefresh();
 
                 readRecord = new Gson().fromJson(json.toString(), ReadRecord.class);
                 if(clearList) {
@@ -87,6 +86,11 @@ public class FavoriteActivity extends BaseActivity {
                 }
 
                 recordItemList.addAll(readRecord.items);
+                if(recordItemList.size() >= readRecord.total_count) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
+                }
 
                 articleAdapter.setData(recordItemList);
                 articleAdapter.notifyDataSetChanged();

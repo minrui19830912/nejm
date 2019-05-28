@@ -132,8 +132,7 @@ public class OtherArticleListActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(100);
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishRefresh();
 
                 articleInfo = new Gson().fromJson(json.toString(), OtherArticleInfo.class);
                 if(clearList) {
@@ -141,6 +140,11 @@ public class OtherArticleListActivity extends BaseActivity {
                 }
 
                 artitleItems.addAll(articleInfo.items);
+                if(artitleItems.size() >= articleInfo.total_count) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
+                }
 
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();

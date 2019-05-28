@@ -71,6 +71,7 @@ public class NewKnowledgeFragment extends BaseFragment {
                 }
 
                 pageIndex = 1;
+                refreshLayout.resetNoMoreData();
                 getData(true, true);
 
                 gridAdapter.setSelectIndex(position);
@@ -156,8 +157,7 @@ public class NewKnowledgeFragment extends BaseFragment {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(100);
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishRefresh();
 
                 newKnowledgeInfo = new Gson().fromJson(json.toString(), NewKnowledgeInfo.class);
                 if(clearList) {
@@ -165,6 +165,11 @@ public class NewKnowledgeFragment extends BaseFragment {
                 }
 
                 knowledgeitems.addAll(newKnowledgeInfo.items);
+                if(knowledgeitems.size() >= newKnowledgeInfo.total_count) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
+                }
 
                 mNewKnowledgeAdapter.setData(knowledgeitems);
                 mNewKnowledgeAdapter.notifyDataSetChanged();

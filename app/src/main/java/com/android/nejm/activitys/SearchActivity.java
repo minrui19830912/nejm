@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,11 +155,9 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                refreshLayout.finishRefresh(100);
-                refreshLayout.finishLoadMore(100);
+                refreshLayout.finishRefresh();
                 if (!loadMore) {
                     artitleItems.clear();
-
                 }
                 mSourceList.clear();
                 JSONArray sources = json.optJSONArray("sources");
@@ -175,6 +174,11 @@ public class SearchActivity extends BaseActivity {
 
 
                 artitleItems.addAll(articleInfo.items);
+                if(artitleItems.size() >= totalCount) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
+                }
 
                 articleAdapter.setData(artitleItems,keyword);
                 articleAdapter.notifyDataSetChanged();
@@ -223,7 +227,7 @@ public class SearchActivity extends BaseActivity {
             CompoundButton.OnCheckedChangeListener mCheckListener=new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                    Log.e("tag", "position = " + position + ", isChecked = " + isChecked);
                     if (isChecked) {
                         if (mCurrentCheckBox != null) {
                             mCurrentCheckBox.setChecked(false);
@@ -232,6 +236,7 @@ public class SearchActivity extends BaseActivity {
                         mCheckIndex = pos;
                         id = source.id;
                         page = 1;
+                        refreshLayout.resetNoMoreData();
                         search(true, false);
                     }
                 }
