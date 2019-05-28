@@ -67,6 +67,7 @@ public class ArticleDetailActivity extends BaseActivity {
     private TextView storage;
 
     ArticleShareContent shareContent;
+    private String outLinkUrl;
 
     public static void launchActivity(Context context,String id, String url,String content,String cover,String title) {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
@@ -282,6 +283,13 @@ public class ArticleDetailActivity extends BaseActivity {
                     ArticleDetailActivity.launchActivity(mContext, id, HttpUtils.ARTICLE_DETAIL_URL+id, "", "", "");
                     return true;
                 }
+            } else if(url.startsWith("http://www.nejm.outlink")) {
+                Intent intent= new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(shareContent.outlink);
+                intent.setData(content_url);
+                startActivity(intent);
+                return true;
             }
 
             return false;
