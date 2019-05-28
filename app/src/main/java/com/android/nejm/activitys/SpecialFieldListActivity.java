@@ -92,6 +92,7 @@ public class SpecialFieldListActivity extends BaseActivity {
                 String focusId = iconInfoList.get(position).id;
                 SpecialFieldListActivity.this.id = focusId;
                 gridAdapter.setFocusId(focusId);
+                page = 1;
                 getData(true, true);
             }
         });

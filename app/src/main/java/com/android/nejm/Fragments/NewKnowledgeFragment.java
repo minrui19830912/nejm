@@ -70,6 +70,7 @@ public class NewKnowledgeFragment extends BaseFragment {
                     NewKnowledgeFragment.this.id = newKnowledgeInfo.types.get(position - 1).id;
                 }
 
+                pageIndex = 1;
                 getData(true, true);
 
                 gridAdapter.setSelectIndex(position);

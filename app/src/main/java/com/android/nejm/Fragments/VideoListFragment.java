@@ -68,6 +68,7 @@ public class VideoListFragment extends BaseFragment {
                     VideoListFragment.this.id = videoInfo.types.get(position - 1).id;
                 }
 
+                page = 1;
                 getData(true, true);
 
                 gridAdapter.setSelectIndex(position);

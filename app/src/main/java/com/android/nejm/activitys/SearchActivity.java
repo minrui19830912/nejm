@@ -231,6 +231,7 @@ public class SearchActivity extends BaseActivity {
                         mCurrentCheckBox = (CheckBox) buttonView;
                         mCheckIndex = pos;
                         id = source.id;
+                        page = 1;
                         search(true, false);
                     }
                 }
