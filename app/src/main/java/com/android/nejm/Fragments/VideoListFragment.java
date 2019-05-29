@@ -69,6 +69,7 @@ public class VideoListFragment extends BaseFragment {
 
                 page = 1;
                 refreshLayout.resetNoMoreData();
+                mRecylerView.scrollToPosition(0);
                 getData(true, true);
 
                 gridAdapter.setSelectIndex(position);

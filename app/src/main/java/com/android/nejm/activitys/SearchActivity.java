@@ -227,6 +227,7 @@ public class SearchActivity extends BaseActivity {
                     id = source.id;
                     page = 1;
                     refreshLayout.resetNoMoreData();
+                    mRecylerView.scrollToPosition(0);
                     notifyDataSetChanged();
                     search(true, false);
                 }

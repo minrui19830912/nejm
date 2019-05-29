@@ -71,6 +71,7 @@ public class NewKnowledgeFragment extends BaseFragment {
                 }
 
                 pageIndex = 1;
+                mRecylerView.scrollToPosition(0);
                 refreshLayout.resetNoMoreData();
                 getData(true, true);
 
