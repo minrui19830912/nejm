@@ -96,6 +96,7 @@ public class OtherArticleListActivity extends BaseActivity {
                 OtherArticleListActivity.this.id = iconInfoList.get(position).id;
                 gridAdapter.setFocusId(OtherArticleListActivity.this.id);
                 page = 1;
+                recyclerView.scrollToPosition(0);
                 getData(true, true);
             }
         });

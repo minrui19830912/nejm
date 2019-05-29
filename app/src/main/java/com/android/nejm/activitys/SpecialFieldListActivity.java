@@ -93,6 +93,7 @@ public class SpecialFieldListActivity extends BaseActivity {
                 SpecialFieldListActivity.this.id = focusId;
                 gridAdapter.setFocusId(focusId);
                 page = 1;
+                recyclerView.scrollToPosition(0);
                 getData(true, true);
             }
         });
