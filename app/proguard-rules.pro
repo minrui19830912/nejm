@@ -63,3 +63,74 @@
 
     -dontwarn cn.jpush.**
     -keep class cn.jpush.** { *; }
+
+    -keep class butterknife.** { *; }
+    -dontwarn butterknife.internal.**
+    -keep class **$$ViewBinder { *; }
+
+    -keepclasseswithmembernames class * {
+        @butterknife.* <fields>;
+    }
+
+    -keepclasseswithmembernames class * {
+        @butterknife.* <methods>;
+    }
+
+    ### greenDAO 3
+    -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static java.lang.String TABLENAME;
+    }
+    -keep class **$Properties
+    # If you do not use SQLCipher:
+    -dontwarn org.greenrobot.greendao.database.**
+    # If you do not use RxJava:
+    -dontwarn rx.**
+
+    -dontwarn sun.misc.**
+    -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+        long producerIndex;
+        long consumerIndex;
+    }
+    -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+        rx.internal.util.atomic.LinkedQueueNode producerNode;
+    }
+    -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+        rx.internal.util.atomic.LinkedQueueNode consumerNode;
+    }
+
+    -keepattributes *Annotation*
+    -keepclassmembers class * {
+        @org.greenrobot.eventbus.Subscribe <methods>;
+    }
+    -keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+    # Only required if you use AsyncExecutor
+    -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+        <init>(java.lang.Throwable);
+    }
+
+    #fresco开始
+    -keep class com.facebook.fresco.** { *; }
+    -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
+    -keep @com.facebook.common.internal.DoNotStrip class *
+    -keepclassmembers class * {
+         @com.facebook.common.internal.DoNotStrip *;
+    }
+    -keep class com.facebook.imagepipeline.gif.** { *; }
+    -keep class com.facebook.imagepipeline.webp.* { *; }
+    -keepclassmembers class * {
+        native <methods>;
+    }
+    -dontwarn okio.**
+    -dontwarn com.squareup.okhttp.**
+    -dontwarn okhttp3.**
+    -dontwarn javax.annotation.**
+    -dontwarn com.android.volley.toolbox.**
+    -keep class com.facebook.imagepipeline.animated.factory.AnimatedFactoryImpl {
+        public AnimatedFactoryImpl(com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory,com.facebook.imagepipeline.core.ExecutorSupplier);
+    }
+    #fresco结束
+
+    -keep class com.android.nejm.data.** { *; }
+    -keep class com.android.nejm.bean.** { *; }
+
