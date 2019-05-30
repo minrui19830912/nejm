@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -46,6 +47,7 @@ import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.RelatedArticle;
 import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
+import com.android.nejm.manage.UploadManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.MyDownloadManager;
@@ -75,8 +77,10 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks{
     @BindView(R.id.textViewUserName)
     TextView textViewUserName;
     @BindView(R.id.textViewReadCount)
@@ -108,6 +112,8 @@ public class MyFragment extends BaseFragment {
     private Uri uritempFile;
 
     private AccountInfo accountInfo;
+
+    private static final int PERMISSION_STORGE_REQUEST_CODE = 1;
 
     @Nullable
     @Override
@@ -381,6 +387,15 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.textViewDownload)
     public void onDownload() {
+        if(EasyPermissions.hasPermissions(mContext, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            downloadArticles();
+        } else {
+            EasyPermissions.requestPermissions(this, "NEJM需要使用存储权限，您是否同意？", PERMISSION_STORGE_REQUEST_CODE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+    }
+
+    private void downloadArticles() {
         LoadingDialog.showDialogForLoading(mContext);
         String lastzipid = LoginUserManager.getInstance().lastzipid;
         HttpUtils.getThisWeekArticle(mContext, lastzipid, new OnNetResponseListener() {
@@ -422,16 +437,16 @@ public class MyFragment extends BaseFragment {
 
                     MyDownloadManager.download(mContext, urlList, filePathList, imgUrlList, imgFilePathList,
                             new MyDownloadManager.DownloadCompleteListener() {
-                        @Override
-                        public void downloadComplete() {
-                            Log.e("TAG", "downloadComplete");
-                            LoadingDialog.cancelDialogForLoading();
-                            textViewDownloadComplete.setVisibility(View.VISIBLE);
-                            textViewDownload.setVisibility(View.INVISIBLE);
-                            LoginUserManager.getInstance().setLastDownloadtime(Calendar.getInstance().getTimeInMillis());
-                            updateDownloadCount();
-                        }
-                    });
+                                @Override
+                                public void downloadComplete() {
+                                    Log.e("TAG", "downloadComplete");
+                                    LoadingDialog.cancelDialogForLoading();
+                                    textViewDownloadComplete.setVisibility(View.VISIBLE);
+                                    textViewDownload.setVisibility(View.INVISIBLE);
+                                    LoginUserManager.getInstance().setLastDownloadtime(Calendar.getInstance().getTimeInMillis());
+                                    updateDownloadCount();
+                                }
+                            });
                 }
             }
         });
@@ -605,9 +620,26 @@ public class MyFragment extends BaseFragment {
             if (grantResults.length == 0||grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
             }
+        } else if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+            EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
         }
 
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+            downloadArticles();
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        ToastUtil.showShort(mContext, "用户授权失败");
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.android.nejm.activitys;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -47,8 +49,10 @@ import java.util.Locale;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class ArticleDetailActivity extends BaseActivity {
+public class ArticleDetailActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     private WebView mWebView;
     private TextView textViewDownload;
 
@@ -68,6 +72,8 @@ public class ArticleDetailActivity extends BaseActivity {
 
     ArticleShareContent shareContent;
     private String outLinkUrl;
+
+    private static final int PERMISSION_STORGE_REQUEST_CODE = 1;
 
     public static void launchActivity(Context context,String id, String url,String content,String cover,String title) {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
@@ -145,61 +151,12 @@ public class ArticleDetailActivity extends BaseActivity {
         textViewDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadingDialog.showDialogForLoading(mContext);
-                HttpUtils.getArticleInfo(mContext, mId, new OnNetResponseListener() {
-                    @Override
-                    public void onNetDataResponse(JSONObject json) {
-
-                        JSONObject item = json.optJSONObject("item");
-
-                        DownloadRecord downloadRecord = new DownloadRecord();
-                        downloadRecord.articleId = item.optString("id");
-                        downloadRecord.title = item.optString("title");
-                        downloadRecord.filtername = item.optString("filtername");
-                        downloadRecord.thumb = item.optString("thumb");
-                        downloadRecord.postdate = item.optString("postdate");
-                        downloadRecord.show_wantsay = item.optString("show_wantsay");
-                        downloadRecord.author = item.optString("author");
-                        downloadRecord.sourcename = item.optString("sourcename");
-                        downloadRecord.typename = item.optString("typename");
-
-                        JSONArray jsonArray = item.optJSONArray("specialties");
-                        if(jsonArray != null && jsonArray.length() > 0) {
-                            JSONObject jsonObject = jsonArray.optJSONObject(0);
-                            downloadRecord.classname = jsonObject.optString("classname");
-                        }
-
-                        File file = new File(mContext.getExternalFilesDir(null), String.format(Locale.CHINA, "/html/%s.html", mId));
-                        downloadRecord.filePath = file.getAbsolutePath();
-                        DownloadRecordManager.insert(downloadRecord);
-                    }
-                });
-
-
-                        List<String> urlList = new ArrayList<>();
-                        String loginUrl = url;
-                        loginUrl+="&uid=";
-                        loginUrl+=LoginUserManager.getInstance().uid;
-                        urlList.add(loginUrl);
-
-                        String filePath = String.format(Locale.CHINA, "/html/%s.html", mId);
-                        List<String> filePathList = new ArrayList<>();
-                        filePathList.add(filePath);
-
-                        LoadingDialog.showDialogForLoading(mContext);
-                        MyDownloadManager.download(mContext, urlList, filePathList, new ArrayList<>(),
-                                new ArrayList<>(),
-                                new MyDownloadManager.DownloadCompleteListener() {
-                            @Override
-                            public void downloadComplete() {
-                                Log.e("TAG", "downloadComplete");
-                                ToastUtil.showShort(mContext,"下载成功");
-                                LoadingDialog.cancelDialogForLoading();
-                                textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
-                                textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
-                            }
-                        });
-
+                if(EasyPermissions.hasPermissions(mContext, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    downloadArticle();
+                } else {
+                    EasyPermissions.requestPermissions(ArticleDetailActivity.this, "NEJM需要使用存储权限，您是否同意？", PERMISSION_STORGE_REQUEST_CODE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
             }
         });
         if(LoginUserManager.getInstance().isLogin()&&DownloadRecordManager.hasDownLoad(mId)){
@@ -207,6 +164,63 @@ public class ArticleDetailActivity extends BaseActivity {
             textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
             textViewDownload.setClickable(false);
         }
+    }
+
+    private void downloadArticle() {
+        LoadingDialog.showDialogForLoading(mContext);
+        HttpUtils.getArticleInfo(mContext, mId, new OnNetResponseListener() {
+            @Override
+            public void onNetDataResponse(JSONObject json) {
+
+                JSONObject item = json.optJSONObject("item");
+
+                DownloadRecord downloadRecord = new DownloadRecord();
+                downloadRecord.articleId = item.optString("id");
+                downloadRecord.title = item.optString("title");
+                downloadRecord.filtername = item.optString("filtername");
+                downloadRecord.thumb = item.optString("thumb");
+                downloadRecord.postdate = item.optString("postdate");
+                downloadRecord.show_wantsay = item.optString("show_wantsay");
+                downloadRecord.author = item.optString("author");
+                downloadRecord.sourcename = item.optString("sourcename");
+                downloadRecord.typename = item.optString("typename");
+
+                JSONArray jsonArray = item.optJSONArray("specialties");
+                if(jsonArray != null && jsonArray.length() > 0) {
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    downloadRecord.classname = jsonObject.optString("classname");
+                }
+
+                File file = new File(mContext.getExternalFilesDir(null), String.format(Locale.CHINA, "/html/%s.html", mId));
+                downloadRecord.filePath = file.getAbsolutePath();
+                DownloadRecordManager.insert(downloadRecord);
+            }
+        });
+
+
+        List<String> urlList = new ArrayList<>();
+        String loginUrl = url;
+        loginUrl+="&uid=";
+        loginUrl+=LoginUserManager.getInstance().uid;
+        urlList.add(loginUrl);
+
+        String filePath = String.format(Locale.CHINA, "/html/%s.html", mId);
+        List<String> filePathList = new ArrayList<>();
+        filePathList.add(filePath);
+
+        LoadingDialog.showDialogForLoading(mContext);
+        MyDownloadManager.download(mContext, urlList, filePathList, new ArrayList<>(),
+                new ArrayList<>(),
+                new MyDownloadManager.DownloadCompleteListener() {
+                    @Override
+                    public void downloadComplete() {
+                        Log.e("TAG", "downloadComplete");
+                        ToastUtil.showShort(mContext,"下载成功");
+                        LoadingDialog.cancelDialogForLoading();
+                        textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
+                        textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
+                    }
+                });
     }
 
     private void loadShareContent() {
@@ -256,6 +270,21 @@ public class ArticleDetailActivity extends BaseActivity {
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings()
                 .setJavaScriptCanOpenWindowsAutomatically(true);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+            downloadArticle();
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        ToastUtil.showShort(this, "用户授权失败");
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 
 
@@ -463,6 +492,14 @@ public class ArticleDetailActivity extends BaseActivity {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
             ToastUtil.showShort(this, "您没有安装邮件客户端");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+            EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
         }
     }
 }

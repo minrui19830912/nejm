@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -35,8 +36,12 @@ import com.android.nejm.widgets.LoadingDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
     private HomeFragment mHomeFragment;
     private NewKnowledgeFragment mNewKnowledgeFragment;
     private PeriodArticleFragment mPeriodArticleFragment;
@@ -45,6 +50,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int mIndex = -1;
     private int[]mTabArray={R.id.indicator_one,R.id.indicator_two,R.id.indicator_three,R.id.indicator_four,R.id.indicator_five};
 
+    private static final int PERMISSION_STORGE_REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +62,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         findViewById(mTabArray[0]).performClick();
 
-        UploadManager.getInstance().checkUpdate(this);
+        if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            UploadManager.getInstance().checkUpdate(this);
+        } else {
+            EasyPermissions.requestPermissions(this, "NEJM需要使用存储权限，您是否同意？", PERMISSION_STORGE_REQUEST_CODE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
 
         if(!LoginUserManager.getInstance().hasIdentity()) {
             IdentityInfoActivity.launchActivity(mContext);
@@ -270,6 +281,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (grantResults.length == 0||grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
             }
+        } else if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+            EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
         }
 
 
@@ -400,5 +413,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
         startActivityForResult(intent, CROP_REQUEST_CODE);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+            UploadManager.getInstance().checkUpdate(this);
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        ToastUtil.showShort(this, "用户授权失败");
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 }
