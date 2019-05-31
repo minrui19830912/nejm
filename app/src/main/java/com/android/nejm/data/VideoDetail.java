@@ -15,6 +15,8 @@ public class VideoDetail {
         public String postdate;
         public String content;
         public String author;
+        public int video_width;
+        public int video_height;
     }
 
     public static class RelatedArticle {

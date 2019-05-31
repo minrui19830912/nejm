@@ -338,6 +338,14 @@ public class VideoDetailActivity extends BaseActivity {
                 textViewAuthor.setText(videoDetail.item.author);
                 textViewDate.setText(videoDetail.item.postdate);
                 textViewEnglishTitle.setText(videoDetail.item.outtitle);
+
+                int width = videoView.getWidth();
+                int height = (int)((float)width / videoDetail.item.video_width * videoDetail.item.video_height);
+                Log.e("tag", "width = " + width + ", height = " + height);
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)videoView.getLayoutParams();
+                layoutParams.height = height;
+                videoView.setLayoutParams(layoutParams);
+
                 draweeViewVideoCover.setImageURI(videoDetail.item.thumb);
                 textViewContent.setText(Html.fromHtml(videoDetail.item.content));
                 if(TextUtils.equals(videoDetail.isfav, "1")) {
@@ -354,6 +362,7 @@ public class VideoDetailActivity extends BaseActivity {
                 } else {
                     layoutRelatedArticle.setVisibility(View.GONE);
                 }
+
             }
         });
     }
