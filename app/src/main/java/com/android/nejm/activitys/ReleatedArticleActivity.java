@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONObject;
@@ -47,13 +48,8 @@ public class ReleatedArticleActivity extends BaseActivity {
         ButterKnife.bind(this);
         setCommonTitle("相关文章",true);
         id = getIntent().getStringExtra("id");
-        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                page++;
-                getData(false, false);
-            }
-
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
@@ -80,7 +76,7 @@ public class ReleatedArticleActivity extends BaseActivity {
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
                 refreshLayout.finishRefresh();
-                refreshLayout.finishLoadMore();
+                //refreshLayout.finishLoadMore();
 
                 List<RelatedArticle> list = new Gson().fromJson(json.optJSONArray("relation").toString(), new TypeToken<List<RelatedArticle>>(){}.getType());
                 if(clearList) {
