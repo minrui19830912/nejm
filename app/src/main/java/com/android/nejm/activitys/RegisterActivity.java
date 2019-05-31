@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
@@ -242,12 +241,12 @@ public class RegisterActivity extends BaseActivity {
 
     @OnClick(R.id.textViewService)
     public void onClickService() {
-        WebViewActivity.launchActivity(this, "服务条款", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=terms");
+        WebViewActivity.launchActivity(this, "服务条款", HttpUtils.BASE_URL+"/?c=app&m=terms");
     }
 
     @OnClick(R.id.textViewPrivacy)
     public void onClickPrivacy() {
-        WebViewActivity.launchActivity(this, "隐私政策", "http://www.nejmqianyan.cn/index.php?c=singlepage&m=privacy");
+        WebViewActivity.launchActivity(this, "隐私政策", HttpUtils.BASE_URL+"/?c=app&m=privacy");
     }
 
     @Override
