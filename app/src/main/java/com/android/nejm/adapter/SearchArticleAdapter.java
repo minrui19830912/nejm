@@ -31,15 +31,17 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
     private boolean displayMark = false;
     private List<SpecialFieldArticleInfo.ArtitleItem> artitleItemList;
     private String keyWord;
+    private OnItemClickListener itemClickListener;
 
 
     public SearchArticleAdapter(Context context) {
         this.context = context;
     }
 
-    public SearchArticleAdapter(Context context, boolean displayMark) {
+    public SearchArticleAdapter(Context context, boolean displayMark, OnItemClickListener listener) {
         this.context = context;
         this.displayMark = displayMark;
+        itemClickListener = listener;
     }
 
     public void setData(List<SpecialFieldArticleInfo.ArtitleItem> artitleItemList) {
@@ -82,10 +84,14 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(artitleItem.is_video) {
+                /*if(artitleItem.is_video) {
                     VideoDetailActivity.launchActivity(context, artitleItem.id);
                 } else {
                     ArticleDetailActivity.launchActivity(context, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                }*/
+
+                if(itemClickListener != null) {
+                    itemClickListener.onItemClicked(i);
                 }
             }
         });
@@ -144,5 +150,9 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(int index);
     }
 }

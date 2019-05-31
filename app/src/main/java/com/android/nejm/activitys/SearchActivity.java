@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -76,7 +77,25 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.search_activity);
         setCommonTitle("搜索", true);
         ButterKnife.bind(this);
-        articleAdapter = new SearchArticleAdapter(this,true);
+        articleAdapter = new SearchArticleAdapter(this, true, new SearchArticleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int index) {
+                SpecialFieldArticleInfo.ArtitleItem artitleItem = artitleItems.get(index);
+                if(mCheckIndex >= 0 && mSourceList.size() > mCheckIndex) {
+                    Source source = mSourceList.get(mCheckIndex);
+                    if(TextUtils.equals(source.sourcename, "其他文章")) {
+                        ArticleDetailActivity.launchActivity(mContext, artitleItem.id, HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                        return;
+                    }
+                }
+
+                if(artitleItem.is_video) {
+                    VideoDetailActivity.launchActivity(mContext, artitleItem.id);
+                } else {
+                    ArticleDetailActivity.launchActivity(mContext, artitleItem.id, HttpUtils.ARTICLE_DETAIL_URL+artitleItem.id,artitleItem.show_wantsay,artitleItem.thumb,artitleItem.title);
+                }
+            }
+        });
 //        SearchKnowledgeAdapter adapter = new SearchKnowledgeAdapter(mContext);
 //        for (int i = 0; i < 6; i++) {
 //            Paper paper = new Paper();
