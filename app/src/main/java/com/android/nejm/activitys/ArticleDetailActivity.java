@@ -200,7 +200,7 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
 
         List<String> urlList = new ArrayList<>();
         String loginUrl = url;
-        loginUrl+="&uid=";
+        loginUrl+="&ac=download&uid=";
         loginUrl+=LoginUserManager.getInstance().uid;
         urlList.add(loginUrl);
 
