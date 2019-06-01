@@ -143,7 +143,7 @@ public class HomeFragment extends BaseFragment {
                             }
                         }
                         HomeBean.Filter filter = homeBean.filter_1.get(position);
-                        OtherArticleListActivity.launchActivity(mContext, filter.filtername, "NEJM", filter.id, jsonArray.toString());
+                        OtherArticleListActivity.launchActivity(mContext, filter.filtername, "NEJM", filter.id);
                     }
                         break;
                     case R.id.nejm_hot:
@@ -161,7 +161,7 @@ public class HomeFragment extends BaseFragment {
                             }
                         }
                         HomeBean.Filter filter2 = homeBean.filter_2.get(position);
-                        OtherArticleListActivity.launchActivity(mContext, filter2.filtername, "NEJM期刊荟萃", filter2.id, jsonArray.toString());
+                        OtherArticleListActivity.launchActivity(mContext, filter2.filtername, "NEJM期刊荟萃", filter2.id);
                     }
                         break;
                 }

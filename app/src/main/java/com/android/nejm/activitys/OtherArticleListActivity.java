@@ -56,14 +56,11 @@ public class OtherArticleListActivity extends BaseActivity {
     OtherArticleAdapter articleAdapter;
     OtherArticleGridAdapter gridAdapter;
 
-    List<SpecialFieldIconInfo> iconInfoList;
-
-    public static void launchActivity(Context context, String title, String sourceName, String id, String iconJsonArray) {
+    public static void launchActivity(Context context, String title, String sourceName, String id) {
         Intent intent = new Intent(context, OtherArticleListActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("source", sourceName);
         intent.putExtra("id", id);
-        intent.putExtra("json", iconJsonArray);
         context.startActivity(intent);
     }
 
@@ -82,19 +79,12 @@ public class OtherArticleListActivity extends BaseActivity {
         String source = getIntent().getStringExtra("source");
         textViewSource.setText("/ " + source);
 
-        String json = getIntent().getStringExtra("json");
-        iconInfoList = new Gson().fromJson(json, new TypeToken<List<SpecialFieldIconInfo>>(){}.getType());
-
         this.id = getIntent().getStringExtra("id");
 
-        gridAdapter = new OtherArticleGridAdapter(this);
-        gridAdapter.setData(iconInfoList, id);
-        gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OtherArticleListActivity.this.id = iconInfoList.get(position).id;
-                gridAdapter.setFocusId(OtherArticleListActivity.this.id);
+                OtherArticleListActivity.this.id = articleInfo.filter_items.get(position).id;
                 page = 1;
                 recyclerView.scrollToPosition(0);
                 getData(true, true);
@@ -149,6 +139,18 @@ public class OtherArticleListActivity extends BaseActivity {
 
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();
+
+                textViewSpecailFieldTitle.setText(articleInfo.filtername);
+                setCommonTitle(articleInfo.filtername);
+                textViewSource.setText("/ " + articleInfo.sourcename);
+
+                if(gridAdapter == null) {
+                    gridAdapter = new OtherArticleGridAdapter(mContext);
+                    gridAdapter.setData(articleInfo.filter_items, id);
+                    gridView.setAdapter(gridAdapter);
+                } else {
+                    gridAdapter.setFocusId(id);
+                }
             }
         });
     }

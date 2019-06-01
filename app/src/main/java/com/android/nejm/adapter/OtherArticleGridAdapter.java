@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.nejm.R;
+import com.android.nejm.data.OtherArticleInfo;
 import com.android.nejm.data.SpecialFieldIconInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -19,14 +20,14 @@ import java.util.List;
 
 public class OtherArticleGridAdapter extends BaseAdapter {
     private Context context;
-    private List<SpecialFieldIconInfo> iconInfoList;
+    private List<OtherArticleInfo.FilterItem> iconInfoList;
     private String focusId;
 
     public OtherArticleGridAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<SpecialFieldIconInfo> iconInfoList, String focusId) {
+    public void setData(List<OtherArticleInfo.FilterItem> iconInfoList, String focusId) {
         this.iconInfoList = iconInfoList;
         this.focusId = focusId;
     }
@@ -58,8 +59,8 @@ public class OtherArticleGridAdapter extends BaseAdapter {
         }
 
         TextView textView = (TextView) convertView;
-        SpecialFieldIconInfo info = iconInfoList.get(position);
-        textView.setText(info.title);
+        OtherArticleInfo.FilterItem info = iconInfoList.get(position);
+        textView.setText(info.filtername);
 
         if(TextUtils.equals(focusId, info.id)) {
             textView.setBackgroundResource(R.drawable.grid_item_round_rectangle_selected);
