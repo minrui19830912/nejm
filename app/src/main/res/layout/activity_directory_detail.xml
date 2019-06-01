@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.nejm.activitys.DirectoryDetailActivity">
@@ -26,6 +27,11 @@
         android:layout_marginTop="20dp"
         android:scaleType="fitXY"
         />
+            <View
+                android:layout_width="75dp"
+                android:layout_height="2dp"
+                android:background="#E6360B"
+                android:layout_marginTop="20dp"/>
     <TextView
         android:id="@+id/textViewDirName"
         android:layout_width="match_parent"
