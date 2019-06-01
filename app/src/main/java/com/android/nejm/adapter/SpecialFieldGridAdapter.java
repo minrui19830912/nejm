@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.android.nejm.R;
+import com.android.nejm.data.SpecialFieldArticleInfo;
 import com.android.nejm.data.SpecialFieldIconInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -18,14 +19,14 @@ import java.util.List;
 
 public class SpecialFieldGridAdapter extends BaseAdapter {
     private Context context;
-    private List<SpecialFieldIconInfo> iconInfoList;
+    private List<SpecialFieldArticleInfo.Classes> iconInfoList;
     private String focusId;
 
     public SpecialFieldGridAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<SpecialFieldIconInfo> iconInfoList, String focusId) {
+    public void setData(List<SpecialFieldArticleInfo.Classes> iconInfoList, String focusId) {
         this.iconInfoList = iconInfoList;
         this.focusId = focusId;
     }
@@ -57,7 +58,7 @@ public class SpecialFieldGridAdapter extends BaseAdapter {
         }
 
         SimpleDraweeView draweeView = (SimpleDraweeView)convertView;
-        SpecialFieldIconInfo info = iconInfoList.get(position);
+        SpecialFieldArticleInfo.Classes info = iconInfoList.get(position);
         if(TextUtils.isEmpty(info.icon)) {
             draweeView.setBackgroundResource(0);
         } else {
@@ -65,7 +66,7 @@ public class SpecialFieldGridAdapter extends BaseAdapter {
                 draweeView.setBackgroundResource(R.drawable.home_classes_bg);
                 draweeView.setImageURI(info.icon);
             } else {
-                draweeView.setBackgroundResource(R.drawable.home_classes_nor);
+                draweeView.setBackgroundResource(R.drawable.special_classes_nor);
                 draweeView.setImageURI(info.xcx_icon_se);
             }
         }

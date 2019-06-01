@@ -309,7 +309,7 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
                 int index = url.indexOf('&');
                 if(url.length() > length && index > length) {
                     String id = url.substring(length, index);
-                    ArticleDetailActivity.launchActivity(mContext, id, HttpUtils.ARTICLE_DETAIL_URL+id, "", "", "");
+                    SpecialFieldListActivity.launchActivity(mContext, "", id);
                     return true;
                 }
             } else if(url.startsWith("http://www.nejm.outlink")) {

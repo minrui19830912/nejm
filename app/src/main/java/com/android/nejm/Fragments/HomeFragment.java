@@ -112,7 +112,7 @@ public class HomeFragment extends BaseFragment {
                 //startActivity(intent);
                 switch (radioGroupField.getCheckedRadioButtonId()) {
                     case R.id.major_field: {
-                        JSONArray jsonArray = new JSONArray();
+                        /*JSONArray jsonArray = new JSONArray();
                         for(HomeBean.Classes clazz : homeBean.classes) {
                             JSONObject jsonObject = new JSONObject();
                             try {
@@ -124,10 +124,9 @@ public class HomeFragment extends BaseFragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-                        }
+                        }*/
                         HomeBean.Classes classes = homeBean.classes.get(position);
-                        SpecialFieldListActivity.launchActivity(mContext, classes.classname, "专业领域", classes.id, jsonArray.toString());
+                        SpecialFieldListActivity.launchActivity(mContext, classes.classname, classes.id);
                     }
                         break;
                     case R.id.nejm: {

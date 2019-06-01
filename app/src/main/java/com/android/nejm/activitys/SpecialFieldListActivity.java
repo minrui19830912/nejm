@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -53,14 +54,10 @@ public class SpecialFieldListActivity extends BaseActivity {
     SpeicalFieldArticleAdapter articleAdapter;
     SpecialFieldGridAdapter gridAdapter;
 
-    List<SpecialFieldIconInfo> iconInfoList;
-
-    public static void launchActivity(Context context, String title, String sourceName, String id, String iconJsonArray) {
+    public static void launchActivity(Context context, String title, String id) {
         Intent intent = new Intent(context, SpecialFieldListActivity.class);
         intent.putExtra("title", title);
-        intent.putExtra("source", sourceName);
         intent.putExtra("id", id);
-        intent.putExtra("json", iconJsonArray);
         context.startActivity(intent);
     }
 
@@ -76,22 +73,12 @@ public class SpecialFieldListActivity extends BaseActivity {
 
         textViewSpecailFieldTitle.setText(title);
 
-        //String source = getIntent().getStringExtra("source");
-
-        String json = getIntent().getStringExtra("json");
-        iconInfoList = new Gson().fromJson(json, new TypeToken<List<SpecialFieldIconInfo>>(){}.getType());
-
         this.id = getIntent().getStringExtra("id");
 
-        gridAdapter = new SpecialFieldGridAdapter(this);
-        gridAdapter.setData(iconInfoList, id);
-        gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String focusId = iconInfoList.get(position).id;
-                SpecialFieldListActivity.this.id = focusId;
-                gridAdapter.setFocusId(focusId);
+                SpecialFieldListActivity.this.id = articleInfo.classes.get(position).id;
                 page = 1;
                 recyclerView.scrollToPosition(0);
                 getData(true, true);
@@ -146,6 +133,24 @@ public class SpecialFieldListActivity extends BaseActivity {
 
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();
+
+                if(gridAdapter == null) {
+                    gridAdapter = new SpecialFieldGridAdapter(mContext);
+                    gridAdapter.setData(articleInfo.classes, id);
+                    gridView.setAdapter(gridAdapter);
+                } else {
+                    gridAdapter.setFocusId(id);
+                }
+
+                if(articleInfo.classes != null) {
+                    for(SpecialFieldArticleInfo.Classes clazz : articleInfo.classes) {
+                        if(TextUtils.equals(clazz.id, id)) {
+                            textViewSpecailFieldTitle.setText(clazz.classname);
+                            setCommonTitle(clazz.classname);
+                            break;
+                        }
+                    }
+                }
             }
         });
     }

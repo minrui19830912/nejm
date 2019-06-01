@@ -12,6 +12,7 @@ public class SpecialFieldArticleInfo {
         public String id;
         public String classname;
         public String icon;
+        public String xcx_icon_se;
     }
 
     public class ArtitleItem {
