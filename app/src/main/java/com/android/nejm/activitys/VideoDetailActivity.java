@@ -222,7 +222,7 @@ public class VideoDetailActivity extends BaseActivity {
                         AppUtil.shareToFriend(mContext, mTitle, mShareContent, url,cover, new PlatformActionListener() {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
+                                recordShareEvent("微信");
                             }
 
                             @Override
@@ -243,7 +243,7 @@ public class VideoDetailActivity extends BaseActivity {
                         AppUtil.shareToCircel(mContext, mTitle, mShareContent, url,cover,  new PlatformActionListener() {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
+                                recordShareEvent("微信朋友圈");
                             }
 
                             @Override
@@ -268,7 +268,7 @@ public class VideoDetailActivity extends BaseActivity {
                         AppUtil.shareToSinaWeibo(mContext, mTitle, mContent, url,cover, new PlatformActionListener() {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
+                                recordShareEvent("微博");
                             }
 
                             @Override
@@ -337,6 +337,14 @@ public class VideoDetailActivity extends BaseActivity {
             map.put("isLogin", "false");
         }
         MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_VIDEO_DETAIL", map);
+    }
+
+    private void recordShareEvent(String channel) {
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("title", videoDetail.item.title);
+        map.put("channel", channel);
+
+        MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_SHARE", map);
     }
 
     private void getData() {
