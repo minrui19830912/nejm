@@ -37,6 +37,7 @@ import com.android.nejm.utils.MyDownloadManager;
 import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -163,6 +164,25 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
             textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
             textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
             textViewDownload.setClickable(false);
+        }
+
+        recordEvent();
+    }
+
+    private void recordEvent() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("title", mTitle);
+        if(LoginUserManager.getInstance().isLogin()) {
+            map.put("isLogin", "true");
+            map.put("user", LoginUserManager.getInstance().uid);
+        } else {
+            map.put("isLogin", "false");
+        }
+
+        if(url != null && url.startsWith(HttpUtils.NEW_KNOWLEDGE_DETAIL_URL)) {
+            MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_NEW_KNOWLEDGE", map);
+        } else {
+            MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_ARTICLE", map);
         }
     }
 

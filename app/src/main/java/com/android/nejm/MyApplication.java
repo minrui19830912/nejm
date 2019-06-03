@@ -26,6 +26,9 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.commonsdk.statistics.common.DeviceConfig;
 
 import java.io.File;
 import java.util.List;
@@ -112,6 +115,12 @@ public class MyApplication extends Application {
                 Fresco.initialize(getApplicationContext());
                 ShareSDK.initSDK(this);
 
+                UMConfigure.setLogEnabled(true);
+                UMConfigure.init(this, "5cf4de750cafb20dc20000ad", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
+                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+
+                //getTestDeviceInfo(this);
+
                 //JPushInterface.resumePush(getApplicationContext());
                 MyApplication.mToken = SPUtils.getSharedStringData(getApplicationContext(), "access_token");
                 MyApplication.client_id = SPUtils.getSharedStringData(getApplicationContext(), "client_id");
@@ -141,6 +150,20 @@ public class MyApplication extends Application {
         }
 
         copyAssetsFiles();
+    }
+
+    public static String[] getTestDeviceInfo(Context context){
+        String[] deviceInfo = new String[2];
+        try {
+            if(context != null){
+                deviceInfo[0] = DeviceConfig.getDeviceIdForGeneral(context);
+                deviceInfo[1] = DeviceConfig.getMac(context);
+                Log.e("tag", "deviceInfo[0] = " + deviceInfo[0]);
+                Log.e("tag", "deviceInfo[1] = " + deviceInfo[1]);
+            }
+        } catch (Exception e){
+        }
+        return deviceInfo;
     }
 
     private void copyAssetsFiles() {

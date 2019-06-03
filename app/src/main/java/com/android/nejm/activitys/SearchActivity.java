@@ -24,6 +24,7 @@ import com.android.nejm.adapter.SearchArticleAdapter;
 import com.android.nejm.data.Paper;
 import com.android.nejm.data.Source;
 import com.android.nejm.data.SpecialFieldArticleInfo;
+import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.ToastUtil;
@@ -33,11 +34,13 @@ import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -165,6 +168,7 @@ public class SearchActivity extends BaseActivity {
         }
 
         final String keyword = editTextSearch.getText().toString();
+        recordEvent(keyword);
         HttpUtils.search(this, keyword, id, page, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
@@ -202,6 +206,14 @@ public class SearchActivity extends BaseActivity {
         });
     }
 
+    private void recordEvent(String keyword) {
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("keyword", keyword);
+        if(LoginUserManager.getInstance().isLogin()) {
+            map.put("user", LoginUserManager.getInstance().uid);
+        }
+        MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_SEARCH_KEYWORD", map);
+    }
 
     private class ClassesGridAdapter extends BaseAdapter {
         @Override

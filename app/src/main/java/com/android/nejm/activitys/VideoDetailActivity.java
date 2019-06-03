@@ -45,6 +45,7 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -326,6 +327,18 @@ public class VideoDetailActivity extends BaseActivity {
         }
     }
 
+    private void recordEvent() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("title", videoDetail.item.title);
+        if(LoginUserManager.getInstance().isLogin()) {
+            map.put("isLogin", "true");
+            map.put("user", LoginUserManager.getInstance().uid);
+        } else {
+            map.put("isLogin", "false");
+        }
+        MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_VIDEO_DETAIL", map);
+    }
+
     private void getData() {
         LoadingDialog.cancelDialogForLoading();
         HttpUtils.getVideoDetails(this, id, new OnNetResponseListener() {
@@ -338,6 +351,8 @@ public class VideoDetailActivity extends BaseActivity {
                 textViewAuthor.setText(videoDetail.item.author);
                 textViewDate.setText(videoDetail.item.postdate);
                 textViewEnglishTitle.setText(videoDetail.item.outtitle);
+
+                recordEvent();
 
                 int width = videoView.getWidth();
                 int height = (int)((float)width / videoDetail.item.video_width * videoDetail.item.video_height);
