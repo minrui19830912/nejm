@@ -210,7 +210,7 @@ public class SearchActivity extends BaseActivity {
         HashMap<String,String> map = new HashMap<String,String>();
         map.put("keyword", keyword);
         if(LoginUserManager.getInstance().isLogin()) {
-            map.put("user", LoginUserManager.getInstance().uid);
+            //map.put("user", LoginUserManager.getInstance().uid);
         }
         MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_SEARCH_KEYWORD", map);
     }

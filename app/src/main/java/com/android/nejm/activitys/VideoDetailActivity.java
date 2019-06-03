@@ -332,7 +332,7 @@ public class VideoDetailActivity extends BaseActivity {
         map.put("title", videoDetail.item.title);
         if(LoginUserManager.getInstance().isLogin()) {
             map.put("isLogin", "true");
-            map.put("user", LoginUserManager.getInstance().uid);
+            //map.put("user", LoginUserManager.getInstance().uid);
         } else {
             map.put("isLogin", "false");
         }
