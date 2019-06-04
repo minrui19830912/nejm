@@ -115,7 +115,7 @@ public class MyApplication extends Application {
                 Fresco.initialize(getApplicationContext());
                 ShareSDK.initSDK(this);
 
-                UMConfigure.setLogEnabled(true);
+                //UMConfigure.setLogEnabled(true);
                 UMConfigure.init(this, "5cf4de750cafb20dc20000ad", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
                 MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
 
