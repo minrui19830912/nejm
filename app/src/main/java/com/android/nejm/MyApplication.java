@@ -18,6 +18,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.store.PersistentCookieStore;
+import com.mob.MobSDK;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -113,7 +114,8 @@ public class MyApplication extends Application {
                     e.printStackTrace();
                 }
                 Fresco.initialize(getApplicationContext());
-                ShareSDK.initSDK(this);
+                //ShareSDK.initSDK(this);
+                MobSDK.init(this);
 
                 //UMConfigure.setLogEnabled(true);
                 UMConfigure.init(this, "5cf4de750cafb20dc20000ad", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);

@@ -223,16 +223,17 @@ public class VideoDetailActivity extends BaseActivity {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                                 recordShareEvent("微信");
+                                //Log.e("app","shareToFriend, onComplete");
                             }
 
                             @Override
                             public void onError(Platform platform, int i, Throwable throwable) {
-
+                                //Log.e("app","shareToFriend, onError");
                             }
 
                             @Override
                             public void onCancel(Platform platform, int i) {
-
+                                //Log.e("app","shareToFriend, onCancel");
                             }
                         });
                         break;
@@ -243,17 +244,18 @@ public class VideoDetailActivity extends BaseActivity {
                         AppUtil.shareToCircel(mContext, mTitle, mShareContent, url,cover,  new PlatformActionListener() {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                                //Log.e("app","shareToCircel, onComplete");
                                 recordShareEvent("微信朋友圈");
                             }
 
                             @Override
                             public void onError(Platform platform, int i, Throwable throwable) {
-
+                                //Log.e("app","shareToCircel, onError");
                             }
 
                             @Override
                             public void onCancel(Platform platform, int i) {
-
+                                //Log.e("app","shareToCircel, onCancel");
                             }
                         });
                         break;

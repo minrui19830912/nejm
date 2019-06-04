@@ -195,7 +195,7 @@ public class VideoListFragment extends BaseFragment {
         @Override
         public int getCount() {
             int count = (videoInfo != null && videoInfo.types != null) ? videoInfo.types.size() + 1 : 1;
-            Log.e("dpp", "GridAdapter, count = " + count);
+            //Log.e("dpp", "GridAdapter, count = " + count);
             return count;
         }
 
