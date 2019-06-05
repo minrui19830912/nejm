@@ -9,9 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.DoctorSpecailAdapter;
@@ -21,26 +18,10 @@ import com.android.nejm.data.RoleBean;
 import com.android.nejm.data.RoleInfo;
 import com.android.nejm.event.DoctorIdentitySelectedEvent;
 import com.android.nejm.manage.LoginUserManager;
-import com.android.nejm.net.HttpUtils;
-import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.DisplayUtil;
-import com.android.nejm.utils.ToastUtil;
-import com.android.nejm.widgets.DividerItemDecoration;
-import com.android.nejm.widgets.LoadingDialog;
 import com.android.nejm.widgets.SpacesItemDecoration;
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.CustomListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.contrarywind.interfaces.IPickerViewData;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
