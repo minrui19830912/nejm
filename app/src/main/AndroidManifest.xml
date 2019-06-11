@@ -113,14 +113,30 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitys.OfflineArticleListActivity"></activity>
-        <activity android:name=".activitys.DirectoryDetailActivity" />
-        <activity android:name=".activitys.TeacherTitleActivity" />
-        <activity android:name=".activitys.DoctorTitleActivity" />
-        <activity android:name=".activitys.NotifyDetailActivity" />
-        <activity android:name=".activitys.VideoDetailActivity" />
-        <activity android:name=".activitys.OtherArticleListActivity" />
-        <activity android:name=".activitys.SpecialFieldListActivity" />
+        <activity android:name=".activitys.OfflineArticleListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.DirectoryDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.TeacherTitleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.DoctorTitleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.NotifyDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.VideoDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.OtherArticleListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activitys.SpecialFieldListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activitys.SearchSchoolActivity"
             android:screenOrientation="portrait"
@@ -153,7 +169,6 @@
             android:theme="@style/AppTheme.NoActionBar.Background">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
