@@ -171,12 +171,14 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
 
     private void recordEvent() {
         HashMap<String,String> map = new HashMap<String,String>();
-        map.put("title", mTitle);
+
         if(LoginUserManager.getInstance().isLogin()) {
             map.put("isLogin", "true");
+            map.put("title", mTitle+"*已登录");
             //map.put("user", LoginUserManager.getInstance().uid);
         } else {
             map.put("isLogin", "false");
+            map.put("title", mTitle+"*未登录");
         }
 
         if(url != null && url.startsWith(HttpUtils.NEW_KNOWLEDGE_DETAIL_URL)) {

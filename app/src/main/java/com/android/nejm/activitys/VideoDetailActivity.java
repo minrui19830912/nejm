@@ -5,17 +5,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +34,6 @@ import com.android.nejm.utils.ToastUtil;
 import com.android.nejm.widgets.LoadingDialog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -54,7 +47,6 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnEditorAction;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 
@@ -331,12 +323,13 @@ public class VideoDetailActivity extends BaseActivity {
 
     private void recordEvent() {
         HashMap<String,String> map = new HashMap<String,String>();
-        map.put("title", videoDetail.item.title);
         if(LoginUserManager.getInstance().isLogin()) {
             map.put("isLogin", "true");
+            map.put("title", videoDetail.item.title+"*已登录");
             //map.put("user", LoginUserManager.getInstance().uid);
         } else {
             map.put("isLogin", "false");
+            map.put("title", videoDetail.item.title+"*未登录");
         }
         MobclickAgent.onEvent(mContext.getApplicationContext(), "ID_EVENT_VIDEO_DETAIL", map);
     }
