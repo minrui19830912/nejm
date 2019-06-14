@@ -32,8 +32,8 @@ import static com.lzy.okgo.OkGo.post;
 public class HttpUtils {
     public static final String APP_KEY="gm8Pyx3sbuCdqsspYylv3rhh9Bt40vn7";
     public static final String CONTENT_TYPE="application/x-www-form-urlencoded";
-//    public static final String BASE_URL="https://nejmqianyan.cn";//production
-    public static final String BASE_URL="https://dev.nejmqianyan.com";//test
+    public static final String BASE_URL="https://nejmqianyan.cn";//production
+//    public static final String BASE_URL="https://dev.nejmqianyan.com";//test
 
     public static final String MAIN_URL=BASE_URL+"/?c=app&m=index";//首页
     public static final String ADVERSTY_URL=BASE_URL+"/?c=app&m=loading";//广告
