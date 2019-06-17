@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private int[]mTabArray={R.id.indicator_one,R.id.indicator_two,R.id.indicator_three,R.id.indicator_four,R.id.indicator_five};
 
     private static final int PERMISSION_STORGE_REQUEST_CODE = 1;
+    private static final int PERMISSION_CONTACT_REQUEST_CODE = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         findViewById(mTabArray[0]).performClick();
 
         if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            UploadManager.getInstance().checkUpdate(this);
+            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                UploadManager.getInstance().checkUpdate(this);
+            } else{
+                EasyPermissions.requestPermissions(this, "NEJM需要使用联系人权限，您是否同意？", PERMISSION_CONTACT_REQUEST_CODE,
+                        Manifest.permission.GET_ACCOUNTS);
+            }
+
         } else {
             EasyPermissions.requestPermissions(this, "NEJM需要使用存储权限，您是否同意？", PERMISSION_STORGE_REQUEST_CODE,
                     Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -281,8 +288,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             if (grantResults.length == 0||grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
             }
-        } else if(requestCode == PERMISSION_STORGE_REQUEST_CODE) {
+        } else if(requestCode == PERMISSION_STORGE_REQUEST_CODE||requestCode == PERMISSION_CONTACT_REQUEST_CODE) {
             EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                EasyPermissions.requestPermissions(this, "NEJM需要使用联系人权限，您是否同意？", PERMISSION_CONTACT_REQUEST_CODE,
+                        Manifest.permission.GET_ACCOUNTS);
+            }
         }
 
 
