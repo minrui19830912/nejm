@@ -1,8 +1,7 @@
 package com.android.nejm.activitys;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -44,7 +43,8 @@ public class ReadHistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_history);
         showBack();
-        setCommonTitle("阅读记录");
+       String title = getIntent().getStringExtra("title");
+        setCommonTitle(title);
         ButterKnife.bind(this);
 
         refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {

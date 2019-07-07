@@ -18,9 +18,11 @@ import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.ArticleDetailActivity;
+import com.android.nejm.activitys.LoginActivity;
 import com.android.nejm.activitys.MainActivity;
 import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.activitys.OtherArticleListActivity;
+import com.android.nejm.activitys.ReadHistoryActivity;
 import com.android.nejm.activitys.SearchActivity;
 import com.android.nejm.activitys.SpecialFieldListActivity;
 import com.android.nejm.adapter.HorizontalPaperListAdapter;
@@ -82,6 +84,18 @@ public class HomeFragment extends BaseFragment {
 
         radioGroupField = view.findViewById(R.id.radioGroup2);
         radioGroupField.check(R.id.major_field);
+        view.findViewById(R.id.unpublished).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(LoginUserManager.getInstance().isLogin) {
+                    Intent intent = new Intent(getActivity(), ReadHistoryActivity.class);
+                    intent.putExtra("title","未发布页面");
+                    startActivity(intent);
+                }else{
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }
+            }
+        });
         radioGroupField.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

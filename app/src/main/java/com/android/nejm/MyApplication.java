@@ -7,9 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.android.nejm.db.AnnouceRecordManager;
-import com.android.nejm.db.DBManager;
-import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.manage.PushManager;
 import com.android.nejm.utils.FileUtils1;
 import com.android.nejm.utils.SPUtils;
@@ -34,9 +31,6 @@ import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.sharesdk.framework.ShareSDK;
 
 public class MyApplication extends Application {
     private static MyApplication APPLICATION;
@@ -98,7 +92,7 @@ public class MyApplication extends Application {
         Log.e("minrui", "onCreate");
         String processName = getProcessName(this, android.os.Process.myPid());
         if (processName != null) {
-            boolean defaultProcess = processName.equals("cn.com.nejm");
+            boolean defaultProcess = processName.equals("cn.com.nejm1");
             if (defaultProcess) {
                 APPLICATION = this;
                 //获取apk版本号并与原来的做比较

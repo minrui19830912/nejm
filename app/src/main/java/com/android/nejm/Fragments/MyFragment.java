@@ -47,7 +47,6 @@ import com.android.nejm.data.AccountInfo;
 import com.android.nejm.data.RelatedArticle;
 import com.android.nejm.db.DownloadRecordManager;
 import com.android.nejm.manage.LoginUserManager;
-import com.android.nejm.manage.UploadManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.utils.MyDownloadManager;
@@ -367,7 +366,9 @@ public class MyFragment extends BaseFragment implements EasyPermissions.Permissi
 
     @OnClick(R.id.readLayout)
     public void onClickReadLayout() {
-        startActivity(new Intent(getActivity(), ReadHistoryActivity.class));
+       Intent intent = new Intent(getActivity(), ReadHistoryActivity.class);
+        intent.putExtra("title","阅读记录");
+        startActivity(intent);
     }
 
     @OnClick(R.id.favoriteLayout)

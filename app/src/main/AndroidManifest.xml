@@ -271,7 +271,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.android.nejm"
+            android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -324,7 +324,7 @@
         <!-- &lt;!&ndash; since 3.1.0 Required SDK 核心功能&ndash;&gt; -->
         <!-- <provider -->
         <!-- android:authorities="${applicationId}.DownloadProvider" -->
-        <!-- android:name="cn.jpush.android.service.DownloadProvider" -->
+        <!-- android:name="cn.jpush.android.service.SDownloadProvider" -->
         <!-- android:exported="true" -->
         <!-- /> -->
         <!-- &lt;!&ndash; Required SDK核心功能&ndash;&gt; -->
