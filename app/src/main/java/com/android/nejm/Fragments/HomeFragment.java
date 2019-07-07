@@ -89,6 +89,7 @@ public class HomeFragment extends BaseFragment {
             public void onClick(View v) {
                 if(LoginUserManager.getInstance().isLogin) {
                     Intent intent = new Intent(getActivity(), ReadHistoryActivity.class);
+                    intent.putExtra("unPublished",true);
                     intent.putExtra("title","未发布页面");
                     startActivity(intent);
                 }else{

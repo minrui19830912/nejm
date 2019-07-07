@@ -41,7 +41,7 @@ public class HttpUtils {
     public static final String YEAR_ARTICLE_URL=BASE_URL+"/?c=app&m=weeks";//期刊列表
     public static final String VIDEO_LIST_URL=BASE_URL+"/?c=app&m=videos";//视频列表
     public static final String DOWNLOAD_ARTICLE_THIS_WEEK_URL=BASE_URL+"/?c=app&m=get_zip_url";//下载本周文章
-    public static final String ARTICLE_DETAIL_URL=BASE_URL+"/?c=article&m=app&id=";//文章详情
+    public static final String ARTICLE_DETAIL_URL=BASE_URL+"/?c=article&m=app&dev=1&id=";//文章详情
     public static final String NEW_KNOWLEDGE_DETAIL_URL=BASE_URL+"?c=activity&m=app&id=";//新知详情
     public static final String ARTICLE_SAVE_URL=BASE_URL+"/?c=app&m=deal_fav";//收藏文章
     public static final String RELEATED_ARTICLE_URL=BASE_URL+"/?c=app&m=article_info";//相关文章
@@ -52,12 +52,13 @@ public class HttpUtils {
     public static final String ARTICLE_LIST_URL=BASE_URL+"/?c=app&m=article_filter";//文章列表
     public static final String ARTICLE_CLASS_URL=BASE_URL+"/?c=app&m=article_class";//专业领域
     public static final String READ_RECORD_URL=BASE_URL+"/?c=app&m=read";//阅读记录
+    public static final String UNPUBLISHED_URL=BASE_URL+"/?c=app&m=devs";//未发布记录
     public static final String SEND_SMS_URL=BASE_URL+"/?c=app&m=send_sms";//发送手机验证码
     public static final String SEND_SMS_EMAIL_URL=BASE_URL+"/?c=app&m=send_sms_email";//发送邮件验证码
     public static final String REGISTER_URL=BASE_URL+"/?c=app&m=register";//注册
     public static final String SEARCH_HOSPITAL_URL=BASE_URL+"/?c=app&m=get_hospital";//搜索医院
     public static final String SEARCH_HOSPITAL_SCHOOL_URL=BASE_URL+"/?c=app&m=get_hospital_school";//搜索医学院
-    public static final String VIDEO_DETAIL_URL=BASE_URL+"/?c=app&m=video";//视频详情
+    public static final String VIDEO_DETAIL_URL=BASE_URL+"/?c=app&m=video&dev=1";//视频详情
     public static final String SEARCH_URL=BASE_URL+"/?c=app&m=search";//搜索
     public static final String LOGIN_URL=BASE_URL+"/?c=app&m=login";//登录
     public static final String ACCOUNT_URL=BASE_URL+"/?c=app&m=account";//个人中心
@@ -72,7 +73,7 @@ public class HttpUtils {
     public static final String MESSAGE_URL=BASE_URL+"/?c=app&m=messages";//邮件订阅
     public static final String MESSAGE_DETAIL_URL=BASE_URL+"/?c=app&m=message";//邮件订阅
     public static final String EDIT_ROLE_URL=BASE_URL+"/?c=app&m=edit_role";//邮件订阅
-    public static final String DIRECTORY_DETAIL_URL=BASE_URL+"/?c=app&m=catalog";//期刊详情
+    public static final String DIRECTORY_DETAIL_URL=BASE_URL+"/?c=app&m=catalog&dev=1";//期刊详情
     public static final String ARTICLE_SHARE_CONTENT_URL=BASE_URL+"/?c=app&m=article_share";//期刊详情
     public static final String VERSION_URL=BASE_URL+"/?c=app&m=version";//期刊详情
     public static final String FAVORITE_URL=BASE_URL+"/?c=app&m=fav";//期刊详情
@@ -413,6 +414,26 @@ String client_id =LoginUserManager.getInstance().client_id;
 
         StringBuilder url = new StringBuilder(READ_RECORD_URL);
         url.append("&page=").append(page);
+        OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void getUnPublishList(final Context context,  final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        StringBuilder url = new StringBuilder(UNPUBLISHED_URL);
+
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {

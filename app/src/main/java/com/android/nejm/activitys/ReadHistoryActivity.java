@@ -34,6 +34,7 @@ public class ReadHistoryActivity extends BaseActivity {
 
     private int page;
     private ReadRecord readRecord;
+    private boolean unPublished = false;
     private List<OtherArticleInfo.ArtitleItem> recordItemList = new ArrayList<>();
 
     OtherArticleAdapter articleAdapter;
@@ -44,6 +45,7 @@ public class ReadHistoryActivity extends BaseActivity {
         setContentView(R.layout.activity_read_history);
         showBack();
        String title = getIntent().getStringExtra("title");
+       getIntent().getBooleanExtra("unPublished",false);
         setCommonTitle(title);
         ButterKnife.bind(this);
 
@@ -74,7 +76,31 @@ public class ReadHistoryActivity extends BaseActivity {
         if(showLoadingDialog) {
             LoadingDialog.showDialogForLoading(this);
         }
+if(unPublished){
 
+    HttpUtils.getUnPublishList(this,  new OnNetResponseListener() {
+        @Override
+        public void onNetDataResponse(JSONObject json) {
+            LoadingDialog.cancelDialogForLoading();
+            refreshLayout.finishRefresh();
+
+            readRecord = new Gson().fromJson(json.toString(), ReadRecord.class);
+            if(clearList) {
+                recordItemList.clear();
+            }
+
+            recordItemList.addAll(readRecord.items);
+            if(recordItemList.size() >= readRecord.total_count) {
+                refreshLayout.finishLoadMoreWithNoMoreData();
+            } else {
+                refreshLayout.finishLoadMore();
+            }
+
+            articleAdapter.setData(recordItemList);
+            articleAdapter.notifyDataSetChanged();
+        }
+    });
+}else{
         HttpUtils.getReadRecordList(this, page, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
@@ -97,5 +123,5 @@ public class ReadHistoryActivity extends BaseActivity {
                 articleAdapter.notifyDataSetChanged();
             }
         });
-    }
+    }}
 }

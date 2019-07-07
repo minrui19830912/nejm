@@ -101,10 +101,10 @@
 
     <application
         android:name=".MyApplication"
-        android:icon="@mipmap/app_icon"
+        android:icon="@mipmap/app_icon_check"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
-        android:roundIcon="@mipmap/app_icon"
+        android:roundIcon="@mipmap/app_icon_check"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activitys.OfflineArticleListActivity"
