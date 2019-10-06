@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.nejm.widgets.NoScrollGridView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/gridView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/notification"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:numColumns="3"
-        android:horizontalSpacing="6dp"
-        android:verticalSpacing="10dp"
+
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="20dp"/>
@@ -26,6 +24,7 @@
         android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gridView"
+        android:visibility="gone"
         android:src="@mipmap/icon_nav_msg_selected"/>
     
     <View

@@ -1,24 +1,22 @@
 package com.android.nejm.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.nejm.R;
 import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.adapter.VideoListAdapter;
+import com.android.nejm.data.NewKnowledgeInfo;
 import com.android.nejm.data.VideoInfo;
 import com.android.nejm.db.AnnouceRecordManager;
 import com.android.nejm.manage.LoginUserManager;
@@ -36,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VideoListFragment extends BaseFragment {
-    private GridView gridView;
+    private RecyclerView gridView;
     private RecyclerView mRecylerView;
     private SmartRefreshLayout refreshLayout;
     private VideoListAdapter mVideoListAdapter;
@@ -44,7 +42,7 @@ public class VideoListFragment extends BaseFragment {
     private VideoInfo videoInfo;
     ImageView notification;
 
-    GridAdapter gridAdapter;
+    HorizontalTagAdapter gridAdapter;
 
     private int page = 1;
     private String id;
@@ -56,26 +54,10 @@ public class VideoListFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.video_list_fragment,container,false);
 
         gridView = view.findViewById(R.id.gridView);
-        gridAdapter = new GridAdapter();
+        gridView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
+        gridAdapter = new HorizontalTagAdapter(getContext());
         gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0) {
-                    VideoListFragment.this.id = "";
-                } else {
-                    VideoListFragment.this.id = videoInfo.types.get(position - 1).id;
-                }
 
-                page = 1;
-                refreshLayout.resetNoMoreData();
-                mRecylerView.scrollToPosition(0);
-                getData(true, true);
-
-                gridAdapter.setSelectIndex(position);
-                gridAdapter.notifyDataSetChanged();
-            }
-        });
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -180,42 +162,34 @@ public class VideoListFragment extends BaseFragment {
         });
     }
 
-    class GridAdapter extends BaseAdapter {
-        LayoutInflater inflater;
+
+
+
+    public class HorizontalTagAdapter extends  RecyclerView.Adapter<HorizontalTagAdapter.ViewHolder>{
+        private Context context;
+        private List<NewKnowledgeInfo.NewKnowledgeitem> newKnowledgeitems;
         int selectIndex = 0;
 
-        GridAdapter() {
-            inflater = LayoutInflater.from(mContext);
+        public HorizontalTagAdapter(Context context) {
+
+            this.context = context;
         }
 
-        void setSelectIndex(int index) {
-            selectIndex = index;
+        public void setData(List<NewKnowledgeInfo.NewKnowledgeitem> newKnowledgeitems){
+            this.newKnowledgeitems = newKnowledgeitems;
+        }
+        @NonNull
+        @Override
+        public HorizontalTagAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View view = LayoutInflater.from(context).inflate(R.layout.new_knowledge_grid_item,viewGroup,false);
+            return new HorizontalTagAdapter.ViewHolder(view);
         }
 
         @Override
-        public int getCount() {
-            int count = (videoInfo != null && videoInfo.types != null) ? videoInfo.types.size() + 1 : 1;
-            //Log.e("dpp", "GridAdapter, count = " + count);
-            return count;
-        }
+        public void onBindViewHolder(@NonNull HorizontalTagAdapter.ViewHolder viewHolder, int position) {
 
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null) {
-                convertView = inflater.inflate(R.layout.new_knowledge_grid_item, parent, false);
-            }
-
-            TextView textView = (TextView)convertView;
+            TextView textView = (TextView)viewHolder.mView;
+            //textView.setText("全部");
             if(position == 0) {
                 textView.setText("全部");
             } else {
@@ -231,7 +205,48 @@ public class VideoListFragment extends BaseFragment {
                 textView.setTextColor(mContext.getResources().getColor(R.color.color_c92700));
             }
 
-            return convertView;
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(position == 0) {
+                        VideoListFragment.this.id = "";
+                    } else {
+                        VideoListFragment.this.id = videoInfo.types.get(position - 1).id;
+                    }
+
+                    page = 1;
+                    refreshLayout.resetNoMoreData();
+                    mRecylerView.scrollToPosition(0);
+                    getData(true, true);
+
+                    gridAdapter.setSelectIndex(position);
+                    gridAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            //return 10;
+            int count = (videoInfo != null && videoInfo.types != null) ? videoInfo.types.size() + 1 : 1;
+            //Log.e("dpp", "GridAdapter, count = " + count);
+            return count;
+            }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            public final View mView;
+
+
+            public ViewHolder(View view) {
+                super(view);
+                mView = view;
+
+
+            }
+        }
+
+        public void setSelectIndex(int index) {
+            selectIndex = index;
         }
     }
 }
