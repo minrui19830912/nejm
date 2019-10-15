@@ -23,6 +23,7 @@ android {
                 JPUSH_APPKEY : "f04ae3a4a593ae936da68f53", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
+        multiDexEnabled true
     }
     signingConfigs {
         release {
@@ -52,6 +53,11 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
 }
 
 MobSDK {
@@ -123,4 +129,5 @@ dependencies {
 
     implementation  'com.umeng.umsdk:analytics:8.0.0'
     implementation  'com.umeng.umsdk:common:2.0.0'
+    implementation 'com.android.support:multidex:1.0.0'
 }

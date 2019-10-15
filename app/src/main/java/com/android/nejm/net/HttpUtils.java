@@ -76,6 +76,7 @@ public class HttpUtils {
     public static final String ARTICLE_SHARE_CONTENT_URL=BASE_URL+"/?c=app&m=article_share";//期刊详情
     public static final String VERSION_URL=BASE_URL+"/?c=app&m=version";//期刊详情
     public static final String FAVORITE_URL=BASE_URL+"/?c=app&m=fav";//期刊详情
+    public static final String WHOLE_CATEGORY_URL=BASE_URL+"/?c=app&m=get_all_type";//获取所有分类
 
 
     public static final String STORE_LIST=BASE_URL+"/api/stores?";//门店列表
@@ -361,7 +362,7 @@ String client_id =LoginUserManager.getInstance().client_id;
 
     }
 
-    public static void getArticleClassList(final Context context,String id,int page, final OnNetResponseListener listener){
+    public static void getArticleClassList(final Context context,String id,String typeArray,int page, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
 
         String sign= generateMd5Str("",timeStamp,APP_KEY,"");
@@ -372,6 +373,10 @@ String client_id =LoginUserManager.getInstance().client_id;
         if(!TextUtils.isEmpty(id)){
             url.append("&id=").append(id);
         }
+        if(!TextUtils.isEmpty(typeArray)){
+            url.append("&type_array=").append(typeArray);
+        }
+
         url.append("&page=").append(page);
         OkGo.get(url.toString()).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
@@ -458,6 +463,26 @@ String client_id =LoginUserManager.getInstance().client_id;
             }
         });
     }
+
+    public static void getWholeCategory(final Context context, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
+        String sign= generateMd5Str(access_token,timeStamp,APP_KEY,client_id);
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
+
+        OkGo.get(WHOLE_CATEGORY_URL).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+
 
     public static void getMessage(final Context context, String id, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();

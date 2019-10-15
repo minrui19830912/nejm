@@ -217,4 +217,17 @@
         <!--<item name="android:windowEnterAnimation">@anim/scale_in</item>-->
         <!--<item name="android:windowExitAnimation">@anim/scale_out</item>-->
     <!--</style>-->
+
+    <style name="popWinAnimBot" parent="android:Animation">
+
+        <item name="android:windowEnterAnimation">@anim/bottom_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+
+    <!-- popwindow动画 -->
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_arrow_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_arrow_out</item>
+    </style>
+
 </resources>
