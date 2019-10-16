@@ -14,7 +14,7 @@ public class FiltModel {
     private TableMode tab;//当前选择
     private List<TableMode> tabs;//选项列表
     public static class TableMode{
-        public int id;
+        public String id;
         public String name = "";
     }
 

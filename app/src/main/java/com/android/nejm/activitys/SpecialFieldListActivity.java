@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -54,6 +55,9 @@ public class SpecialFieldListActivity extends BaseActivity {
     SpeicalFieldArticleAdapter articleAdapter;
     SpecialFieldGridAdapter gridAdapter;
     String type_array;
+    final List<FiltModel> listData = new ArrayList<>();
+    private FiltPopuWindow filtPopuWindow;
+    private FiltPopuWindow.Builder builder;
 
     public static void launchActivity(Context context, String title, String id) {
         Intent intent = new Intent(context, SpecialFieldListActivity.class);
@@ -107,6 +111,7 @@ public class SpecialFieldListActivity extends BaseActivity {
         recyclerView.setAdapter(articleAdapter);
 
         getData(true, true);
+        listData.clear();
         HttpUtils.getWholeCategory(mContext, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
@@ -116,11 +121,18 @@ public class SpecialFieldListActivity extends BaseActivity {
                         JSONObject item = items.optJSONObject(i);
                         String sourcename = item.optString("sourcename");
                         JSONArray typelist = item.optJSONArray("typelist");
+                        FiltModel model = new FiltModel();
+                        model.setTypeName(sourcename);
+                        List<FiltModel.TableMode>tableModeList = new ArrayList<>();
                         for (int j = 0; typelist!=null&&j < typelist.length(); j++) {
                             JSONObject typeObj = typelist.optJSONObject(j);
-                            typeObj.optString("id");
-                            typeObj.optString("typename");
+                            FiltModel.TableMode tabMode = new FiltModel.TableMode();
+                            tabMode.id= typeObj.optString("id");
+                           tabMode.name = typeObj.optString("typename");
+                            tableModeList.add(tabMode);
                         }
+                        model.setTabs(tableModeList);
+                        listData.add(model);
                     }
                 }
             }
@@ -177,41 +189,49 @@ public class SpecialFieldListActivity extends BaseActivity {
 
 
 private void initView(){
-    String[] titles = getArray(R.array.fit_titles);
-    String[][] tabs = new String[][]{
-            getArray(R.array.fit_sex_tabs)
-            ,getArray(R.array.fit_age_tabs)
-            ,getArray(R.array.fit_money_tabs)
-    };
-    final List<FiltModel> listData = new ArrayList<>();
-    for (int i = 0; i < titles.length; i++){
-        FiltModel model = new FiltModel();
-        model.setTypeName(titles[i]);
-        model.setType(i);//筛选类型可以自己定义
-        List<FiltModel.TableMode> tabsList = new ArrayList<>();
-        for(int j = 0; j < tabs[i].length; j++){
-            FiltModel.TableMode mod = new FiltModel.TableMode();
-            mod.id = j;//id可以自己定义 看服务器需要什么
-            mod.name = tabs[i][j];
-            tabsList.add(mod);
-        }
-        model.setTabs(tabsList);
-        listData.add(model);
-        //默认选中第一项
-        model.setTab(model.getTabs().get(0));
-    }
-    //数据组装稍微有点麻烦哈，如果您更好的方式请联系我，我学习学习。
-    //直接看结果吧
+//    String[] titles = getArray(R.array.fit_titles);
+//    String[][] tabs = new String[][]{
+//            getArray(R.array.fit_sex_tabs)
+//            ,getArray(R.array.fit_age_tabs)
+//            ,getArray(R.array.fit_money_tabs)
+//    };
+//    final List<FiltModel> listData = new ArrayList<>();
+//    for (int i = 0; i < titles.length; i++){
+//        FiltModel model = new FiltModel();
+//        model.setTypeName(titles[i]);
+//        model.setType(i);//筛选类型可以自己定义
+//        List<FiltModel.TableMode> tabsList = new ArrayList<>();
+//        for(int j = 0; j < tabs[i].length; j++){
+//            FiltModel.TableMode mod = new FiltModel.TableMode();
+//            mod.id = j;//id可以自己定义 看服务器需要什么
+//            mod.name = tabs[i][j];
+//            tabsList.add(mod);
+//        }
+//        model.setTabs(tabsList);
+//        listData.add(model);
+//        //默认选中第一项
+//        model.setTab(model.getTabs().get(0));
+//    }
+    findViewById(R.id.home).setVisibility(View.VISIBLE);
     findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new FiltPopuWindow.Builder(mContext).setColumnCount(3)//设置列数，测试2.3.4.5没问题
+            if(filtPopuWindow==null){
+            builder= new FiltPopuWindow.Builder(mContext, new FiltPopuWindow.OnOkSelectedListener() {
+                @Override
+                public void onOkSelected() {
+                    Log.e("minrui","tabs="+builder.getSelectTabs().toString());
+                }
+            });
+            builder.setColumnCount(3)//设置列数，测试2.3.4.5没问题
                     .setDataSource(listData)
                     .setColorBg(R.color.color_f8f8f8)
                     //所有的属性设置必须在build之前，不然无效
-                    .build()
-                    .createPop()
-                    .showAsDropDown(findViewById(R.id.top_divider));
+                    .build();
+            filtPopuWindow = builder.createPop();
+            }
+
+            filtPopuWindow.showAsDropDown(findViewById(R.id.top_divider));
             //我这里头方便这样写了，pop对象可以拿出来存放，不需要每次都去创建
         }
     });
