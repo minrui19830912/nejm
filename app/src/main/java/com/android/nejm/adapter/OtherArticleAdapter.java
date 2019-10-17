@@ -27,7 +27,13 @@ import butterknife.ButterKnife;
 public class OtherArticleAdapter extends RecyclerView.Adapter<OtherArticleAdapter.ViewHolder> {
     private Context context;
     private List<OtherArticleInfo.ArtitleItem> artitleItemList;
-
+    private OnItemLongClickListener onItemLongClickListener;
+    public interface OnItemLongClickListener {
+        void onItemLongClicked(View view, int index);
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
     public OtherArticleAdapter(Context context) {
         this.context = context;
     }
@@ -79,8 +85,20 @@ public class OtherArticleAdapter extends RecyclerView.Adapter<OtherArticleAdapte
                 }
             }
         });
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(onItemLongClickListener!=null){
+                    onItemLongClickListener.onItemLongClicked(view,i);
+                }
+                return true;
+            }
+        });
     }
-
+    public void removeItem(int pos){
+        artitleItemList.remove(pos);
+        notifyItemRemoved(pos);
+    }
     @Override
     public int getItemCount() {
         return artitleItemList != null ? artitleItemList.size() : 0;

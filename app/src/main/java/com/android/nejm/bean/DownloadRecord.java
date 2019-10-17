@@ -4,11 +4,11 @@ import com.android.nejm.data.RelatedArticle;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
-
-import java.util.List;
+import org.greenrobot.greendao.annotation.Id;
 
 @Entity
 public class DownloadRecord {
+    @Id
     public String articleId;
     public String title;
     public String author;

@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.activitys.NotifyDetailActivity;
-import com.android.nejm.bean.AnnounceRecord;
 import com.android.nejm.data.AnnounceMessage;
-import com.android.nejm.db.AnnouceRecordManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -57,13 +54,25 @@ public class NotifyMessageAdapter extends RecyclerView.Adapter<NotifyMessageAdap
                 }
             }
         });
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(onItemClickListener != null) {
+                    onItemClickListener.onItemLongClicked(view,i);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return messageItemList != null ? messageItemList.size() : 0;
     }
-
+    public void removeItem(int pos){
+        messageItemList.remove(pos);
+        notifyItemRemoved(pos);
+    }
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textViewUnread)
         TextView textViewUnread;
@@ -80,5 +89,6 @@ public class NotifyMessageAdapter extends RecyclerView.Adapter<NotifyMessageAdap
 
     public interface OnItemClickListener {
         void onItemClicked(int index);
+        void onItemLongClicked(View view, int index);
     }
 }

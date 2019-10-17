@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.DownloadArticleAdapter;
 import com.android.nejm.bean.DownloadRecord;
 import com.android.nejm.db.DownloadRecordManager;
+import com.android.nejm.net.HttpUtils;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 
@@ -51,9 +56,37 @@ public class OfflineArticleListActivity extends BaseActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
         articleAdapter = new DownloadArticleAdapter(this);
+        articleAdapter.setOnItemLongClickListener(new DownloadArticleAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClicked(View view, int index) {
+                showPopMenu(view,index);
+            }
+        });
         recyclerView.setAdapter(articleAdapter);
 
         loadData(true);
+    }
+
+    public void showPopMenu(View view, final int pos){
+        PopupMenu popupMenu = new PopupMenu(this,view);
+        popupMenu.getMenuInflater().inflate(R.menu.delete_item,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                DownloadRecordManager.delete(downloadRecordList.get(pos));
+               Log.e("minrui","count="+ DownloadRecordManager.getRecordCount());
+                articleAdapter.removeItem(pos);
+
+
+                return false;
+            }
+        });
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
     }
 
     private void loadData(boolean showLoadingDialog) {

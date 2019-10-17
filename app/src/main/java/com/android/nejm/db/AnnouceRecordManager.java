@@ -78,6 +78,16 @@ public class AnnouceRecordManager {
         }
     }
 
+    public void delete(AnnounceRecord record) {
+        for(AnnounceRecord item : recordList) {
+            if(TextUtils.equals(item.msgId, record.msgId)) {
+                DBManager.delete(record);
+                EventBus.getDefault().postSticky(new AnnouceRecordUpdatedEvent(hasUnread()));
+                return;
+            }
+        }
+    }
+
     public void insert(List<AnnounceRecord> records) {
         DaoSession daoSession = DBManager.getDaoSession();
         AnnounceRecordDao recordDao = daoSession.getAnnounceRecordDao();

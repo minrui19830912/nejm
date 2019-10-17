@@ -1,13 +1,19 @@
 package com.android.nejm.activitys;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.NotifyMessageAdapter;
@@ -49,7 +55,6 @@ public class NotificationActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-
         messageAdapter = new NotifyMessageAdapter(this, new NotifyMessageAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int index) {
@@ -66,12 +71,48 @@ public class NotificationActivity extends BaseActivity {
                     }
                 }
             }
+
+            @Override
+            public void onItemLongClicked(View view,int index) {
+                showPopMenu(view,index);
+            }
         });
 
         recyclerView.setAdapter(messageAdapter);
 
         getData();
     }
+
+    public void showPopMenu(View view, final int pos){
+        PopupMenu popupMenu = new PopupMenu(this,view);
+        popupMenu.getMenuInflater().inflate(R.menu.delete_item,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+
+                messageAdapter.removeItem(pos);
+                AnnounceMessage.MessageItem msgitem = announceMessage.items.get(pos);
+
+
+                for(AnnounceRecord record : recordList) {
+                    if(TextUtils.equals(record.msgId, msgitem.id)) {
+
+                        AnnouceRecordManager.getInstance().delete(record);
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
+    }
+
+
 
     private void getData() {
         LoadingDialog.showDialogForLoading(this);

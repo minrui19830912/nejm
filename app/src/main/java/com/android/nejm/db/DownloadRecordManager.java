@@ -24,6 +24,9 @@ public class DownloadRecordManager {
     public static void insert(DownloadRecord record) {
         DBManager.insert(record);
     }
+    public static void delete(DownloadRecord record) {
+        DBManager.delete(record);
+    }
 
     public static void update(DownloadRecord record) {
         DBManager.update(record);

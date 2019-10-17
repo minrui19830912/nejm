@@ -1,9 +1,12 @@
 package com.android.nejm.activitys;
 
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.OtherArticleAdapter;
@@ -64,9 +67,36 @@ public class FavoriteActivity extends BaseActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
         articleAdapter = new OtherArticleAdapter(this);
+        articleAdapter.setOnItemLongClickListener(new OtherArticleAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClicked(View view, int index) {
+                showPopMenu(view,index);
+            }
+        });
         recyclerView.setAdapter(articleAdapter);
 
         getData(true, true);
+    }
+
+    public void showPopMenu(View view, final int pos){
+        PopupMenu popupMenu = new PopupMenu(this,view);
+        popupMenu.getMenuInflater().inflate(R.menu.delete_item,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                HttpUtils.saveArticle(mContext, recordItemList.get(pos).id,null);
+                articleAdapter.removeItem(pos);
+
+
+                return false;
+            }
+        });
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
     }
 
     private void getData(boolean showLoadingDialog, final boolean clearList) {

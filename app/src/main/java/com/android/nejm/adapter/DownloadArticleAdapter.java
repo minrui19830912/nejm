@@ -12,11 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.nejm.R;
-import com.android.nejm.activitys.ArticleDetailActivity;
 import com.android.nejm.activitys.OfflineArticleDetailActivity;
 import com.android.nejm.bean.DownloadRecord;
-import com.android.nejm.data.RelatedArticle;
-import com.android.nejm.net.HttpUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.File;
@@ -29,15 +26,23 @@ import butterknife.ButterKnife;
 public class DownloadArticleAdapter extends RecyclerView.Adapter<DownloadArticleAdapter.ViewHolder> {
     private Context context;
     private List<DownloadRecord> relatedArticles;
-
+    private OnItemLongClickListener onItemLongClickListener;
+    public interface OnItemLongClickListener {
+        void onItemLongClicked(View view, int index);
+    }
     public DownloadArticleAdapter(Context context) {
         this.context = context;
     }
-
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
     public void setData(List<DownloadRecord> relatedArticles) {
         this.relatedArticles = relatedArticles;
     }
-
+    public void removeItem(int pos){
+        relatedArticles.remove(pos);
+        notifyItemRemoved(pos);
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -74,6 +79,15 @@ public class DownloadArticleAdapter extends RecyclerView.Adapter<DownloadArticle
         } else {
             viewHolder.textViewComment.setVisibility(View.INVISIBLE);
         }
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(onItemLongClickListener!=null){
+                    onItemLongClickListener.onItemLongClicked(view,i);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
