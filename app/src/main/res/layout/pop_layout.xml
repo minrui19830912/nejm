@@ -1,26 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout android:layout_height="match_parent" android:layout_width="match_parent"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <LinearLayout android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F8F8F8"
+        android:background="@color/white"
+        android:padding="16dp"
+
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
-        <Button android:id="@+id/ok_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ok"/>
         <Button android:id="@+id/cancel_btn"
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="cancel"/>
+            android:layout_marginRight="18dp"
+            android:textColor="#C92700"
+            android:textSize="17sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/pop_up_clear"
+            android:text="清空"/>
+        <Button android:id="@+id/ok_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/pop_up_ok"
+            android:text="确定"/>
+
     </LinearLayout>
+
     <LinearLayout android:id="@+id/content_layout"
+        android:layout_above="@id/bottom_layout"
         android:orientation="vertical"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_layout"/>
+
+        />
 </RelativeLayout>

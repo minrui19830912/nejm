@@ -238,13 +238,15 @@ private void initView(){
                     getData(true, true);
                     if(builder.getSelectTabs().size()==0){
                         budge.setText("筛选");
+                        budge.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.filter_unchoose),null,null,null);
                     }else{
-                        budge.setText("  ");;
+
+                        budge.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.filter_choose),null,null,null);
                     }
                     if(badgeView==null){
                   badgeView =  new QBadgeView(mContext);
                         badgeView.bindTarget(budge);
-                        badgeView.setGravityOffset(-10,0,true);
+                        badgeView.setGravityOffset(0,-4,true);
                     }
                     badgeView .setBadgeNumber(builder.getSelectTabs().size());
                 }

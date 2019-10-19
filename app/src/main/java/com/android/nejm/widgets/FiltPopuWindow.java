@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,16 +82,17 @@ public class FiltPopuWindow extends PopupWindow {
         private RelativeLayout parentLayout;
         public OnOkSelectedListener listener;
         //背景颜色
-        private int colorBg = Color.parseColor("#F8F8F8");
+        private int colorBg = Color.parseColor("#FFFFFF");
         private int titleTextSize = 14;//SP
-        private int tabTextSize = 14;//SP
-        private int titleTextColor = Color.parseColor("#333333");//标题字体颜色
+        private int tabTextSize = 10;//SP
+        private int titleTextColor = Color.parseColor("#4A4A4A");//标题字体颜色
         private int tabTextColor = R.color.fit_item_textcolor;//选项字体颜色
         private int tabBgDrawable = R.drawable.item_lable_bg_shape;//选项背景颜色
         //当前加载的行数
         private int row = -1;
         private FiltPopuWindow mFiltPopuWindow;
         private ArrayList<FiltModel.TableMode> tableModeArrayList = new ArrayList<>();
+        private ArrayList<TextView>mSelectIndex = new ArrayList<>();
 
         public Builder(Context context, OnOkSelectedListener listener) {
             this.context = context;
@@ -172,7 +173,7 @@ public class FiltPopuWindow extends PopupWindow {
         private void newItemLayout(int rowCount, int columnCount) {
             parentLayout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.pop_layout, null);
             contextll = parentLayout.findViewById(R.id.content_layout);
-            parentLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            parentLayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             parentLayout.setBackgroundColor(context.getResources().getColor(R.color.color_33000000));
             parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -186,6 +187,9 @@ public class FiltPopuWindow extends PopupWindow {
             parentLayout.findViewById(R.id.ok_btn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    for (int i = 0; i < rootGridLayout.; i++) {
+                        
+                    }
                     if (listener != null) {
                         listener.onOkSelected();
                     }
@@ -198,9 +202,13 @@ public class FiltPopuWindow extends PopupWindow {
             parentLayout.findViewById(R.id.cancel_btn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mFiltPopuWindow != null) {
-                        mFiltPopuWindow.dismiss();
-                        //点击外部消失
+//                    if (mFiltPopuWindow != null) {
+//                        mFiltPopuWindow.dismiss();
+//                        //点击外部消失
+//                    }
+
+                    for (int i = 0; i < mSelectIndex.size(); i++) {
+                        mSelectIndex.get(i).setSelected(false);
                     }
                 }
             });
@@ -209,7 +217,7 @@ public class FiltPopuWindow extends PopupWindow {
             rootGridLayout.setOrientation(GridLayout.HORIZONTAL);
             rootGridLayout.setRowCount(rowCount);
             rootGridLayout.setColumnCount(columnCount);
-            rootGridLayout.setBackgroundColor(colorBg);
+            //rootGridLayout.setBackgroundColor(colorBg);
             rootGridLayout.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -220,6 +228,12 @@ public class FiltPopuWindow extends PopupWindow {
             lp.weight = 1;
             rootGridLayout.setPadding(pandd, pandd, pandd, pandd);
             contextll.addView(rootGridLayout, lp);
+        }
+        
+        public void restore(){
+            for (int i = 0; i < mSelectIndex.size(); i++) {
+                mSelectIndex.get(i).setSelected(true);
+            }
         }
 
         /**
@@ -257,10 +271,12 @@ public class FiltPopuWindow extends PopupWindow {
                             lable.setSelected(true);
                             lable.setTag("selected");
                             tableModeArrayList.add(tab);
+                            mSelectIndex.add(lable);
                         } else {
                             lable.setSelected(false);
                             lable.setTag(null);
                             tableModeArrayList.remove(tab);
+                            mSelectIndex.remove(lable);
                         }
                         //lable.setSelected(true);
 //                        if (tab != model.getTab()){
@@ -290,12 +306,12 @@ public class FiltPopuWindow extends PopupWindow {
             lp.height = GridLayout.LayoutParams.WRAP_CONTENT;
             lp.bottomMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_8);
             if (i % columnCount == 0) {//最左边
-                lp.leftMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_10);
-                lp.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_20);
-            } else if ((i + 1) % columnCount == 0) {//最右边
+                //lp.leftMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_10);
                 lp.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_10);
+            } else if ((i + 1) % columnCount == 0) {//最右边
+//                lp.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_10);
             } else {//中间
-                lp.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_20);
+                lp.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dp_10);
             }
             return lp;
         }

@@ -53,10 +53,13 @@
             android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:layout_marginRight="6dp"
             android:text="筛选"
-            android:drawableLeft="@mipmap/icon_tabbar_home_normal"/>
+            android:drawableLeft="@mipmap/filter_unchoose"/>
 
 
 
