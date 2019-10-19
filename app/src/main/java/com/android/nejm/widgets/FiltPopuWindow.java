@@ -93,7 +93,6 @@ public class FiltPopuWindow extends PopupWindow {
         private FiltPopuWindow mFiltPopuWindow;
         private ArrayList<FiltModel.TableMode> tableModeArrayList = new ArrayList<>();
         private ArrayList<LabelText>mSelectIndex = new ArrayList<>();
-        private ArrayList<LabelText>mTmpSelectIndex= new ArrayList<>();
 
         public Builder(Context context, OnOkSelectedListener listener) {
             this.context = context;
@@ -110,13 +109,13 @@ public class FiltPopuWindow extends PopupWindow {
             labelText.textView = textView;
             labelText.id = id;
             mSelectIndex.add(labelText);
-            mTmpSelectIndex.add(labelText);
+
         }
         public void removeLabel(TextView textView){
             for (int i = 0; i < mSelectIndex.size(); i++) {
                 if(mSelectIndex.get(i).textView==textView){
                     mSelectIndex.remove(i);
-                    mTmpSelectIndex.remove(i);
+
                     return;
                 }
             }
@@ -231,7 +230,7 @@ public class FiltPopuWindow extends PopupWindow {
                     for (int i = 0; i < mSelectIndex.size(); i++) {
                         mSelectIndex.get(i).textView.setSelected(false);
                     }
-                    mTmpSelectIndex.clear();
+
                 }
             });
             rootGridLayout = new GridLayout(context);
@@ -253,25 +252,31 @@ public class FiltPopuWindow extends PopupWindow {
         }
         
         public void restore(){
-            mTmpSelectIndex.clear();
-            for (int i = 0; i < mSelectIndex.size(); i++) {
-                mSelectIndex.get(i).textView.setSelected(true);
-                mTmpSelectIndex.add(mSelectIndex.get(i));
+
+            for (int i = 0; i < tableModeArrayList.size(); i++) {
+                String selectId = tableModeArrayList.get(i).id;
+                for (int j = 0; j <mSelectIndex.size() ; j++) {
+                    LabelText label = mSelectIndex.get(j);
+                    if(selectId.equals(label.id)){
+                        label.textView.setSelected(true);
+                    }
+                }
+
             }
         }
         public void syncTmpData(){
-            mSelectIndex.clear();
+
              ArrayList<FiltModel.TableMode> tableModeArrayList1 = new ArrayList<>();
-            for (int i = 0; i < mTmpSelectIndex.size(); i++) {
-                mSelectIndex.add(mTmpSelectIndex.get(i));
-            }
+
             for (int i = 0; i <mSelectIndex.size() ; i++) {
-              String selectId=  mSelectIndex.get(i).id;
+                LabelText selectText = mSelectIndex.get(i);
+                if(selectText.textView.isSelected()){
                 for (int j = 0; j < tableModeArrayList.size(); j++) {
                     FiltModel.TableMode tabMode = tableModeArrayList.get(j);
-                    if(tabMode.id.equals(selectId)){
+                    if(tabMode.id.equals(selectText.id)){
                         tableModeArrayList1.add(tabMode);
                     }
+                }
                 }
             }
             tableModeArrayList = tableModeArrayList1;
@@ -305,6 +310,7 @@ public class FiltPopuWindow extends PopupWindow {
                 if (tabs.get(i) == model.getTab()) {
                     lable.setSelected(true);
                 }
+                addLabel(lable,tab.id);
                 lable.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -313,12 +319,11 @@ public class FiltPopuWindow extends PopupWindow {
                             lable.setTag("selected");
                             tableModeArrayList.add(tab);
 
-                            addLabel(lable,tab.id);
+
                         } else {
                             lable.setSelected(false);
                             lable.setTag(null);
                             tableModeArrayList.remove(tab);
-                            removeLabel(lable);
                         }
                         //lable.setSelected(true);
 //                        if (tab != model.getTab()){
