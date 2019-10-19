@@ -51,7 +51,9 @@ public class SpecialFieldListActivity extends BaseActivity {
     private String id;
     private int page = 1;
     private TextView budge;
+    private View budge_layout;
     private TextView filter;
+    private TextView filter_text;
     private SpecialFieldArticleInfo articleInfo;
     public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
 
@@ -216,54 +218,64 @@ private void initView(){
 //        //默认选中第一项
 //        model.setTab(model.getTabs().get(0));
 //    }
-    findViewById(R.id.budge).setVisibility(View.VISIBLE);
-    budge = (TextView)findViewById(R.id.budge);
+    budge_layout = findViewById(R.id.budge_layout);
+    filter_text = findViewById(R.id.filter_text);
+    filter = findViewById(R.id.filter);
+    filter_text.setVisibility(View.VISIBLE);
 
-    findViewById(R.id.budge).setOnClickListener(new View.OnClickListener() {
+
+    budge_layout.setOnClickListener(filter_listener);
+    filter_text.setOnClickListener(filter_listener);
+}
+
+    View.OnClickListener filter_listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(filtPopuWindow==null){
-            builder= new FiltPopuWindow.Builder(mContext, new FiltPopuWindow.OnOkSelectedListener() {
-                @Override
-                public void onOkSelected() {
-                    Log.e("minrui","tabs="+builder.getSelectTabs().toString());
-                    type_array = "";
-                    for (int i = 0; i < builder.getSelectTabs().size(); i++) {
-                       String id = builder.getSelectTabs().get(i).id;
-                        type_array+=id;
-                        if(i!=builder.getSelectTabs().size()-1){
-                            type_array+=",";
+                builder= new FiltPopuWindow.Builder(mContext, new FiltPopuWindow.OnOkSelectedListener() {
+                    @Override
+                    public void onOkSelected() {
+                        Log.e("minrui","tabs="+builder.getSelectTabs().toString());
+                        type_array = "";
+                        for (int i = 0; i < builder.getSelectTabs().size(); i++) {
+                            String id = builder.getSelectTabs().get(i).id;
+                            type_array+=id;
+                            if(i!=builder.getSelectTabs().size()-1){
+                                type_array+=",";
+                            }
                         }
-                    }
-                    getData(true, true);
-                    if(builder.getSelectTabs().size()==0){
-                        budge.setText("筛选");
-                        budge.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.filter_unchoose),null,null,null);
-                    }else{
+                        getData(true, true);
+                        if(badgeView==null){
+                            badgeView =  new QBadgeView(mContext);
+                            badgeView.bindTarget(filter);
+                            badgeView.setGravityOffset(8,0,true);
+                        }
+                        badgeView .setBadgeNumber(builder.getSelectTabs().size());
+                        if(builder.getSelectTabs().size()==0){
+                            filter_text.setVisibility(View.VISIBLE);
+                            budge_layout.setVisibility(View.GONE);
 
-                        budge.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.filter_choose),null,null,null);
+                            //budge.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.filter_unchoose),null,null,null);
+                        }else{
+                            filter_text.setVisibility(View.GONE);
+                            budge_layout.setVisibility(View.VISIBLE);
+                            // budge.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(R.mipmap.filter_choose),null,null,null);
+                        }
+
                     }
-                    if(badgeView==null){
-                  badgeView =  new QBadgeView(mContext);
-                        badgeView.bindTarget(budge);
-                        badgeView.setGravityOffset(0,-4,true);
-                    }
-                    badgeView .setBadgeNumber(builder.getSelectTabs().size());
-                }
-            });
-            builder.setColumnCount(3)//设置列数，测试2.3.4.5没问题
-                    .setDataSource(listData)
-                    .setColorBg(R.color.color_f8f8f8)
-                    //所有的属性设置必须在build之前，不然无效
-                    .build();
-            filtPopuWindow = builder.createPop();
+                });
+                builder.setColumnCount(3)//设置列数，测试2.3.4.5没问题
+                        .setDataSource(listData)
+                        .setColorBg(R.color.color_f8f8f8)
+                        //所有的属性设置必须在build之前，不然无效
+                        .build();
+                filtPopuWindow = builder.createPop();
             }
-
+            builder.restore();
             filtPopuWindow.showAsDropDown(findViewById(R.id.top_divider));
             //我这里头方便这样写了，pop对象可以拿出来存放，不需要每次都去创建
         }
-    });
-}
+    };
 
 
     private String[] getArray(int id){
