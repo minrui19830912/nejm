@@ -36,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import q.rorbin.badgeview.QBadgeView;
 
 public class SpecialFieldListActivity extends BaseActivity {
     @BindView(R.id.textViewSpecailFieldTitle)
@@ -49,6 +50,8 @@ public class SpecialFieldListActivity extends BaseActivity {
 
     private String id;
     private int page = 1;
+    private TextView budge;
+    private TextView filter;
     private SpecialFieldArticleInfo articleInfo;
     public List<SpecialFieldArticleInfo.ArtitleItem> artitleItems = new ArrayList<>();
 
@@ -58,6 +61,7 @@ public class SpecialFieldListActivity extends BaseActivity {
     final List<FiltModel> listData = new ArrayList<>();
     private FiltPopuWindow filtPopuWindow;
     private FiltPopuWindow.Builder builder;
+    private QBadgeView badgeView;
 
     public static void launchActivity(Context context, String title, String id) {
         Intent intent = new Intent(context, SpecialFieldListActivity.class);
@@ -212,8 +216,10 @@ private void initView(){
 //        //默认选中第一项
 //        model.setTab(model.getTabs().get(0));
 //    }
-    findViewById(R.id.home).setVisibility(View.VISIBLE);
-    findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
+    findViewById(R.id.budge).setVisibility(View.VISIBLE);
+    budge = (TextView)findViewById(R.id.budge);
+
+    findViewById(R.id.budge).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(filtPopuWindow==null){
@@ -221,6 +227,26 @@ private void initView(){
                 @Override
                 public void onOkSelected() {
                     Log.e("minrui","tabs="+builder.getSelectTabs().toString());
+                    type_array = "";
+                    for (int i = 0; i < builder.getSelectTabs().size(); i++) {
+                       String id = builder.getSelectTabs().get(i).id;
+                        type_array+=id;
+                        if(i!=builder.getSelectTabs().size()-1){
+                            type_array+=",";
+                        }
+                    }
+                    getData(true, true);
+                    if(builder.getSelectTabs().size()==0){
+                        budge.setText("筛选");
+                    }else{
+                        budge.setText("  ");;
+                    }
+                    if(badgeView==null){
+                  badgeView =  new QBadgeView(mContext);
+                        badgeView.bindTarget(budge);
+                        badgeView.setGravityOffset(-10,0,true);
+                    }
+                    badgeView .setBadgeNumber(builder.getSelectTabs().size());
                 }
             });
             builder.setColumnCount(3)//设置列数，测试2.3.4.5没问题

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -41,6 +42,8 @@ public class AdvertActivity extends BaseActivity {
     ImageView ivSplash;
     TextView tvNum;
     LinearLayout rlNum;
+    private String mLinkUrl;
+    long mTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,11 +103,20 @@ public class AdvertActivity extends BaseActivity {
         HttpUtils.getAdverstyData(mContext, new OnNetResponseListener() {
             @Override
             public void onNetDataResponse(JSONObject json) {
-                String url = json.optString("img");
-                new getImageCacheAsyncTask(mContext).execute(url);
+                String imageUrl = json.optString("img");
+                mLinkUrl = json.optString("url");
+                new getImageCacheAsyncTask(mContext).execute(imageUrl);
             }
         });
-
+        ivSplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(mLinkUrl)){
+                Uri uri = Uri.parse(mLinkUrl);
+                startActivity(new Intent(Intent.ACTION_VIEW,uri));
+                }
+            }
+        });
 
         //使用Glide缓存网络图片，
 //        long start = SPUtils.getSharedlongData(mContext,"startTime");
@@ -134,10 +146,62 @@ public class AdvertActivity extends BaseActivity {
 //                    .build();
 //        //设置Controller
 //        sdvSplash.setController(mDraweeController);
-                mCountDownTimer = new CountDownTimer(4 * 1000, 1000) {
+//                mCountDownTimer = new CountDownTimer(4 * 1000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                //每隔countDownInterval秒会回调一次onTick()方法
+//                tvNum.setText((millisUntilFinished / 1000)+"");
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                //startActivity(new Intent(mContext,MainActivity.class));
+//                if(TextUtils.isEmpty(MyApplication.mToken)){
+//                    startActivity(new Intent(mContext,LoginActivity.class));
+//                    finish();
+//                } else {
+//                    startActivity(new Intent(mContext,MainActivity.class));
+//                    finish();
+//                }
+//            }
+//        };
+       // mCountDownTimer.start();// 开始计时
+        rlNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(mContext,MainActivity.class));
+                if(TextUtils.isEmpty(MyApplication.mToken)){
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(mContext,MainActivity.class));
+                    finish();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mCountDownTimer!=null){
+        mCountDownTimer.cancel();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long time = 4 * 1000;
+        if(mCountDownTimer!=null){
+            time =mTime;
+        }
+        mCountDownTimer= new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //每隔countDownInterval秒会回调一次onTick()方法
+                mTime = millisUntilFinished;
                 tvNum.setText((millisUntilFinished / 1000)+"");
             }
 
@@ -153,21 +217,7 @@ public class AdvertActivity extends BaseActivity {
                 }
             }
         };
-        mCountDownTimer.start();// 开始计时
-        rlNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(mContext,MainActivity.class));
-                if(TextUtils.isEmpty(MyApplication.mToken)){
-                    startActivity(new Intent(mContext,LoginActivity.class));
-                    finish();
-                } else {
-                    startActivity(new Intent(mContext,MainActivity.class));
-                    finish();
-                }
-            }
-        });
-
+        mCountDownTimer.start();
     }
 
     @Override

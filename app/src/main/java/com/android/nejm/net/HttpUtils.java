@@ -60,6 +60,7 @@ public class HttpUtils {
     public static final String VIDEO_DETAIL_URL=BASE_URL+"/?c=app&m=video";//视频详情
     public static final String SEARCH_URL=BASE_URL+"/?c=app&m=search";//搜索
     public static final String LOGIN_URL=BASE_URL+"/?c=app&m=login";//登录
+    public static final String DEL_NOTICE_URL=BASE_URL+"/?c=app&m=delete_message";
     public static final String ACCOUNT_URL=BASE_URL+"/?c=app&m=account";//个人中心
     public static final String SUBSCRIBE_URL=BASE_URL+"/?c=app&m=subscribe";//邮件订阅
     public static final String EDIT_NAME_URL=BASE_URL+"/?c=app&m=edit_name";//邮件订阅
@@ -776,6 +777,26 @@ String client_id =LoginUserManager.getInstance().client_id;
         params.put("password", password);
 
         OkGo.post(LOGIN_URL)
+                .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
+            @Override
+            public void onSuccess(String s, Call call, Response response) {
+                paraJson(context,s,listener);
+            }
+        });
+    }
+
+    public static void delNoticeById(final Context context, String id, final OnNetResponseListener listener){
+        long timeStamp= System.currentTimeMillis();
+
+        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        StringBuilder build=new StringBuilder("^");
+//access_token^timestamp^clientid
+        build.append("").append("^").append(timeStamp).append("^").append("");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+
+        OkGo.post(DEL_NOTICE_URL)
                 .params(params).headers("Authorization",sign+build.toString()).execute(new StringNetCallback(context) {
             @Override
             public void onSuccess(String s, Call call, Response response) {

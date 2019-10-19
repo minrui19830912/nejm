@@ -15,6 +15,10 @@ public class HomeBean {
         public String intro;
         public String pic;
         public String articleid;
+        public int aurl_type;
+        public String show_popularize;
+        public String popularize_title;
+        public String aurl;
     }
 
     public static class Classes {

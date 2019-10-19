@@ -17,8 +17,6 @@ import com.android.nejm.R;
 import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.adapter.NewKnowledgeAdapter;
 import com.android.nejm.data.NewKnowledgeInfo;
-import com.android.nejm.db.AnnouceRecordManager;
-import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
@@ -96,34 +94,34 @@ public class NewKnowledgeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(AnnouceRecordManager.getInstance().hasUnread()) {
-            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
-        } else {
-            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
-        }
-
-        if(LoginUserManager.getInstance().isLogin) {
-            notification.setVisibility(View.VISIBLE);
-        } else {
-            notification.setVisibility(View.INVISIBLE);
-        }
+//        if(AnnouceRecordManager.getInstance().hasUnread()) {
+//            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+//        } else {
+//            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+//        }
+//
+//        if(LoginUserManager.getInstance().isLogin) {
+//            notification.setVisibility(View.VISIBLE);
+//        } else {
+//            notification.setVisibility(View.INVISIBLE);
+//        }
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if(!hidden) {
-            if(AnnouceRecordManager.getInstance().hasUnread()) {
-                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
-            } else {
-                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
-            }
-
-            if(LoginUserManager.getInstance().isLogin) {
-                notification.setVisibility(View.VISIBLE);
-            } else {
-                notification.setVisibility(View.INVISIBLE);
-            }
+//            if(AnnouceRecordManager.getInstance().hasUnread()) {
+//                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+//            } else {
+//                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+//            }
+//
+//            if(LoginUserManager.getInstance().isLogin) {
+//                notification.setVisibility(View.VISIBLE);
+//            } else {
+//                notification.setVisibility(View.INVISIBLE);
+//            }
         }
     }
 
@@ -179,13 +177,13 @@ public class NewKnowledgeFragment extends BaseFragment {
             }
             @NonNull
             @Override
-            public HorizontalTagAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(context).inflate(R.layout.new_knowledge_grid_item,viewGroup,false);
-                return new HorizontalTagAdapter.ViewHolder(view);
+                return new ViewHolder(view);
             }
 
             @Override
-            public void onBindViewHolder(@NonNull HorizontalTagAdapter.ViewHolder viewHolder, int position) {
+            public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
                 TextView textView = (TextView)viewHolder.mView;
                 //textView.setText("全部");

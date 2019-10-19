@@ -42,4 +42,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:roundedCornerRadius="3dp"/>
+    <TextView android:id="@+id/adver"
+        app:layout_constraintRight_toRightOf="@id/paper_img"
+        app:layout_constraintTop_toTopOf="@id/paper_img"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:text="推广"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

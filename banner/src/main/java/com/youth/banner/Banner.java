@@ -28,6 +28,7 @@ import com.youth.banner.view.BannerViewPager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -73,6 +74,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private OnBannerClickListener bannerListener;
     private OnBannerListener listener;
     private DisplayMetrics dm;
+    private ArrayList<HashMap<String,String>>adverstDataList;
 
     private WeakHandler handler = new WeakHandler();
 
@@ -90,10 +92,15 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         titles = new ArrayList<>();
         imageUrls = new ArrayList<>();
         imageViews = new ArrayList<>();
+
         indicatorImages = new ArrayList<>();
         dm = context.getResources().getDisplayMetrics();
         indicatorSize = dm.widthPixels / 80;
         initView(context, attrs);
+    }
+
+    public void setAdverstData(ArrayList<HashMap<String,String>>adverstDataList){
+        this.adverstDataList= adverstDataList;
     }
 
     private void initView(Context context, AttributeSet attrs) {
@@ -348,17 +355,34 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 //                imageView = new ImageView(context);
 //            }
 //            setScaleType(imageView);
-            SimpleDraweeView imageView = (SimpleDraweeView) LayoutInflater.from(context).inflate(R.layout.banner_item,null);
+            View view =  LayoutInflater.from(context).inflate(R.layout.banner_item,null);
+            SimpleDraweeView imageView = (SimpleDraweeView)view.findViewById(R.id.ban_img);
+            TextView adverst_text = view.findViewById(R.id.adverst_text);
             Object url = null;
             if (i == 0) {
                 url = imagesUrl.get(count - 1);
+                if(adverstDataList!=null){
+                HashMap<String,String> map = adverstDataList.get(count-1);
+                if(map.get("show_popularize").equals("1")){
+                    adverst_text.setText(map.get("popularize_title"));
+                }}
             } else if (i == count + 1) {
                 url = imagesUrl.get(0);
+                if(adverstDataList!=null){
+                HashMap<String,String> map = adverstDataList.get(0);
+                if(map.get("show_popularize").equals("1")){
+                    adverst_text.setText(map.get("popularize_title"));
+                }}
             } else {
                 url = imagesUrl.get(i - 1);
+                if(adverstDataList!=null){
+                HashMap<String,String> map = adverstDataList.get(i-1);
+                if(map.get("show_popularize").equals("1")){
+                    adverst_text.setText(map.get("popularize_title"));
+                }}
             }
 
-            imageViews.add(imageView);
+            imageViews.add(view);
 //            if (imageLoader != null)
 //                imageLoader.displayImage(context, url, imageView);
 //            else

@@ -30,13 +30,13 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
     }
     @NonNull
     @Override
-    public NewKnowledgeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.new_knowledge_item,viewGroup,false);
-        return new NewKnowledgeAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewKnowledgeAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         NewKnowledgeInfo.NewKnowledgeitem item = newKnowledgeitems.get(position);
         viewHolder.paper_img.setImageURI(item.thumb);
         viewHolder.textViewTypeName.setText(item.typename);
@@ -49,6 +49,10 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
                         HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+item.id,item.title,item.thumb,item.title);
             }
         });
+        if(position==0){
+            item.showAdver = true;
+        }
+        viewHolder.adver.setVisibility(item.showAdver?View.VISIBLE:View.INVISIBLE);
     }
 
     @Override
@@ -66,6 +70,7 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
         public final TextView paper_name;
         public final TextView date;
         public final TextView textViewTypeName;
+        public final TextView adver;
 
         public ViewHolder(View view) {
             super(view);
@@ -73,6 +78,7 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
             paper_img = (SimpleDraweeView) view.findViewById(R.id.paper_img);
             paper_name = (TextView) view.findViewById(R.id.paper_name);
             textViewTypeName = view.findViewById(R.id.textViewTypeName);
+            adver = view.findViewById(R.id.adver);
             date = (TextView) view.findViewById(R.id.date);
 
         }

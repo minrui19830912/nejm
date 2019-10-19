@@ -91,6 +91,8 @@ public class NotificationActivity extends BaseActivity {
 
                 messageAdapter.removeItem(pos);
                 AnnounceMessage.MessageItem msgitem = announceMessage.items.get(pos);
+                HttpUtils.delNoticeById(mContext,msgitem.id,null);
+                announceMessage.items.remove(pos);
 
 
                 for(AnnounceRecord record : recordList) {

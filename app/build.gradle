@@ -130,4 +130,5 @@ dependencies {
     implementation  'com.umeng.umsdk:analytics:8.0.0'
     implementation  'com.umeng.umsdk:common:2.0.0'
     implementation 'com.android.support:multidex:1.0.0'
+    implementation 'q.rorbin:badgeview:1.1.3'
 }

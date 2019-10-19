@@ -2,10 +2,12 @@ package com.android.nejm.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment {
@@ -408,10 +411,14 @@ public class HomeFragment extends BaseFragment {
         }
 
         List<String> titleList = new ArrayList<>();
-
+        ArrayList<HashMap<String,String>>adverList=new ArrayList<>();
         for (HomeBean.Banner banner : homeBean.banner) {
             mBannerUrlList.add(banner.pic);
             titleList.add(banner.title);
+            HashMap<String,String>map=new HashMap<>();
+            map.put("show_popularize",banner.show_popularize);
+            map.put("popularize_title",banner.popularize_title);
+            adverList.add(map);
             Log.e("banner", banner.title + ", " + banner.pic);
         }
 
@@ -419,6 +426,7 @@ public class HomeFragment extends BaseFragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(mBannerUrlList);
+        banner.setAdverstData(adverList);
         banner.setBannerTitles(titleList);
         banner.isAutoPlay(true);
         banner.setDelayTime(3000);
@@ -426,8 +434,17 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void OnBannerClick(int position) {
                 HomeBean.Banner bannr = homeBean.banner.get(position);
+
+                if(bannr.aurl_type==1){
                 ArticleDetailActivity.launchActivity(mContext,bannr.articleid,
                         HttpUtils.ARTICLE_DETAIL_URL+bannr.articleid,bannr.intro,bannr.pic,bannr.title);
+                }else if(bannr.aurl_type==2){
+                  String  linkUrl = bannr.aurl;
+                if(!TextUtils.isEmpty(linkUrl)){
+                    Uri uri = Uri.parse(linkUrl);
+                    startActivity(new Intent(Intent.ACTION_VIEW,uri));
+                }
+                }
             }
         });
 
