@@ -84,8 +84,8 @@ public class FavoriteActivity extends BaseActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 HttpUtils.saveArticle(mContext, recordItemList.get(pos).id,null);
-                articleAdapter.removeItem(pos);
-
+                recordItemList.remove(pos);
+                articleAdapter.notifyDataSetChanged();
 
                 return false;
             }

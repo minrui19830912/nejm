@@ -1,8 +1,5 @@
 package com.android.nejm.activitys;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.nejm.R;
 import com.android.nejm.adapter.NotifyMessageAdapter;
@@ -25,9 +20,7 @@ import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -89,11 +82,10 @@ public class NotificationActivity extends BaseActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
 
-                messageAdapter.removeItem(pos);
                 AnnounceMessage.MessageItem msgitem = announceMessage.items.get(pos);
                 HttpUtils.delNoticeById(mContext,msgitem.id,null);
                 announceMessage.items.remove(pos);
-
+                messageAdapter.notifyDataSetChanged();
 
                 for(AnnounceRecord record : recordList) {
                     if(TextUtils.equals(record.msgId, msgitem.id)) {

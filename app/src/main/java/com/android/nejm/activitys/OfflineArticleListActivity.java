@@ -14,7 +14,6 @@ import com.android.nejm.R;
 import com.android.nejm.adapter.DownloadArticleAdapter;
 import com.android.nejm.bean.DownloadRecord;
 import com.android.nejm.db.DownloadRecordManager;
-import com.android.nejm.net.HttpUtils;
 import com.android.nejm.widgets.DividerItemDecoration;
 import com.android.nejm.widgets.LoadingDialog;
 
@@ -74,8 +73,8 @@ public class OfflineArticleListActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 DownloadRecordManager.delete(downloadRecordList.get(pos));
                Log.e("minrui","count="+ DownloadRecordManager.getRecordCount());
-                articleAdapter.removeItem(pos);
-
+                downloadRecordList.remove(pos);
+                articleAdapter.notifyDataSetChanged();
 
                 return false;
             }

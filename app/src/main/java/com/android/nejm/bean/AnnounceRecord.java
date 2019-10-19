@@ -1,17 +1,16 @@
 package com.android.nejm.bean;
 
-import com.android.nejm.data.AnnounceMessage;
-
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 @Entity
 public class AnnounceRecord {
-    @Id
+
     private Long id;
 
     public boolean read;
+    @Id
     public String msgId;
 
     @Generated(hash = 1660040171)
