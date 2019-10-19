@@ -577,7 +577,7 @@ private String isFav;
         //邮件主题
         email.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
         //邮件内容
-        email.putExtra(android.content.Intent.EXTRA_TEXT, content);
+        email.putExtra(android.content.Intent.EXTRA_TEXT, content+"\n"+url);
 
         try {
             Intent intent = Intent.createChooser(email,  "请选择邮件发送内容" );

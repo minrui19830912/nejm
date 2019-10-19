@@ -312,7 +312,7 @@ public class VideoDetailActivity extends BaseActivity {
         //邮件主题
         email.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
         //邮件内容
-        email.putExtra(android.content.Intent.EXTRA_TEXT, content);
+        email.putExtra(android.content.Intent.EXTRA_TEXT, content+"\n"+emailUrl);
         try {
             Intent intent = Intent.createChooser(email,  "请选择邮件发送内容" );
             startActivity(intent);
