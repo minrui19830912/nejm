@@ -42,4 +42,15 @@ public class DownloadRecordManager {
         }
         return false ;
     }
+
+    public static DownloadRecord queryRecordById(String articleId) {
+        QueryBuilder<DownloadRecord> queryBuilder = DBManager.getDaoSession().queryBuilder(DownloadRecord.class);
+        List<DownloadRecord> list = queryBuilder.list();
+        for(DownloadRecord record:list){
+            if(record.articleId.equals(articleId)){
+                return record;
+            }
+        }
+        return null;
+    }
 }

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -70,9 +72,11 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
     private String url;
     private String mId;
     private TextView storage;
-
+private String isFav;
     ArticleShareContent shareContent;
     private String outLinkUrl;
+    private Dialog dialog;
+    private DownloadRecord downloadRecord;
 
     private static final int PERMISSION_STORGE_REQUEST_CODE = 1;
 
@@ -99,7 +103,8 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
         mTitle = getIntent().getStringExtra(EXTRA_TITLE);
         mContent = getIntent().getStringExtra(EXTRA_CONTENT);
         cover = getIntent().getStringExtra(EXTRA_COVER);
-
+        dialog = new Dialog(mContext,R.style.Dialog_FS); //设置全屏样式
+        dialog.setContentView(R.layout.toast_layout); //设置dialog的布局
         checkLogin();
         /*findViewById(R.id.unlogin_text).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +131,27 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
                     @Override
                     public void onNetDataResponse(JSONObject json) {
                         LoadingDialog.cancelDialogForLoading();
-                        ToastUtil.showShort(mContext,"收藏成功");
+                        //ToastUtil.showShortCenter(mContext,"收藏成功");
+
+                        dialog.show();
+                        if(isFav.equals("1")){
+                            isFav = "0";
+                            ((TextView)dialog.findViewById(R.id.text1)).setText("取消收藏成功");
+                            Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_normal);
+                            storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                        } else {
+                            isFav = "1";
+                            ((TextView)dialog.findViewById(R.id.text1)).setText("收藏成功");
+                            Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
+                            storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                        }
+
+                        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp.height = WindowManager.LayoutParams.MATCH_PARENT;;
+                        dialog.getWindow().setAttributes(lp);
+                        mHandler.sendEmptyMessageDelayed(0,1500);
+
                         Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
                         storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
                     }
@@ -153,7 +178,22 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
             @Override
             public void onClick(View v) {
                 if(EasyPermissions.hasPermissions(mContext, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    downloadArticle();
+
+                    if(!DownloadRecordManager.hasDownLoad(mId)){
+                        downloadArticle();
+                    } else {
+                        downloadRecord =  DownloadRecordManager.queryRecordById(mId);
+                        DownloadRecordManager.delete(downloadRecord);
+                        textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_normal, 0, 0, 0);
+                        textViewDownload.setTextColor(getResources().getColor(R.color.color_444));
+                        dialog.show();
+                        ((TextView)dialog.findViewById(R.id.text1)).setText("取消下载成功");
+                        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp.height = WindowManager.LayoutParams.MATCH_PARENT;;
+                        dialog.getWindow().setAttributes(lp);
+                        mHandler.sendEmptyMessageDelayed(0,1500);
+                    }
                 } else {
                     EasyPermissions.requestPermissions(ArticleDetailActivity.this, "NEJM需要使用存储权限，您是否同意？", PERMISSION_STORGE_REQUEST_CODE,
                             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -161,13 +201,25 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
             }
         });
         if(LoginUserManager.getInstance().isLogin()&&DownloadRecordManager.hasDownLoad(mId)){
+
             textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
             textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
-            textViewDownload.setClickable(false);
+            //textViewDownload.setClickable(false);
         }
 
         recordEvent();
     }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            if(what==0){
+                dialog.dismiss();
+            }
+        }
+    };
 
     private void recordEvent() {
         HashMap<String,String> map = new HashMap<String,String>();
@@ -196,7 +248,7 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
 
                 JSONObject item = json.optJSONObject("item");
 
-                DownloadRecord downloadRecord = new DownloadRecord();
+                downloadRecord = new DownloadRecord();
                 downloadRecord.articleId = item.optString("id");
                 downloadRecord.title = item.optString("title");
                 downloadRecord.filtername = item.optString("filtername");
@@ -237,7 +289,14 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
                     @Override
                     public void downloadComplete() {
                         Log.e("TAG", "downloadComplete");
-                        ToastUtil.showShort(mContext,"下载成功");
+                        //ToastUtil.showShort(mContext,"下载成功");
+                        dialog.show();
+                        ((TextView)dialog.findViewById(R.id.text1)).setText("下载成功");
+                        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp.height = WindowManager.LayoutParams.MATCH_PARENT;;
+                        dialog.getWindow().setAttributes(lp);
+                        mHandler.sendEmptyMessageDelayed(0,1500);
                         LoadingDialog.cancelDialogForLoading();
                         textViewDownload.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_img_download_selected, 0, 0, 0);
                         textViewDownload.setTextColor(getResources().getColor(R.color.color_c92700));
@@ -251,9 +310,12 @@ public class ArticleDetailActivity extends BaseActivity implements EasyPermissio
             @Override
             public void onNetDataResponse(JSONObject json) {
                 LoadingDialog.cancelDialogForLoading();
-                String isFav = json.optString("isfav");
+                isFav = json.optString("isfav");
                 if(isFav.equals("1")){
                     Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
+                    storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                } else {
+                    Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_normal);
                     storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
                 }
                 shareContent = new Gson().fromJson(json.optJSONObject("item").toString(), ArticleShareContent.class);

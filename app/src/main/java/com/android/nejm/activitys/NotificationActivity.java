@@ -83,7 +83,12 @@ public class NotificationActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
 
                 AnnounceMessage.MessageItem msgitem = announceMessage.items.get(pos);
-                HttpUtils.delNoticeById(mContext,msgitem.id,null);
+                HttpUtils.delNoticeById(mContext, msgitem.id, new OnNetResponseListener() {
+                    @Override
+                    public void onNetDataResponse(JSONObject json) {
+
+                    }
+                });
                 announceMessage.items.remove(pos);
                 messageAdapter.notifyDataSetChanged();
 

@@ -229,5 +229,10 @@
         <item name="android:windowEnterAnimation">@anim/pop_arrow_in</item>
         <item name="android:windowExitAnimation">@anim/pop_arrow_out</item>
     </style>
-
+    <style name="Dialog_FS">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">#33000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

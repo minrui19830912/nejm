@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,19 @@ public class ToastUtil {
         initToast(context,message, Toast.LENGTH_SHORT).show();
     }
 
+    public static void showShortCenter(Context context,CharSequence message) {
+        Toast toast = new Toast(context);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        //设置显示时间
+        toast.setDuration(Toast.LENGTH_SHORT);
+View view = LayoutInflater.from(context).inflate(R.layout.toast_layout,null);
+        ((TextView)view.findViewById(R.id.text1)).setText(message);
+        view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+        toast.setView(view);
 
+        toast.show();
+
+    }
     /**
      * 短时间显示Toast
      *

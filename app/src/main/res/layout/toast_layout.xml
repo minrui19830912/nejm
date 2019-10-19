@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="@color/white"
-    android:textColor="@color/black" android:paddingLeft="80dp" android:paddingTop="16dp"
-    android:paddingBottom="16dp" android:paddingRight="80dp"/>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<TextView android:id="@+id/text1" android:layout_centerInParent="true"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="200dp"
+    android:gravity="center" android:textSize="16sp"  android:background="@drawable/toast_white_bk"
+    android:layout_height="75dp" android:text="fdasdfs"
+    android:textColor="@color/black" />
+</RelativeLayout>
