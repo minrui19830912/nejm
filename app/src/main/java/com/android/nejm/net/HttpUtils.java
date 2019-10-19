@@ -487,6 +487,8 @@ String client_id =LoginUserManager.getInstance().client_id;
 
     public static void getMessage(final Context context, String id, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
 
         /*String access_token = LoginUserManager.getInstance().access_token;
         String client_id = LoginUserManager.getInstance().client_id;
@@ -494,10 +496,10 @@ String client_id =LoginUserManager.getInstance().client_id;
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
         build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);*/
-        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        String sign= generateMd5Str(MyApplication.mToken,timeStamp,APP_KEY,MyApplication.client_id);
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append("").append("^").append(timeStamp).append("^").append("");
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
 
         StringBuilder url = new StringBuilder(MESSAGE_DETAIL_URL);
         if(!TextUtils.isEmpty(id)){
@@ -787,11 +789,13 @@ String client_id =LoginUserManager.getInstance().client_id;
 
     public static void delNoticeById(final Context context, String id, final OnNetResponseListener listener){
         long timeStamp= System.currentTimeMillis();
+        String access_token = LoginUserManager.getInstance().access_token;
+        String client_id = LoginUserManager.getInstance().client_id;
 
-        String sign= generateMd5Str("",timeStamp,APP_KEY,"");
+        String sign= generateMd5Str(MyApplication.mToken,timeStamp,APP_KEY,MyApplication.client_id);
         StringBuilder build=new StringBuilder("^");
 //access_token^timestamp^clientid
-        build.append("").append("^").append(timeStamp).append("^").append("");
+        build.append(access_token).append("^").append(timeStamp).append("^").append(client_id);
 
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
