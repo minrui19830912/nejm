@@ -18,8 +18,6 @@ import com.android.nejm.activitys.NotificationActivity;
 import com.android.nejm.adapter.VideoListAdapter;
 import com.android.nejm.data.NewKnowledgeInfo;
 import com.android.nejm.data.VideoInfo;
-import com.android.nejm.db.AnnouceRecordManager;
-import com.android.nejm.manage.LoginUserManager;
 import com.android.nejm.net.HttpUtils;
 import com.android.nejm.net.OnNetResponseListener;
 import com.android.nejm.widgets.LoadingDialog;
@@ -98,35 +96,35 @@ public class VideoListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(AnnouceRecordManager.getInstance().hasUnread()) {
-            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
-        } else {
-            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
-        }
-
-        if(LoginUserManager.getInstance().isLogin) {
-            notification.setVisibility(View.VISIBLE);
-        } else {
-            notification.setVisibility(View.INVISIBLE);
-        }
+//        if(AnnouceRecordManager.getInstance().hasUnread()) {
+//            notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+//        } else {
+//            notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+//        }
+//
+//        if(LoginUserManager.getInstance().isLogin) {
+//            notification.setVisibility(View.VISIBLE);
+//        } else {
+//            notification.setVisibility(View.INVISIBLE);
+//        }
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden) {
-            if(AnnouceRecordManager.getInstance().hasUnread()) {
-                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
-            } else {
-                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
-            }
-
-            if(LoginUserManager.getInstance().isLogin) {
-                notification.setVisibility(View.VISIBLE);
-            } else {
-                notification.setVisibility(View.INVISIBLE);
-            }
-        }
+//        if(!hidden) {
+//            if(AnnouceRecordManager.getInstance().hasUnread()) {
+//                notification.setImageResource(R.mipmap.icon_nav_msg_selected);
+//            } else {
+//                notification.setImageResource(R.mipmap.icon_nav_msg_normal);
+//            }
+//
+//            if(LoginUserManager.getInstance().isLogin) {
+//                notification.setVisibility(View.VISIBLE);
+//            } else {
+//                notification.setVisibility(View.INVISIBLE);
+//            }
+//        }
     }
 
     private void getData(boolean showLoadingDialog, final boolean clearList) {

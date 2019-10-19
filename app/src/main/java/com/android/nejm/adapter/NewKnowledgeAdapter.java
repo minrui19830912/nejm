@@ -49,10 +49,14 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
                         HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+item.id,item.title,item.thumb,item.title);
             }
         });
-        if(position==0){
-            item.showAdver = true;
+        if(item.show_popularize.equals("1")){
+            viewHolder.adver.setText(item.popularize_title);
+            viewHolder.adver.setVisibility(View.VISIBLE);
+        } else{
+            viewHolder.adver.setText("");
+            viewHolder.adver.setVisibility(View.GONE);
         }
-        viewHolder.adver.setVisibility(item.showAdver?View.VISIBLE:View.INVISIBLE);
+
     }
 
     @Override

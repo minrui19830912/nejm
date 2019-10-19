@@ -14,7 +14,8 @@ public class NewKnowledgeInfo {
         public String is_article;
         public String articleid;
         public String thumb;
-        public boolean showAdver;
+        public String show_popularize;
+        public String popularize_title;
     }
 
     public static class TypeItem {
