@@ -8,8 +8,8 @@ android {
         applicationId "cn.com.nejm"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 702
-        versionName "2.0"
+        versionCode 703
+        versionName "2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         //ndk {
