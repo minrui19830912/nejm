@@ -138,9 +138,11 @@ private String isFav;
                             isFav = "0";
                             ((TextView)dialog.findViewById(R.id.text1)).setText("取消收藏成功");
                             Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_normal);
+                            storage.setTextColor(mContext.getResources().getColor(R.color.color_444));
                             storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
                         } else {
                             isFav = "1";
+                            storage.setTextColor(mContext.getResources().getColor(R.color.color_c92700));
                             ((TextView)dialog.findViewById(R.id.text1)).setText("收藏成功");
                             Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
                             storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
@@ -152,8 +154,8 @@ private String isFav;
                         dialog.getWindow().setAttributes(lp);
                         mHandler.sendEmptyMessageDelayed(0,1500);
 
-                        Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
-                        storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+//                        Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
+//                        storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
                     }
                 });
             }
@@ -314,8 +316,10 @@ private String isFav;
                 if(isFav.equals("1")){
                     Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_selected);
                     storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
+                    storage.setTextColor(mContext.getResources().getColor(R.color.color_c92700));
                 } else {
                     Drawable storageDrawable = getResources().getDrawable(R.mipmap.icon_collect_normal);
+                    storage.setTextColor(mContext.getResources().getColor(R.color.color_444));
                     storage.setCompoundDrawablesWithIntrinsicBounds(storageDrawable,null,null,null);
                 }
                 shareContent = new Gson().fromJson(json.optJSONObject("item").toString(), ArticleShareContent.class);
@@ -506,7 +510,7 @@ private String isFav;
                         sendEmail( mTitle, mContent, url);
                         break;
                     case R.id.view_share_weibo:
-                        AppUtil.shareToSinaWeibo(mContext, mTitle, mContent, url,cover, new PlatformActionListener() {
+                        AppUtil.shareToSinaWeibo(mContext, mTitle, mContent+"\n"+url, url,cover, new PlatformActionListener() {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                                 recordShareEvent("微博");

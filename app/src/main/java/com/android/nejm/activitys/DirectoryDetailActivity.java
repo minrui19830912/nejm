@@ -2,6 +2,7 @@ package com.android.nejm.activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -140,8 +141,13 @@ public class DirectoryDetailActivity extends BaseActivity {
                 int length = "http://www.nejm.com/?classid=".length();
                 int index = url.indexOf('&');
                 if(url.length() > length && index > length) {
-                    String id = url.substring(length, index);
-                    SpecialFieldListActivity.launchActivity(mContext, "", id);
+//                    String id = url.substring(length, index);
+//                    SpecialFieldListActivity.launchActivity(mContext, "", id);
+                    Intent intent= new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(url);
+                intent.setData(content_url);
+                startActivity(intent);
                     return true;
                 }
             }

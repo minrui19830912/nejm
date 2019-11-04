@@ -259,7 +259,7 @@ public class VideoDetailActivity extends BaseActivity {
                         sendEmail( mTitle, mContent, url);
                         break;
                     case R.id.view_share_weibo:
-                        AppUtil.shareToSinaWeibo(mContext, mTitle, mContent, url,cover, new PlatformActionListener() {
+                        AppUtil.shareToSinaWeibo(mContext, mTitle, mContent+"\n"+url, url,cover, new PlatformActionListener() {
                             @Override
                             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                                 recordShareEvent("微博");

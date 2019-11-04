@@ -64,6 +64,8 @@ public class SpecialFieldListActivity extends BaseActivity {
     private FiltPopuWindow filtPopuWindow;
     private FiltPopuWindow.Builder builder;
     private QBadgeView badgeView;
+    private View emptyView;
+
 
     public static void launchActivity(Context context, String title, String id) {
         Intent intent = new Intent(context, SpecialFieldListActivity.class);
@@ -78,7 +80,7 @@ public class SpecialFieldListActivity extends BaseActivity {
         setContentView(R.layout.activity_special_field_list);
         showBack();
         ButterKnife.bind(this);
-
+        emptyView = findViewById(R.id.emptyview);
         String title = getIntent().getStringExtra("title");
         setCommonTitle(title);
 
@@ -171,6 +173,11 @@ public class SpecialFieldListActivity extends BaseActivity {
 
                 articleAdapter.setData(artitleItems);
                 articleAdapter.notifyDataSetChanged();
+if(artitleItems.size()==0){
+    emptyView.setVisibility(View.VISIBLE);
+}else {
+    emptyView.setVisibility(View.GONE);
+}
 
                 if(gridAdapter == null) {
                     gridAdapter = new SpecialFieldGridAdapter(mContext);
@@ -179,6 +186,7 @@ public class SpecialFieldListActivity extends BaseActivity {
                 } else {
                     gridAdapter.setFocusId(id);
                 }
+
 
                 if(articleInfo.classes != null) {
                     for(SpecialFieldArticleInfo.Classes clazz : articleInfo.classes) {
@@ -248,7 +256,7 @@ private void initView(){
                         if(badgeView==null){
                             badgeView =  new QBadgeView(mContext);
                             badgeView.bindTarget(filter);
-                            badgeView.setGravityOffset(8,0,true);
+                            badgeView.setGravityOffset(8,-2,true);
                         }
                         badgeView .setBadgeNumber(builder.getSelectTabs().size());
                         if(builder.getSelectTabs().size()==0){

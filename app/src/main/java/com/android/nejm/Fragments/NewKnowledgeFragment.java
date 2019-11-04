@@ -42,7 +42,7 @@ public class NewKnowledgeFragment extends BaseFragment {
     private ImageView notification;
 
     HorizontalTagAdapter gridAdapter;
-
+    private View emptyView;
     private List<NewKnowledgeInfo.NewKnowledgeitem> knowledgeitems = new ArrayList<>();
 
     @Nullable
@@ -50,7 +50,7 @@ public class NewKnowledgeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.new_knowledge_fragment,container,false);
-
+        emptyView = view.findViewById(R.id.emptyview);
         gridView = view.findViewById(R.id.gridView);
         gridView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
         gridAdapter = new HorizontalTagAdapter(getContext());

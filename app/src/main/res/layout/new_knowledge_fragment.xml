@@ -52,4 +52,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <RelativeLayout android:id="@+id/emptyview"
+        android:visibility="gone"
+        android:layout_marginTop="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView android:text="没有相关文章"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_4a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
