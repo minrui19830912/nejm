@@ -365,21 +365,33 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 HashMap<String,String> map = adverstDataList.get(count-1);
                 if(map.get("show_popularize").equals("1")){
                     adverst_text.setText(map.get("popularize_title"));
-                }}
+                    adverst_text.setVisibility(View.VISIBLE);
+                } else {
+                    adverst_text.setVisibility(View.GONE);
+                }
+                }
             } else if (i == count + 1) {
                 url = imagesUrl.get(0);
                 if(adverstDataList!=null){
                 HashMap<String,String> map = adverstDataList.get(0);
                 if(map.get("show_popularize").equals("1")){
                     adverst_text.setText(map.get("popularize_title"));
-                }}
+                    adverst_text.setVisibility(View.VISIBLE);
+                } else {
+                    adverst_text.setVisibility(View.GONE);
+                }
+                }
             } else {
                 url = imagesUrl.get(i - 1);
                 if(adverstDataList!=null){
                 HashMap<String,String> map = adverstDataList.get(i-1);
                 if(map.get("show_popularize").equals("1")){
                     adverst_text.setText(map.get("popularize_title"));
-                }}
+                    adverst_text.setVisibility(View.VISIBLE);
+                } else {
+                    adverst_text.setVisibility(View.GONE);
+                }
+                }
             }
 
             imageViews.add(view);

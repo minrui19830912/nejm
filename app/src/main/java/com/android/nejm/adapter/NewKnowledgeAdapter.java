@@ -3,6 +3,7 @@ package com.android.nejm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class NewKnowledgeAdapter extends  RecyclerView.Adapter<NewKnowledgeAdapt
                         HttpUtils.NEW_KNOWLEDGE_DETAIL_URL+item.id,item.title,item.thumb,item.title);
             }
         });
-        if(item.show_popularize.equals("1")){
+        if(item.show_popularize.equals("1")&& (!TextUtils.isEmpty(item.popularize_title))){
             viewHolder.adver.setText(item.popularize_title);
             viewHolder.adver.setVisibility(View.VISIBLE);
         } else{
